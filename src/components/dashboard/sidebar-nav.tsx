@@ -43,9 +43,9 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   ],
   Government: [
     { href: '/dashboard/government', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '#', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
-    { href: '#', label: 'Sustainability Data', icon: <Leaf className="h-4 w-4" /> },
-    { href: '#', label: 'Real-time Monitoring', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/government#policy-analytics', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
+    { href: '/dashboard/government#sustainability-data', label: 'Sustainability Data', icon: <Leaf className="h-4 w-4" /> },
+    { href: '/dashboard/government#real-time-monitoring', label: 'Real-time Monitoring', icon: <BarChart3 className="h-4 w-4" /> },
   ],
   Admin: [
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -72,6 +72,21 @@ export function DashboardSidebarNav({ isMobile }: { isMobile: boolean }) {
   const role = getRoleFromPath(pathname);
   const links = navLinks[role] || [];
   
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes('#')) {
+      e.preventDefault();
+      const [path, id] = href.split('#');
+      if (pathname === path) {
+        document.getElementById(id)?.scrollIntoView({
+          behavior: 'smooth'
+        });
+      } else {
+        // If on a different page, navigate first, then scroll will be handled by browser
+        window.location.href = href;
+      }
+    }
+  };
+  
   return (
     <>
       <div className="flex h-16 items-center border-b px-4 lg:px-6">
@@ -86,9 +101,10 @@ export function DashboardSidebarNav({ isMobile }: { isMobile: boolean }) {
             <Link
               key={`${link.href}-${link.label}`}
               href={link.href}
+              onClick={(e) => handleScroll(e, link.href)}
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                pathname === link.href && link.href !== '#' && 'bg-accent text-primary'
+                (pathname === link.href) && 'bg-accent text-primary'
               )}
             >
               {link.icon}
