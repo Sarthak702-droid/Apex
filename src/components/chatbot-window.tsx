@@ -25,7 +25,8 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      content: 'Hello! How can I help you with Tel-Samriddhi today?',
+      content:
+        'Hello! I am Krishi Mitra, your AI assistant. To help you better, please tell me your preferred language or region.',
     },
   ]);
   const [input, setInput] = useState('');
@@ -94,7 +95,7 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
         <header className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-2">
             <Leaf className="h-6 w-6 text-primary" />
-            <h3 className="font-headline text-lg">AI Assistant</h3>
+            <h3 className="font-headline text-lg">Krishi Mitra</h3>
           </div>
         </header>
 
