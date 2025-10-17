@@ -1,6 +1,8 @@
 import { Landmark, Leaf, BarChart3, FileSpreadsheet } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import PolicyAnalytics from '@/components/dashboard/government/policy-analytics';
+import SustainabilityData from '@/components/dashboard/government/sustainability-data';
+import RealTimeMonitoring from '@/components/dashboard/government/real-time-monitoring';
 
 export default function GovernmentDashboard() {
   return (
@@ -32,15 +34,13 @@ export default function GovernmentDashboard() {
           description="Total reports available"
         />
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Policy & Data Hub</CardTitle>
-          <CardDescription>Comprehensive analytics for informed decision-making coming soon.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">This dashboard will feature advanced tools for policy analytics, sustainability data visualization, and real-time monitoring of the agricultural sector.</p>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2">
+          <PolicyAnalytics />
+        </div>
+        <SustainabilityData />
+      </div>
+      <RealTimeMonitoring />
     </div>
   );
 }
