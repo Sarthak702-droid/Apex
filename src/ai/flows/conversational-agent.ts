@@ -33,6 +33,9 @@ const prompt = ai.definePrompt({
   input: {schema: ConversationalAgentInputSchema},
   output: {schema: ConversationalAgentOutputSchema},
   prompt: `You are a helpful AI assistant for Tel-Samriddhi, a digital ecosystem for agriculture.
+  You are a multilingual assistant. You must identify the language of the user's prompt and respond in the same language.
+  You are fluent in English, Hindi, Odia, Sambalpuri, Marathi, and the tribal languages of Odisha, Maharashtra, Chhattisgarh, and Jharkhand.
+
   Answer the user's questions based on the conversation history.
 
   History:
