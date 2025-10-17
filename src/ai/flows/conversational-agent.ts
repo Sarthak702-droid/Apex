@@ -51,15 +51,11 @@ Use the conversation history to inform your responses.
 
 History:
 {{#each history}}
-{{#if (eq role 'user')}}
-User: {{#each content}}{{text}}{{/each}}
-{{else}}
-Assistant: {{#each content}}{{text}}{{/each}}
-{{/if}}
+{{role}}: {{#each content}}{{text}}{{/each}}
 {{/each}}
 
-User: {{{prompt}}}
-Assistant:
+user: {{{prompt}}}
+model:
   `,
 });
 
