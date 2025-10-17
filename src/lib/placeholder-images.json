@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "A futuristic agricultural landscape with data overlays.",
+      "imageUrl": "https://picsum.photos/seed/101/1200/800",
+      "imageHint": "futuristic agriculture"
+    },
+    {
+      "id": "about-image",
+      "description": "A diverse group of farmers collaborating and using technology.",
+      "imageUrl": "https://picsum.photos/seed/102/600/400",
+      "imageHint": "farmers technology"
+    },
+    {
+      "id": "feature-crop-recommendation",
+      "description": "A farmer looking at a tablet with crop data in a field.",
+      "imageUrl": "https://picsum.photos/seed/103/600/400",
+      "imageHint": "farmer tablet"
+    },
+    {
+      "id": "feature-quality-report",
+      "description": "A close-up of fresh produce being inspected with AI indicators.",
+      "imageUrl": "https://picsum.photos/seed/104/600/400",
+      "imageHint": "produce inspection"
+    },
+    {
+      "id": "feature-market-linkage",
+      "description": "A handshake between a farmer and a buyer in a market setting.",
+      "imageUrl": "https://picsum.photos/seed/105/600/400",
+      "imageHint": "farmer buyer"
+    },
+    {
+      "id": "farmer-avatar",
+      "description": "Avatar for a farmer.",
+      "imageUrl": "https://picsum.photos/seed/201/200/200",
+      "imageHint": "farmer portrait"
+    },
+    {
+      "id": "buyer-avatar",
+      "description": "Avatar for a buyer.",
+      "imageUrl": "https://picsum.photos/seed/202/200/200",
+      "imageHint": "professional portrait"
+    }
+  ]
 }
