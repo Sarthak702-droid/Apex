@@ -37,12 +37,13 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
     if (!input.trim()) return;
 
     const userMessage: Message = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInput('');
     setIsLoading(true);
 
     try {
-      const history = messages.map(msg => ({
+      const history = newMessages.slice(0, -1).map(msg => ({
         role: msg.role,
         content: [{ text: msg.content }],
       }));
