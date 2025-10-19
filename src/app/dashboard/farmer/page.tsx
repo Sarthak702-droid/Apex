@@ -1,7 +1,8 @@
+
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, FileText, Wheat, Filter, BookOpen } from "lucide-react";
+import { DollarSign, FileText, Wheat, Filter, BookOpen, BarChart2 } from "lucide-react";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import CropRecommendations from "@/components/dashboard/farmer/crop-recommendations";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -37,15 +38,34 @@ const yieldData = {
   ],
 };
 
-const chartConfig = {
-  yield: {
-    label: "Yield (tons/acre)",
-    color: "hsl(var(--chart-1))",
-  },
-  price: {
-    label: "Price (₹/quintal)",
-    color: "hsl(var(--chart-2))",
-  },
+const profitabilityData = {
+  Telangana: [
+    { name: 'Soybean', profit: 35000 },
+    { name: 'Cotton', profit: 32000 },
+    { name: 'Maize', profit: 28000 },
+    { name: 'Paddy', profit: 25000 },
+  ],
+  Maharashtra: [
+    { name: 'Soybean', profit: 33000 },
+    { name: 'Cotton', profit: 36000 },
+    { name: 'Sugarcane', profit: 45000 },
+    { name: 'Onion', profit: 40000 },
+  ],
+  Odisha: [
+    { name: 'Paddy', profit: 28000 },
+    { name: 'Pulses', profit: 25000 },
+    { name: 'Groundnut', profit: 32000 },
+    { name: 'Jute', profit: 30000 },
+  ]
+};
+
+const trendChartConfig = {
+  yield: { label: "Yield (tons/acre)", color: "hsl(var(--chart-1))" },
+  price: { label: "Price (₹/quintal)", color: "hsl(var(--chart-2))" },
+};
+
+const profitChartConfig = {
+  profit: { label: 'Profit (₹/acre)', color: 'hsl(var(--primary))' },
 };
 
 export default function FarmerDashboard() {
@@ -91,24 +111,23 @@ export default function FarmerDashboard() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle className="font-headline">Crop Yield Trend (tons/acre)</CardTitle>
-            <CardDescription>{selectedState} - Last 6 months</CardDescription>
+            <CardTitle className="font-headline">Crop Profitability Analysis (₹/acre)</CardTitle>
+            <CardDescription>Estimated profit for top crops in {selectedState}</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={chartConfig} className="h-64 w-full">
-              <BarChart data={yieldData[selectedState]}>
+            <ChartContainer config={profitChartConfig} className="h-64 w-full">
+              <BarChart data={profitabilityData[selectedState]} accessibilityLayer>
                 <CartesianGrid vertical={false} />
-                <XAxis dataKey="month" tickLine={false} axisLine={false} />
-                <YAxis tickLine={false} axisLine={false} />
+                <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
+                <YAxis tickFormatter={(value) => `₹${Number(value) / 1000}k`} />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent indicator="dot" />}
                 />
-                <Legend />
-                <Bar dataKey="yield" fill="var(--color-yield)" radius={4} name="Yield" />
+                <Bar dataKey="profit" fill="var(--color-profit)" radius={4} />
               </BarChart>
             </ChartContainer>
           </CardContent>
@@ -119,7 +138,7 @@ export default function FarmerDashboard() {
             <CardDescription>{selectedState} - Last 6 months for Soybean</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={chartConfig} className="h-64 w-full">
+            <ChartContainer config={trendChartConfig} className="h-64 w-full">
                <LineChart data={yieldData[selectedState]}>
                   <CartesianGrid vertical={false} />
                   <XAxis dataKey="month" tickLine={false} axisLine={false} />
@@ -128,7 +147,6 @@ export default function FarmerDashboard() {
                     cursor={false}
                     content={<ChartTooltipContent indicator="dot" />}
                   />
-                  <Legend />
                   <Line type="monotone" dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} name="Price" />
                 </LineChart>
             </ChartContainer>
@@ -136,9 +154,19 @@ export default function FarmerDashboard() {
         </Card>
       </div>
 
-      <div>
-        <CropRecommendations />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
+            <Wheat className="h-7 w-7 text-primary" />
+            AI Crop Recommendations
+          </CardTitle>
+          <CardDescription>Get personalized, AI-driven crop recommendations for your farm.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CropRecommendations />
+        </CardContent>
+      </Card>
+
 
       <Card className="mt-8 bg-card/50 border-0 shadow-none">
         <CardHeader>
@@ -155,4 +183,5 @@ export default function FarmerDashboard() {
 
     </div>
   );
-}
+
+    
