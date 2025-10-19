@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -24,27 +25,31 @@ import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, CircleUser } from 'lucide-react';
 import { ThemeToggle } from '../theme-toggle';
-import { DashboardSidebarNav } from './sidebar-nav';
+import { DashboardSidebar } from './sidebar';
+import { useSidebar } from '../ui/sidebar';
 
 const DashboardHeader = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split('/').filter(Boolean);
+  const { setOpenMobile } = useSidebar();
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-40">
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="flex flex-col p-0">
-          <DashboardSidebarNav isMobile={true} />
-        </SheetContent>
-      </Sheet>
+      <div className="md:hidden">
+         <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="shrink-0">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle navigation menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="flex flex-col p-0">
+              <DashboardSidebar />
+            </SheetContent>
+          </Sheet>
+      </div>
 
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+      <div className="flex w-full items-center gap-4 md:gap-2 lg:gap-4">
         <Breadcrumb className="hidden md:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
