@@ -1,7 +1,7 @@
 
 'use client';
 
-import { BarChart, Calendar, FileText, IndianRupee, Leaf, Plus, Scale } from "lucide-react";
+import { BarChart, Calendar, FileText, IndianRupee, Leaf, Plus, Scale, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,12 +22,12 @@ export default function FarmerDashboard() {
           <h1 className="font-headline text-3xl font-bold">Farmer Drishti</h1>
           <p className="text-muted-foreground">Welcome back, Sarthak!</p>
         </div>
-        <div className="flex items-center gap-2">
-            <Button variant="outline">
-                <Scale className="mr-2 h-4 w-4" />
+        <div className="flex items-center gap-4">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg">
+                <TrendingUp className="mr-2 h-4 w-4" />
                 Compare Crops
             </Button>
-            <Button>
+            <Button className="bg-pink-600 hover:bg-pink-700 text-white font-bold shadow-lg">
                 <Plus className="mr-2 h-4 w-4" />
                 New Sauda
             </Button>
@@ -92,5 +92,6 @@ export default function FarmerDashboard() {
     </div>
   );
 }
+
 
 
