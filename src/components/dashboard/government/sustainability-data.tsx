@@ -37,33 +37,60 @@ const chartConfig = {
 
 export default function SustainabilityData() {
   return (
-    <Card className="h-full">
+    <Card className="h-full flex flex-col">
       <CardHeader>
         <CardTitle className="font-headline">Sustainability Data</CardTitle>
         <CardDescription>Adoption of sustainable practices.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-1 flex flex-col justify-center">
         <ChartContainer config={chartConfig} className="h-56 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <ChartTooltip
-                cursor={false}
+                cursor={true}
                 content={<ChartTooltipContent hideLabel />}
               />
               <Pie
                 data={data}
                 dataKey="value"
                 nameKey="name"
-                innerRadius={50}
+                innerRadius={60}
                 strokeWidth={5}
+                labelLine={false}
+                label={({
+                  cx,
+                  cy,
+                  midAngle,
+                  innerRadius,
+                  outerRadius,
+                  percent,
+                }) => {
+                  const RADIAN = Math.PI / 180;
+                  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+                  return (
+                    <text
+                      x={x}
+                      y={y}
+                      fill="white"
+                      textAnchor={x > cx ? 'start' : 'end'}
+                      dominantBaseline="central"
+                      className="text-xs font-bold fill-primary-foreground"
+                    >
+                      {`${(percent * 100).toFixed(0)}%`}
+                    </text>
+                  );
+                }}
               >
-                 {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                 {data.map((entry) => (
+                    <Cell key={`cell-${entry.name}`} fill={entry.fill} />
                   ))}
               </Pie>
                <ChartLegend
                 content={<ChartLegendContent nameKey="name" />}
-                className="-mt-4"
+                className="-mt-2"
               />
             </PieChart>
           </ResponsiveContainer>
