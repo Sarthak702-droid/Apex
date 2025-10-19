@@ -34,9 +34,9 @@ import {
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
   Farmer: [
     { href: '/dashboard/farmer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/farmer#crop-recommendations', label: 'Crop Recommendations', icon: <Wheat className="h-4 w-4" /> },
-    { href: '/dashboard/farmer#profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
-    { href: '/dashboard/farmer#contracts', label: 'Contracts', icon: <FileText className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/crop-recommendations', label: 'Crop Recommendations', icon: <Wheat className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/contracts', label: 'Contracts', icon: <FileText className="h-4 w-4" /> },
   ],
   FPO: [
     { href: '/dashboard/fpo', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -65,15 +65,32 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
 };
 
 const getRoleFromPath = (path: string): Role => {
-  const segment = path.split('/')[2] as (typeof ROLES[number]);
-  return ROLES.includes(segment) ? segment : 'Farmer';
+  const segments = path.split('/').filter(Boolean);
+  const roleSegment = segments[1] as (typeof ROLES[number]);
+  if (ROLES.includes(roleSegment)) {
+    return roleSegment;
+  }
+  // Fallback for nested farmer routes
+  if (segments[1] === 'farmer') {
+    return 'Farmer';
+  }
+  return 'Farmer'; // Default fallback
 };
+
 
 export function DashboardSidebar() {
   const pathname = usePathname();
   const { state } = useSidebar();
   const role = getRoleFromPath(pathname);
   const links = navLinks[role] || [];
+
+  const isLinkActive = (href: string) => {
+    // Exact match for overview pages
+    if (pathname === href) return true;
+    // For nested routes, check if the path starts with the link's href
+    if (href !== '/dashboard/farmer' && pathname.startsWith(href)) return true;
+    return false;
+  };
 
   return (
     <>
@@ -92,7 +109,7 @@ export function DashboardSidebar() {
             <SidebarMenuItem key={link.href}>
               <Link href={link.href}>
                 <SidebarMenuButton
-                  isActive={pathname === link.href}
+                  isActive={isLinkActive(link.href)}
                   tooltip={{ children: link.label }}
                 >
                   {link.icon}

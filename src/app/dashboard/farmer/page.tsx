@@ -1,15 +1,16 @@
+
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, FileText, Wheat, Filter } from "lucide-react";
+import { DollarSign, FileText, Wheat, Filter, BookOpen } from "lucide-react";
 import { StatsCard } from "@/components/dashboard/stats-card";
-import CropRecommendations from "@/components/dashboard/farmer/crop-recommendations";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { ChartTooltip, ChartTooltipContent, ChartContainer } from "@/components/ui/chart";
 import { OilseedMotivation } from '@/components/dashboard/farmer/oilseed-motivation';
-import { BookOpen } from 'lucide-react';
+import CropRecommendations from '@/components/dashboard/farmer/crop-recommendations';
+
 
 const yieldData = {
   Telangana: [
@@ -153,20 +154,6 @@ export default function FarmerDashboard() {
           </CardContent>
         </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
-            <Wheat className="h-7 w-7 text-primary" />
-            AI Crop Recommendations
-          </CardTitle>
-          <CardDescription>Get personalized, AI-driven crop recommendations for your farm.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <CropRecommendations />
-        </CardContent>
-      </Card>
-
 
       <Card className="mt-8 bg-card/50 border-0 shadow-none">
         <CardHeader>
