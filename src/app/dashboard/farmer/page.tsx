@@ -1,173 +1,95 @@
 
 'use client';
 
-import { useState } from 'react';
-import { DollarSign, FileText, Wheat, Filter, BookOpen } from "lucide-react";
+import { BarChart, Calendar, FileText, IndianRupee, Leaf, Plus, Scale } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { StatsCard } from "@/components/dashboard/stats-card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-import { ChartTooltip, ChartTooltipContent, ChartContainer } from "@/components/ui/chart";
-import { OilseedMotivation } from '@/components/dashboard/farmer/oilseed-motivation';
-import CropRecommendations from '@/components/dashboard/farmer/crop-recommendations';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DigitalSaudas } from "@/components/dashboard/farmer/digital-saudas";
+import { Badge } from "@/components/ui/badge";
 
-
-const yieldData = {
-  Telangana: [
-    { month: "Jan", yield: 1.8, price: 4500 },
-    { month: "Feb", yield: 1.9, price: 4600 },
-    { month: "Mar", yield: 2.1, price: 4800 },
-    { month: "Apr", yield: 2.0, price: 4750 },
-    { month: "May", yield: 2.2, price: 4900 },
-    { month: "Jun", yield: 2.3, price: 5100 },
-  ],
-  Maharashtra: [
-    { month: "Jan", yield: 1.5, price: 4200 },
-    { month: "Feb", yield: 1.6, price: 4300 },
-    { month: "Mar", yield: 1.8, price: 4500 },
-    { month: "Apr", yield: 1.7, price: 4450 },
-    { month: "May", yield: 1.9, price: 4600 },
-    { month: "Jun", yield: 2.0, price: 4800 },
-  ],
-  Odisha: [
-    { month: "Jan", yield: 1.2, price: 4000 },
-    { month: "Feb", yield: 1.3, price: 4100 },
-    { month: "Mar", yield: 1.5, price: 4300 },
-    { month: "Apr", yield: 1.4, price: 4250 },
-    { month: "May", yield: 1.6, price: 4400 },
-    { month: "Jun", yield: 1.7, price: 4600 },
-  ],
-};
-
-const profitabilityData = {
-  Telangana: [
-    { name: 'Soybean', profit: 35000 },
-    { name: 'Cotton', profit: 32000 },
-    { name: 'Maize', profit: 28000 },
-    { name: 'Paddy', profit: 25000 },
-  ],
-  Maharashtra: [
-    { name: 'Soybean', profit: 33000 },
-    { name: 'Cotton', profit: 36000 },
-    { name: 'Sugarcane', profit: 45000 },
-    { name: 'Onion', profit: 40000 },
-  ],
-  Odisha: [
-    { name: 'Paddy', profit: 28000 },
-    { name: 'Pulses', profit: 25000 },
-    { name: 'Groundnut', profit: 32000 },
-    { name: 'Jute', profit: 30000 },
-  ]
-};
-
-const profitChartConfig = {
-  profit: { label: 'Profit (₹/acre)', color: 'hsl(var(--primary))' },
-};
-
-const trendChartConfig = {
-  price: { label: "Price (₹/quintal)", color: "hsl(var(--chart-2))" },
-};
-
+const quickActions = [
+    { label: "Quality Check", icon: <FileText className="h-4 w-4" /> },
+    { label: "Carbon Credits", icon: <Leaf className="h-4 w-4" /> },
+    { label: "Crop Economics", icon: <BarChart className="h-4 w-4" /> },
+];
 
 export default function FarmerDashboard() {
-  const [selectedState, setSelectedState] = useState<keyof typeof yieldData>('Telangana');
-
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-headline text-3xl font-bold">Farmer Dashboard</h1>
+        <div>
+          <h1 className="font-headline text-3xl font-bold">Farmer Drishti</h1>
+          <p className="text-muted-foreground">Welcome back, Sarthak!</p>
+        </div>
         <div className="flex items-center gap-2">
-          <Filter className="h-5 w-5 text-muted-foreground" />
-          <Select onValueChange={(value: keyof typeof yieldData) => setSelectedState(value)} defaultValue={selectedState}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a state" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.keys(yieldData).map(state => (
-                <SelectItem key={state} value={state}>{state}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <Button variant="outline">
+                <Scale className="mr-2 h-4 w-4" />
+                Compare Crops
+            </Button>
+            <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                New Sauda
+            </Button>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Active Contracts"
-          value="3"
-          icon={<FileText className="h-5 w-5" />}
-          description="Contracts pending delivery"
+          value="0"
+          icon={<FileText />}
+          description={<Badge variant="secondary">2 total</Badge>}
         />
         <StatsCard
-          title="Recommended Crop"
-          value="Soybean"
-          icon={<Wheat className="h-5 w-5" />}
-          description={`For ${selectedState}`}
+          title="Total Earnings"
+          value="₹0"
+          icon={<IndianRupee />}
+          description={<Badge variant="secondary">This season</Badge>}
         />
         <StatsCard
-          title="Est. Earnings"
-          value="₹4,52,312"
-          icon={<DollarSign className="h-5 w-5" />}
-          description={`Based on ${selectedState} data`}
+          title="Carbon Credits"
+          value="1"
+          icon={<Leaf />}
+          description={<Badge variant="default" className="bg-yellow-400/20 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-400">₹0 earned</Badge>}
+        />
+        <StatsCard
+          title="Next Harvest"
+          value="-"
+          icon={<Calendar />}
+          description=" "
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="font-headline">Crop Profitability Analysis (₹/acre)</CardTitle>
-            <CardDescription>Estimated profit for top crops in {selectedState}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={profitChartConfig} className="h-64 w-full">
-              <BarChart data={profitabilityData[selectedState]} accessibilityLayer>
-                <CartesianGrid vertical={false} />
-                <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
-                <YAxis tickFormatter={(value) => `₹${Number(value) / 1000}k`} />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent indicator="dot" />}
-                />
-                <Bar dataKey="profit" fill="var(--color-profit)" radius={4} />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline">Market Price Trend (₹/quintal)</CardTitle>
-            <CardDescription>{selectedState} - Last 6 months for Soybean</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={trendChartConfig} className="h-64 w-full">
-               <LineChart data={yieldData[selectedState]}>
-                  <CartesianGrid vertical={false} />
-                  <XAxis dataKey="month" tickLine={false} axisLine={false} />
-                  <YAxis tickLine={false} axisLine={false} domain={['dataMin - 100', 'dataMax + 100']} />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent indicator="dot" />}
-                  />
-                  <Line type="monotone" dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} name="Price" />
-                </LineChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+        <div className="lg:col-span-2">
+            <DigitalSaudas />
+        </div>
+        <div className="space-y-8">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-2">
+                    {quickActions.map(action => (
+                        <Button key={action.label} variant="outline" className="w-full justify-start gap-2">
+                            {action.icon}
+                            {action.label}
+                        </Button>
+                    ))}
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline">Recent Payments</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground text-center text-sm">No transactions yet</p>
+                </CardContent>
+            </Card>
+        </div>
       </div>
-
-      <Card className="mt-8 bg-card/50 border-0 shadow-none">
-        <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
-            <BookOpen className="h-7 w-7 text-primary" />
-            The Path to Prosperity with Oilseeds
-          </CardTitle>
-          <CardDescription>An interactive journey showcasing the benefits of oilseed farming.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <OilseedMotivation />
-        </CardContent>
-      </Card>
-
     </div>
   );
 }
+
