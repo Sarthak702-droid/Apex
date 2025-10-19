@@ -28,7 +28,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
 
@@ -84,9 +83,6 @@ export function DashboardSidebar() {
             <Leaf className="h-6 w-6 text-primary" />
             <span className="font-headline text-lg">Tel-Samriddhi</span>
           </Link>
-          <SidebarTrigger>
-            <Menu />
-          </SidebarTrigger>
         </div>
       </SidebarHeader>
 

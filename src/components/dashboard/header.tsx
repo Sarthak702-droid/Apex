@@ -26,27 +26,32 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, CircleUser } from 'lucide-react';
 import { ThemeToggle } from '../theme-toggle';
 import { DashboardSidebar } from './sidebar';
-import { useSidebar } from '../ui/sidebar';
+import { SidebarTrigger, useSidebar } from '../ui/sidebar';
 
 const DashboardHeader = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split('/').filter(Boolean);
-  const { setOpenMobile } = useSidebar();
+  const { isMobile } = useSidebar();
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-40">
-      <div className="md:hidden">
-         <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="shrink-0">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col p-0">
-              <DashboardSidebar />
-            </SheetContent>
-          </Sheet>
+      <div className="flex items-center gap-2">
+        {!isMobile && (
+          <SidebarTrigger>
+            <Menu />
+          </SidebarTrigger>
+        )}
+        <Sheet>
+           <SheetTrigger asChild>
+             <Button variant="outline" size="icon" className="shrink-0 md:hidden">
+               <Menu className="h-5 w-5" />
+               <span className="sr-only">Toggle navigation menu</span>
+             </Button>
+           </SheetTrigger>
+           <SheetContent side="left" className="flex flex-col p-0">
+             <DashboardSidebar />
+           </SheetContent>
+         </Sheet>
       </div>
 
       <div className="flex w-full items-center gap-4 md:gap-2 lg:gap-4">
