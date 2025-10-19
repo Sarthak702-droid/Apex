@@ -37,6 +37,7 @@ import { ROLES } from '@/lib/constants';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Label } from '@/components/ui/label';
 
 const emailSignupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -160,8 +161,10 @@ const SignupForm = () => {
             </Tabs>
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); handleOtpVerification(); }} className="space-y-4">
-                <FormLabel>Enter Verification Code</FormLabel>
-                <Input placeholder="6-digit code" />
+                <div className="space-y-2">
+                    <Label>Enter Verification Code</Label>
+                    <Input placeholder="6-digit code" />
+                </div>
                 <Button type="submit" disabled={loading} className="w-full">
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Verify and Sign Up

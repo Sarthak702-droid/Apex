@@ -114,7 +114,7 @@ const LoginForm = () => {
                     ))}
                     </SelectContent>
                 </Select>
-                 {!selectedRole && emailForm.formState.isSubmitted && (
+                 {!selectedRole && (emailForm.formState.isSubmitted || mobileForm.formState.isSubmitted) && (
                     <p className="text-sm font-medium text-destructive">Please select a role.</p>
                 )}
             </div>
