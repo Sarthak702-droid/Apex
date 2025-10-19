@@ -33,50 +33,69 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { FaGoogle } from 'react-icons/fa';
-import { ROLES, Role } from '@/lib/constants';
+import { ROLES } from '@/lib/constants';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
-const formSchema = z.object({
+const emailSignupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
-  role: z.enum(ROLES, {
-    required_error: 'Please select a role.',
-  }),
+  role: z.enum(ROLES, { required_error: 'Please select a role.' }),
   email: z.string().email('Please enter a valid email.'),
-  mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10),
+  mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10, 'Please enter a valid 10-digit mobile number.'),
+});
+
+const mobileSignupSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters.'),
+  role: z.enum(ROLES, { required_error: 'Please select a role.' }),
+  mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10, 'Please enter a valid 10-digit mobile number.'),
 });
 
 const SignupForm = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [signupMethod, setSignupMethod] = useState<'email' | 'mobile'>('email');
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      mobile: '',
-    },
+  const emailForm = useForm<z.infer<typeof emailSignupSchema>>({
+    resolver: zodResolver(emailSignupSchema),
+    defaultValues: { name: '', email: '', mobile: '' },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    setLoading(true);
+  const mobileForm = useForm<z.infer<typeof mobileSignupSchema>>({
+    resolver: zodResolver(mobileSignupSchema),
+    defaultValues: { name: '', mobile: '' },
+  });
 
-    // Mock signup
+  const handleSignup = (values: z.infer<typeof emailSignupSchema> | z.infer<typeof mobileSignupSchema>) => {
+    setLoading(true);
+    // Mock OTP sending
     setTimeout(() => {
       setLoading(false);
+      setShowOtp(true);
       toast({
-        title: 'Signup Successful',
-        description: `Welcome, ${values.name}! Please check your email/mobile for verification.`,
+        title: 'Verification Code Sent',
+        description: `An OTP has been sent to your ${signupMethod === 'email' ? 'mobile number' : 'mobile'}.`,
       });
-      // In a real app, you'd wait for OTP verification before redirecting
-      const dashboardPath = `/dashboard/${values.role.toLowerCase().replace(' ', '-')}`;
-      router.push(dashboardPath);
     }, 1500);
   };
   
+  const handleOtpVerification = () => {
+    setLoading(true);
+    // Mock OTP verification
+    setTimeout(() => {
+        setLoading(false);
+        const role = signupMethod === 'email' ? emailForm.getValues('role') : mobileForm.getValues('role');
+        toast({
+            title: 'Signup Successful',
+            description: `Welcome! Your account has been created.`,
+        });
+        const dashboardPath = `/dashboard/${role.toLowerCase().replace(' ', '-')}`;
+        router.push(dashboardPath);
+    }, 1500);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -91,91 +110,67 @@ const SignupForm = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>I am a...</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {ROLES.map((role) => (
-                          <SelectItem key={role} value={role}>
-                            {role}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., John Doe" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="e.g., john@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-               <FormField
-                control={form.control}
-                name="mobile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Mobile Number</FormLabel>
-                    <FormControl>
-                      <Input type="tel" placeholder="e.g., 9876543210" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" disabled={loading} className="w-full">
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Sign Up
-              </Button>
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">
-                    Or sign up with
-                  </span>
-                </div>
-              </div>
-              <Button type="button" variant="outline" className="w-full" disabled={loading}>
-                <FaGoogle className="mr-2 h-4 w-4" />
-                Sign up with Google
-              </Button>
-            </form>
-          </Form>
+          {!showOtp ? (
+            <Tabs defaultValue="email" className="w-full" onValueChange={(value) => setSignupMethod(value as 'email' | 'mobile')}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="email">Email Sign Up</TabsTrigger>
+                <TabsTrigger value="mobile">Mobile Sign Up</TabsTrigger>
+              </TabsList>
+              <TabsContent value="email">
+                <Form {...emailForm}>
+                  <form onSubmit={emailForm.handleSubmit(handleSignup)} className="space-y-4 pt-4">
+                    <FormField control={emailForm.control} name="role" render={({ field }) => (
+                      <FormItem><FormLabel>I am a...</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select your role" /></SelectTrigger></FormControl><SelectContent>{ROLES.map((role) => (<SelectItem key={role} value={role}>{role}</SelectItem>))}</SelectContent></Select><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={emailForm.control} name="name" render={({ field }) => (
+                      <FormItem><FormLabel>Full Name</FormLabel><FormControl><Input placeholder="e.g., John Doe" {...field} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={emailForm.control} name="email" render={({ field }) => (
+                      <FormItem><FormLabel>Email Address</FormLabel><FormControl><Input type="email" placeholder="e.g., john@example.com" {...field} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={emailForm.control} name="mobile" render={({ field }) => (
+                        <FormItem><FormLabel>Mobile for Verification</FormLabel><FormControl><Input type="tel" placeholder="e.g., 9876543210" {...field} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <Button type="submit" disabled={loading} className="w-full">
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Send Verification Code
+                    </Button>
+                  </form>
+                </Form>
+              </TabsContent>
+              <TabsContent value="mobile">
+                <Form {...mobileForm}>
+                  <form onSubmit={mobileForm.handleSubmit(handleSignup)} className="space-y-4 pt-4">
+                     <FormField control={mobileForm.control} name="role" render={({ field }) => (
+                      <FormItem><FormLabel>I am a...</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select your role" /></SelectTrigger></FormControl><SelectContent>{ROLES.map((role) => (<SelectItem key={role} value={role}>{role}</SelectItem>))}</SelectContent></Select><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={mobileForm.control} name="name" render={({ field }) => (
+                      <FormItem><FormLabel>Full Name</FormLabel><FormControl><Input placeholder="e.g., John Doe" {...field} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={mobileForm.control} name="mobile" render={({ field }) => (
+                      <FormItem><FormLabel>Mobile Number</FormLabel><FormControl><Input type="tel" placeholder="e.g., 9876543210" {...field} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <Button type="submit" disabled={loading} className="w-full">
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Send OTP
+                    </Button>
+                  </form>
+                </Form>
+              </TabsContent>
+            </Tabs>
+          ) : (
+            <div className="space-y-4">
+                <FormLabel>Enter Verification Code</FormLabel>
+                <Input placeholder="6-digit code" />
+                <Button onClick={handleOtpVerification} disabled={loading} className="w-full">
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Verify and Sign Up
+                </Button>
+                <Button variant="link" onClick={() => setShowOtp(false)} className="w-full">
+                    Back to Sign Up
+                </Button>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-muted-foreground">
