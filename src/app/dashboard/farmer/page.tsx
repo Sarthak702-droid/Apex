@@ -1,13 +1,12 @@
-
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, FileText, Wheat, Filter, BookOpen, BarChart2 } from "lucide-react";
+import { DollarSign, FileText, Wheat, Filter, BookOpen } from "lucide-react";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import CropRecommendations from "@/components/dashboard/farmer/crop-recommendations";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Line, LineChart } from "recharts";
+import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { ChartTooltip, ChartTooltipContent, ChartContainer } from "@/components/ui/chart";
 import { OilseedMotivation } from '@/components/dashboard/farmer/oilseed-motivation';
 
@@ -59,14 +58,14 @@ const profitabilityData = {
   ]
 };
 
-const trendChartConfig = {
-  yield: { label: "Yield (tons/acre)", color: "hsl(var(--chart-1))" },
-  price: { label: "Price (₹/quintal)", color: "hsl(var(--chart-2))" },
-};
-
 const profitChartConfig = {
   profit: { label: 'Profit (₹/acre)', color: 'hsl(var(--primary))' },
 };
+
+const trendChartConfig = {
+  price: { label: "Price (₹/quintal)", color: "hsl(var(--chart-2))" },
+};
+
 
 export default function FarmerDashboard() {
   const [selectedState, setSelectedState] = useState<keyof typeof yieldData>('Telangana');
@@ -183,5 +182,4 @@ export default function FarmerDashboard() {
 
     </div>
   );
-
-    
+}
