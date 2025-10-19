@@ -87,12 +87,12 @@ const CropRecommendations = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-0">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div>
         <Card>
           <CardHeader>
             <CardTitle className="font-headline flex items-center gap-2">
-              AI Crop Recommender
+              Your Farm Details
             </CardTitle>
             <CardDescription>
               Fill in your farm details to get personalized, AI-driven crop recommendations.
@@ -151,9 +151,9 @@ const CropRecommendations = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="w-full"
             >
-              <Card className="bg-primary/5">
+              <Card className="bg-primary/5 h-full">
                 <CardHeader>
-                  <CardTitle className="font-headline">Your AI-Powered Results</CardTitle>
+                  <CardTitle className="font-headline">Your AI-Powered Recommendations</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
@@ -178,6 +178,12 @@ const CropRecommendations = () => {
                 </CardContent>
               </Card>
             </motion.div>
+          )}
+          {!loading && !recommendations && (
+            <div className="text-center text-muted-foreground">
+              <Wheat className="h-12 w-12 mx-auto" />
+              <p className="mt-4">Your crop recommendations will appear here.</p>
+            </div>
           )}
         </AnimatePresence>
       </div>
