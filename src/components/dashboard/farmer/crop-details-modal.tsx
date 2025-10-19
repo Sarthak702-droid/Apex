@@ -44,10 +44,12 @@ const CropDetailsModal = ({ crop, onClose }: CropDetailsModalProps) => {
       >
         <Button
           size="icon"
+          variant="default"
           onClick={onClose}
           className="absolute top-2 right-2 w-8 h-8 bg-pink-500 hover:bg-pink-600 text-white rounded-md border-2 border-black"
         >
           <X className="w-5 h-5" />
+          <span className="sr-only">Close</span>
         </Button>
 
         <h2 className="font-bold text-4xl mb-4 font-headline">{crop.name}</h2>
@@ -97,16 +99,16 @@ const CropDetailsModal = ({ crop, onClose }: CropDetailsModalProps) => {
         <div className="flex justify-between items-center mt-6 gap-2">
             <div
             className={cn(
-                'flex items-center justify-center w-full gap-1.5 text-sm font-bold px-4 py-2.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]',
+                'flex items-center justify-center w-full gap-1.5 text-sm font-bold px-4 py-2.5 rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]',
                 risk.badge
             )}
             >
             <Diamond className="h-4 h-4" />
-            {crop.risk}
+            {crop.risk} RISK
             </div>
-            <div className="flex items-center justify-center w-full gap-1.5 text-white text-sm font-bold px-4 py-2.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-blue-600 border-blue-800">
+            <div className="flex items-center justify-center w-full gap-1.5 text-white text-sm font-bold px-4 py-2.5 rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-blue-600 border-blue-800">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.22 9.6L12.01 16.03L7.78 12.38L9.21 10.97L11.99 13.2L14.79 8.21L16.22 9.6Z" fill="white"/></svg>
-                {crop.score}/100
+                SCORE: {crop.score}/100
             </div>
         </div>
 

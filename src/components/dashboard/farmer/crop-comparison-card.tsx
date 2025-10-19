@@ -85,11 +85,11 @@ const CropComparisonCard = ({ crop, onCardClick }: CropComparisonCardProps) => {
           )}
         >
           {risk.icon}
-          {crop.risk}
+          {crop.risk} RISK
         </div>
         <div className="flex items-center gap-1.5 text-white text-sm font-bold px-4 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-blue-600 border-blue-800">
-          <Droplets className="h-4 w-4" />
-          {crop.score}/100
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.22 9.6L12.01 16.03L7.78 12.38L9.21 10.97L11.99 13.2L14.79 8.21L16.22 9.6Z" fill="white"/></svg>
+          SCORE: {crop.score}/100
         </div>
       </div>
     </button>
