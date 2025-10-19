@@ -96,6 +96,10 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         float: 'float 3s ease-in-out infinite',
       },
+      boxShadow: {
+        'solid-sm': '4px 4px 0px 0px rgba(0,0,0,1)',
+        'solid-md': '8px 8px 0px 0px rgba(0,0,0,1)',
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],

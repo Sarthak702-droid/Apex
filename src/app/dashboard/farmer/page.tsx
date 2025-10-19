@@ -23,9 +23,11 @@ export default function FarmerDashboard() {
           <p className="text-muted-foreground">Welcome back, Sarthak!</p>
         </div>
         <div className="flex items-center gap-4">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg">
-                <TrendingUp className="mr-2 h-4 w-4" />
-                Compare Crops
+            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg">
+                <Link href="/dashboard/farmer/compare-crops">
+                    <TrendingUp className="mr-2 h-4 w-4" />
+                    Compare Crops
+                </Link>
             </Button>
             <Button asChild className="bg-pink-600 hover:bg-pink-700 text-white font-bold shadow-lg">
                 <Link href="/dashboard/farmer/new-sauda">
