@@ -18,28 +18,27 @@ import {
   DollarSign
 } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Role } from '@/lib/constants';
 
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
   Farmer: [
     { href: '/dashboard/farmer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '#', label: 'Crop Recommendations', icon: <Wheat className="h-4 w-4" /> },
-    { href: '#', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
-    { href: '#', label: 'Contracts', icon: <FileText className="h-4 w-4" /> },
+    { href: '/dashboard/farmer#crop-recommendations', label: 'Crop Recommendations', icon: <Wheat className="h-4 w-4" /> },
+    { href: '/dashboard/farmer#profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
+    { href: '/dashboard/farmer#contracts', label: 'Contracts', icon: <FileText className="h-4 w-4" /> },
   ],
   FPO: [
     { href: '/dashboard/fpo', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '#', label: 'Member Stats', icon: <Users className="h-4 w-4" /> },
-    { href: '#', label: 'Performance', icon: <BarChart3 className="h-4 w-4" /> },
-    { href: '#', label: 'Aggregation', icon: <GitGraph className="h-4 w-4" /> },
+    { href: '/dashboard/fpo#member-stats', label: 'Member Stats', icon: <Users className="h-4 w-4" /> },
+    { href: '/dashboard/fpo#performance', label: 'Performance', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/fpo#aggregation', label: 'Aggregation', icon: <GitGraph className="h-4 w-4" /> },
   ],
   Buyer: [
     { href: '/dashboard/buyer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '#', label: 'Purchase Insights', icon: <ShoppingBasket className="h-4 w-4" /> },
-    { href: '#', label: 'Quality Reports', icon: <FileText className="h-4 w-4" /> },
-    { href: '#', label: 'Contracts', icon: <Briefcase className="h-4 w-4" /> },
+    { href: '/dashboard/buyer#purchase-insights', label: 'Purchase Insights', icon: <ShoppingBasket className="h-4 w-4" /> },
+    { href: '/dashboard/buyer#quality-reports', label: 'Quality Reports', icon: <FileText className="h-4 w-4" /> },
+    { href: '/dashboard/buyer#contracts', label: 'Contracts', icon: <Briefcase className="h-4 w-4" /> },
   ],
   Government: [
     { href: '/dashboard/government', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -49,9 +48,9 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   ],
   Admin: [
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '#', label: 'User Management', icon: <Users className="h-4 w-4" /> },
-    { href: '#', label: 'Platform Analytics', icon: <BarChart3 className="h-4 w-4" /> },
-    { href: '#', label: 'System Health', icon: <Shield className="h-4 w-4" /> },
+    { href: '/dashboard/admin#user-management', label: 'User Management', icon: <Users className="h-4 w-4" /> },
+    { href: '/dashboard/admin#platform-analytics', label: 'Platform Analytics', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/admin#system-health', label: 'System Health', icon: <Shield className="h-4 w-4" /> },
   ],
 };
 
@@ -72,21 +71,6 @@ export function DashboardSidebarNav({ isMobile }: { isMobile: boolean }) {
   const role = getRoleFromPath(pathname);
   const links = navLinks[role] || [];
   
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.includes('#')) {
-      e.preventDefault();
-      const [path, id] = href.split('#');
-      if (pathname === path) {
-        document.getElementById(id)?.scrollIntoView({
-          behavior: 'smooth'
-        });
-      } else {
-        // If on a different page, navigate first, then scroll will be handled by browser
-        window.location.href = href;
-      }
-    }
-  };
-  
   return (
     <>
       <div className="flex h-16 items-center border-b px-4 lg:px-6">
@@ -101,7 +85,6 @@ export function DashboardSidebarNav({ isMobile }: { isMobile: boolean }) {
             <Link
               key={`${link.href}-${link.label}`}
               href={link.href}
-              onClick={(e) => handleScroll(e, link.href)}
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
                 (pathname === link.href) && 'bg-accent text-primary'

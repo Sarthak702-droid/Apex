@@ -36,8 +36,8 @@ export default function GovernmentDashboard() {
           description="Total reports available"
         />
       </div>
-      <div id="policy-analytics" className="grid grid-cols-1 xl:grid-cols-3 gap-6 scroll-mt-20">
-        <div className="xl:col-span-2">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 scroll-mt-20">
+        <div id="policy-analytics" className="xl:col-span-2">
           <PolicyAnalytics />
         </div>
         <div id="sustainability-data" className="scroll-mt-20">
