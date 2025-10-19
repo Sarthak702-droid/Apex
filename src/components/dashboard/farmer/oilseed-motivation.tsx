@@ -8,7 +8,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 
-type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'bn';
+type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'bn' | 'or' | 'pa' | 'hinv' | 'ch' | 'jh';
 
 const benefitContent: Record<
   Language,
@@ -266,6 +266,196 @@ const benefitContent: Record<
       imageId: 'comic-page-10',
     },
   ],
+  or: [
+    {
+      icon: TrendingUp,
+      title: 'ଆପଣଙ୍କ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ',
+      description: 'ପାରମ୍ପାରିକ କୃଷିରେ ବିପଦ ରହିଛି। ଜାଣନ୍ତୁ କିପରି ତୈଳବୀଜ ଏକ ସ୍ଥିର ଏବଂ ଲାଭଜନକ ବିକଳ୍ପ ପ୍ରଦାନ କରିପାରିବ।',
+      imageId: 'comic-panel-1',
+    },
+    {
+      icon: DollarSign,
+      title: 'ଆପଣଙ୍କ ଆୟ ବୃଦ୍ଧି କରନ୍ତୁ',
+      description: 'ତୈଳବୀଜର ବହୁତ ଚାହିଦା ରହିଛି। ପାରମ୍ପାରିକ ଫସଲ ତୁଳନାରେ ଏକର ପିଛା ଯଥେଷ୍ଟ ଅଧିକ ଆୟ କରନ୍ତୁ ଏବଂ ଆପଣଙ୍କ ପରିବାରର ଭବିଷ୍ୟତ ସୁରକ୍ଷିତ କରନ୍ତୁ।',
+      imageId: 'comic-page-9',
+    },
+    {
+      icon: Landmark,
+      title: 'ସରକାରୀ ସହାୟତା',
+      description: '"ତେଲ-ସମୃଦ୍ଧି" ମିଶନ ସବସିଡି, ଉନ୍ନତ ବିହନ ଏବଂ ଫସଲ ବୀମା ପ୍ରଦାନ କରେ, ଯାହା ଆପଣଙ୍କ ବିପଦକୁ ହ୍ରାସ କରେ।',
+      imageId: 'comic-panel-3',
+    },
+    {
+      icon: Network,
+      title: 'ପ୍ରତ୍ୟକ୍ଷ ବଜାର ପ୍ରବେଶ',
+      description: 'ଆମ ପ୍ଲାଟଫର୍ମ ମାଧ୍ୟମରେ ସିଧାସଳଖ କ୍ରେତା ଏବଂ FPOs ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ। କୌଣସି ମଧ୍ୟସ୍ଥି ନାହିଁ, ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ମୂଲ୍ୟ ପାଇବା ସୁନିଶ୍ଚିତ କରେ।',
+      imageId: 'feature-market-linkage',
+    },
+    {
+      icon: Leaf,
+      title: 'ଏକ ସ୍ଥାୟୀ ଭବିଷ୍ୟତ',
+      description: 'ତୈଳବୀଜ ଫସଲ ମାଟିର ସ୍ୱାସ୍ଥ୍ୟରେ ଉନ୍ନତି ଆଣେ ଏବଂ କମ୍ ପାଣି ଆବଶ୍ୟକ କରେ, ଯାହା ଆପଣଙ୍କ ଖେତକୁ ଅଧିକ ସହନଶୀଳ ଏବଂ ପରିବେଶ-ଅନୁକୂଳ କରିଥାଏ।',
+      imageId: 'comic-page-6',
+    },
+    {
+      icon: Award,
+      title: 'ଜଣେ ନେତା ହୁଅନ୍ତୁ',
+      description: 'ଆପଣଙ୍କ ସମ୍ପ୍ରଦାୟକୁ ପ୍ରେରଣା ଦିଅନ୍ତୁ। ଆପଣଙ୍କ ସଫଳତା ଅନ୍ୟ କୃଷକମାନଙ୍କୁ ତୈଳବୀଜ ବିପ୍ଳବରେ ଯୋଗଦେବାକୁ ପ୍ରେରଣା ଦେଇପାରେ।',
+      imageId: 'comic-page-10',
+    },
+  ],
+  pa: [
+    {
+      icon: TrendingUp,
+      title: 'ਆਪਣਾ ਸਫ਼ਰ ਸ਼ੁਰੂ ਕਰੋ',
+      description: 'ਰਵਾਇਤੀ ਖੇਤੀ ਵਿੱਚ ਖ਼ਤਰੇ ਹਨ। ਜਾਣੋ ਕਿ ਤੇਲ ਬੀਜ ਕਿਵੇਂ ਇੱਕ ਸਥਿਰ ਅਤੇ ਲਾਭਕਾਰੀ ਬਦਲ ਪ੍ਰਦਾਨ ਕਰ ਸਕਦੇ ਹਨ।',
+      imageId: 'comic-panel-1',
+    },
+    {
+      icon: DollarSign,
+      title: 'ਆਪਣੀ ਆਮਦਨ ਵਧਾਓ',
+      description: 'ਤੇਲ ਬੀਜਾਂ ਦੀ ਬਹੁਤ ਮੰਗ ਹੈ। ਰਵਾਇਤੀ ਫਸਲਾਂ ਦੇ ਮੁਕਾਬਲੇ ਪ੍ਰਤੀ ਏਕੜ ਕਾਫ਼ੀ ਜ਼ਿਆਦਾ ਕਮਾਓ ਅਤੇ ਆਪਣੇ ਪਰਿਵਾਰ ਦਾ ਭਵਿੱਖ ਸੁਰੱਖਿਅਤ ਕਰੋ।',
+      imageId: 'comic-page-9',
+    },
+    {
+      icon: Landmark,
+      title: 'ਸਰਕਾਰੀ ਸਹਾਇਤਾ',
+      description: '"ਤੇਲ-ਸਮ੍ਰਿਧੀ" ਮਿਸ਼ਨ ਸਬਸਿਡੀਆਂ, ਬਿਹਤਰ ਬੀਜ ਅਤੇ ਫਸਲ ਬੀਮਾ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਤੁਹਾਡੇ ਖ਼ਤਰੇ ਘੱਟ ਹੁੰਦੇ ਹਨ।',
+      imageId: 'comic-panel-3',
+    },
+    {
+      icon: Network,
+      title: 'ਸਿੱਧੀ ਮਾਰਕੀਟ ਪਹੁੰਚ',
+      description: 'ਸਾਡੇ ਪਲੇਟਫਾਰਮ ਰਾਹੀਂ ਸਿੱਧੇ ਖਰੀਦਦਾਰਾਂ ਅਤੇ FPOs ਨਾਲ ਜੁੜੋ। ਕੋਈ ਵਿਚੋਲਾ ਨਹੀਂ, ਇਹ ਯਕੀਨੀ ਬਣਾਉਂਦਾ ਹੈ ਕਿ ਤੁਹਾਨੂੰ ਸਭ ਤੋਂ ਵਧੀਆ ਕੀਮਤ ਮਿਲੇ।',
+      imageId: 'feature-market-linkage',
+    },
+    {
+      icon: Leaf,
+      title: 'ਟਿਕਾਊ ਭਵਿੱਖ',
+      description: 'ਤੇਲ ਬੀਜ ਫਸਲਾਂ ਮਿੱਟੀ ਦੀ ਸਿਹਤ ਵਿੱਚ ਸੁਧਾਰ ਕਰਦੀਆਂ ਹਨ ਅਤੇ ਘੱਟ ਪਾਣੀ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ, ਜਿਸ ਨਾਲ ਤੁਹਾਡਾ ਖੇਤ ਵਧੇਰੇ ਲਚਕੀਲਾ ਅਤੇ ਵਾਤਾਵਰਣ-ਅਨੁਕੂਲ ਬਣਦਾ ਹੈ।',
+      imageId: 'comic-page-6',
+    },
+    {
+      icon: Award,
+      title: 'ਇੱਕ ਆਗੂ ਬਣੋ',
+      description: 'ਆਪਣੇ ਭਾਈਚਾਰੇ ਨੂੰ ਪ੍ਰੇਰਿਤ ਕਰੋ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਹੋਰ ਕਿਸਾਨਾਂ ਨੂੰ ਤੇਲ ਬੀਜ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਲਈ ਪ੍ਰੇਰਿਤ ਕਰ ਸਕਦੀ ਹੈ।',
+      imageId: 'comic-page-10',
+    },
+  ],
+  hinv: [
+    {
+      icon: TrendingUp,
+      title: 'अपणा सफ़र सुरू करो',
+      description: 'परंपरागत खेती म्ह जोखिम सै। देखो के तेल के बीज एक स्थिर अर फायदेमंद विकल्प दे ਸਕੈ सै।',
+      imageId: 'comic-panel-1',
+    },
+    {
+      icon: DollarSign,
+      title: 'अपणी आमदण बढ़ाओ',
+      description: 'तेल के बीजां की घणी मांग सै। परंपरागत ਫਸਲਾਂ तै प्रति एकड़ म्ह घणा कमाओ अर अपणे परिवार का भविष्य पक्का करो।',
+      imageId: 'comic-page-9',
+    },
+    {
+      icon: Landmark,
+      title: 'सरकारी मदद',
+      description: '"तेल-समृद्धि" मिशन सब्सिडी, बढ़िया बीज अर फसल बीमा देवै सै, जिसतै थारे जोखिम कम हो ज्यां।',
+      imageId: 'comic-panel-3',
+    },
+    {
+      icon: Network,
+      title: 'सीधा बजार म्ह पहुच',
+      description: 'म्हारे प्लेटफॉर्म तै सीधा खरीदਦਾਰਾਂ अर FPO तै जुड़ो। ਕੋਈ बिचौलिया कोनी, न्यू पक्का हो ज्यागा के थामनै सबतै बढ़िया दाम मिलै।',
+      imageId: 'feature-market-linkage',
+    },
+    {
+      icon: Leaf,
+      title: 'पक्का भविस',
+      description: 'तेल बीज की ਫਸਲ ਮਾਟੀ की सेहत ਸੁਧਾਰै सै अर कम पाणी मांगै सै, जिसतै थारा खेत और मजबूत अर पर्यावरण का गेल्या ਬਣै सै।',
+      imageId: 'comic-page-6',
+    },
+    {
+      icon: Award,
+      title: 'एक नेता बणो',
+      description: 'अपणे समाज नै प्रेरणा दयो। थारी कामयाबी दूसरे किसानां नै तेल बीज क्रांति म्ह जुड़ण खातर प्रेरित कर ਸਕੈ सै।',
+      imageId: 'comic-page-10',
+    },
+  ],
+  ch: [
+    {
+      icon: TrendingUp,
+      title: 'अपन यात्रा शुरू करव',
+      description: 'परंपरागत खेती म जोखिम हे। जानव कि तिलहन कइसे एक स्थिर अउ लाभदायक विकल्प दे सकत हे।',
+      imageId: 'comic-panel-1',
+    },
+    {
+      icon: DollarSign,
+      title: 'अपन आय बढ़ावव',
+      description: 'तिलहन के बहुत मांग हे। परंपरागत फसल के तुलना म प्रति एकड़ बहुत जादा कमावव अउ अपन परिवार के भविष्य ल सुरक्षित करव।',
+      imageId: 'comic-page-9',
+    },
+    {
+      icon: Landmark,
+      title: 'सरकारी सहायता',
+      description: '"तेल-समृद्धि" मिशन सब्सिडी, अच्छा बीजा अउ फसल बीमा प्रदान करत हे, जेखर से आपके जोखिम कम होथे।',
+      imageId: 'comic-panel-3',
+    },
+    {
+      icon: Network,
+      title: 'सीधा बजार पहुँच',
+      description: 'हमार प्लेटफॉर्म के माध्यम से सीधा खरीदार अउ एफपीओ से जुड़व। कोनो बिचौलिया नइ, जेन सुनिश्चित करत हे कि आपला सबले अच्छा कीमत मिलय।',
+      imageId: 'feature-market-linkage',
+    },
+    {
+      icon: Leaf,
+      title: 'टिकाऊ भविष्य',
+      description: 'तिलहन फसल माटी के स्वास्थ्य ल सुधारथे अउ कम पानी के जरूरत होथे, जेखर से आपके खेत अउ जादा लचीला अउ पर्यावरण के अनुकूल बनथे।',
+      imageId: 'comic-page-6',
+    },
+    {
+      icon: Award,
+      title: 'एक नेता बनव',
+      description: 'अपन समुदाय ल प्रेरित करव। आपके सफलता दूसर किसान मन ल तिलहन क्रांति म शामिल होए बर प्रेरित कर सकत हे।',
+      imageId: 'comic-page-10',
+    },
+  ],
+  jh: [
+    {
+      icon: TrendingUp,
+      title: 'आपन यात्रा शुरू करीं',
+      description: 'पारंपरिक खेती में जोखिम है। जानीं कि तिलहन कईसे एक स्थिर और लाभदायक विकल्प दे सकेला।',
+      imageId: 'comic-panel-1',
+    },
+    {
+      icon: DollarSign,
+      title: 'आपन आमदनी बढ़ाईं',
+      description: 'तिलहन के बहुत मांग है। पारंपरिक फसल के तुलना में प्रति एकड़ बहुत जादा कमाईं और आपन परिवार के भविष्य सुरक्षित करीं।',
+      imageId: 'comic-page-9',
+    },
+    {
+      icon: Landmark,
+      title: 'सरकारी सहायता',
+      description: '"तेल-समृद्धि" मिशन सब्सिडी, बढ़िया बीया और फसल बीमा देवेला, जेसे राउर जोखिम कम होला।',
+      imageId: 'comic-panel-3',
+    },
+    {
+      icon: Network,
+      title: 'सीधा बाजार पहुँच',
+      description: 'हमार प्लेटफॉर्म से सीधा खरीदार और एफपीओ से जुड़ीं। कोई बिचौलिया ना, जेसे रउआ सबसे बढ़िया दाम मिली।',
+      imageId: 'feature-market-linkage',
+    },
+    {
+      icon: Leaf,
+      title: 'टिकाऊ भबिस्य',
+      description: 'तिलहन के फसल माटी के सेहत सुधारेला और कम पानी के जरूरत पड़ेला, जेसे राउर खेत और मजबूत और पर्यावरण के अनुकूल बनेला।',
+      imageId: 'comic-page-6',
+    },
+    {
+      icon: Award,
+      title: 'गोतिया के नेता बनीं',
+      description: 'आपन समाज के प्रेरित करीं। राउर सफलता दोसर किसान सबके तिलहन क्रांति में शामिल होवे खातिर प्रेरित कर सकेला।',
+      imageId: 'comic-page-10',
+    },
+  ],
 };
 const languages = {
   en: 'English',
@@ -274,6 +464,11 @@ const languages = {
   te: 'తెలుగు',
   ta: 'தமிழ்',
   bn: 'বাংলা',
+  or: 'ଓଡ଼ିଆ',
+  pa: 'ਪੰਜਾਬੀ',
+  hinv: 'Haryanvi',
+  ch: 'Chhattisgarhi',
+  jh: 'Jharkhandi',
 };
 
 function BenefitCard({ benefit, index }: { benefit: (typeof benefitContent.en)[0]; index: number }) {
@@ -378,3 +573,5 @@ export function OilseedMotivation() {
     </Card>
   );
 }
+
+    
