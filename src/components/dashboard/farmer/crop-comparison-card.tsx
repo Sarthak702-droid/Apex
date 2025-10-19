@@ -21,7 +21,7 @@ const riskStyles = {
     icon: <Diamond className="h-4 w-4" />,
   },
   MEDIUM: {
-    badge: 'bg-yellow-500 hover:bg-yellow-600 border-yellow-700',
+    badge: 'bg-yellow-500 hover:bg-yellow-600 border-yellow-700 text-black',
     icon: <Diamond className="h-4 w-4" />,
   },
   HIGH: {
@@ -31,7 +31,7 @@ const riskStyles = {
 };
 
 const CropComparisonCard = ({ crop, onCardClick }: CropComparisonCardProps) => {
-  const risk = riskStyles[crop.risk];
+  const risk = riskStyles[crop.risk as keyof typeof riskStyles];
 
   return (
     <button

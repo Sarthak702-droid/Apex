@@ -13,10 +13,10 @@ type CropDetailsModalProps = {
 
 const riskStyles = {
   LOW: {
-    badge: 'bg-yellow-400 text-black',
+    badge: 'bg-green-500 text-white',
   },
   MEDIUM: {
-    badge: 'bg-yellow-400 text-black',
+    badge: 'bg-yellow-500 text-black',
   },
   HIGH: {
     badge: 'bg-red-500 text-white',
@@ -24,7 +24,7 @@ const riskStyles = {
 };
 
 const CropDetailsModal = ({ crop, onClose }: CropDetailsModalProps) => {
-    const risk = riskStyles[crop.risk];
+    const risk = riskStyles[crop.risk as keyof typeof riskStyles];
 
   return (
     <motion.div
@@ -101,7 +101,7 @@ const CropDetailsModal = ({ crop, onClose }: CropDetailsModalProps) => {
                 risk.badge
             )}
             >
-            <Diamond className="h-4 w-4" />
+            <Diamond className="h-4 h-4" />
             {crop.risk}
             </div>
             <div className="flex items-center justify-center w-full gap-1.5 text-white text-sm font-bold px-4 py-2.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-blue-600 border-blue-800">
