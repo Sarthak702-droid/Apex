@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { DollarSign, Landmark, Network, Leaf, Award, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -87,6 +87,23 @@ function BenefitCard({
   );
 }
 
+function Milestone({ scrollYProgress, index }: { scrollYProgress: any, index: number }) {
+  const scale = useTransform(
+    scrollYProgress,
+    [index / benefits.length, (index + 0.5) / benefits.length],
+    [1, 1.5]
+  );
+
+  return (
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <motion.div
+        className="w-6 h-6 rounded-full bg-background border-2 border-primary"
+        style={{ scale }}
+      />
+    </div>
+  );
+}
+
 export function OilseedMotivation() {
   const scrollRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -94,7 +111,7 @@ export function OilseedMotivation() {
     offset: ['start start', 'end end'],
   });
   
-  const scaleX = useSpring(scrollYProgress, {
+  const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
@@ -105,24 +122,14 @@ export function OilseedMotivation() {
       <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border -translate-x-1/2">
         <motion.div
           className="w-full h-full bg-primary origin-top"
-          style={{ scaleY: scaleX }}
+          style={{ scaleY }}
         />
       </div>
 
       <div className="relative z-10">
         {benefits.map((benefit, index) => (
           <div key={index} className="relative py-4">
-             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-               <motion.div 
-                 className="w-6 h-6 rounded-full bg-background border-2 border-primary"
-                 style={{
-                   scale: scrollYProgress.to(
-                     [index / benefits.length, (index + 0.5) / benefits.length],
-                     [1, 1.5]
-                   )
-                 }}
-               />
-             </div>
+             <Milestone scrollYProgress={scrollYProgress} index={index} />
             <BenefitCard benefit={benefit} index={index} />
           </div>
         ))}
