@@ -1,4 +1,3 @@
-
 'use client';
 
 import { BarChart, Calendar, FileText, IndianRupee, Leaf, Plus, TrendingUp } from "lucide-react";
@@ -7,6 +6,7 @@ import { StatsCard } from "@/components/dashboard/stats-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DigitalSaudas } from "@/components/dashboard/farmer/digital-saudas";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 const quickActions = [
     { label: "Quality Check", icon: <FileText className="h-4 w-4" /> },
@@ -27,9 +27,11 @@ export default function FarmerDashboard() {
                 <TrendingUp className="mr-2 h-4 w-4" />
                 Compare Crops
             </Button>
-            <Button className="bg-pink-600 hover:bg-pink-700 text-white font-bold shadow-lg">
-                <Plus className="mr-2 h-4 w-4" />
-                New Sauda
+            <Button asChild className="bg-pink-600 hover:bg-pink-700 text-white font-bold shadow-lg">
+                <Link href="/dashboard/farmer/new-sauda">
+                    <Plus className="mr-2 h-4 w-4" />
+                    New Sauda
+                </Link>
             </Button>
         </div>
       </div>
