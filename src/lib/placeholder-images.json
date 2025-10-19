@@ -49,10 +49,34 @@
       "imageHint": "farmer thinking"
     },
     {
+      "id": "comic-page-2",
+      "description": "A village meeting with an official speaking.",
+      "imageUrl": "https://images.unsplash.com/photo-1557199868-02a704b27808?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx2aWxsYWdlJTIwbWVldGluZ3xlbnwwfHx8fDE3NjA4NTQ3MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "village meeting"
+    },
+    {
+      "id": "comic-page-3",
+      "description": "Farmer using a smartphone app with an AI logo.",
+      "imageUrl": "https://images.unsplash.com/photo-1586819158505-d7f6227d19d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmYXJtZXIlMjBzbWFydHBob25lfGVufDB8fHx8MTc2MDgxNTU1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer smartphone"
+    },
+    {
       "id": "comic-panel-2",
       "description": "A close-up of healthy oilseed crops like mustard or soybean.",
-      "imageUrl": "https://picsum.photos/seed/302/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1621679613775-fc6d5c6514fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxvaWxzZWVkJTIwY3JvcHxlbnwwfHx8fDE3NjA4NTIxOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "oilseed crop"
+    },
+    {
+      "id": "comic-page-5",
+      "description": "Farmer preparing the soil for sowing seeds.",
+      "imageUrl": "https://images.unsplash.com/photo-1759522006638-350c9e9ea2ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2lsJTIwcHJlcGFyYXRpb258ZW58MHx8fHwxNzYwODU0NzE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "soil preparation"
+    },
+    {
+      "id": "comic-page-6",
+      "description": "Healthy young soybean plants in neat rows.",
+      "imageUrl": "https://images.unsplash.com/photo-1624745726502-019e7fd68150?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzb3liZWFuJTIwcGxhbnRzfGVufDB8fHx8MTc2MDg1NDcxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "soybean plants"
     },
     {
       "id": "comic-panel-3",
@@ -65,6 +89,18 @@
       "description": "A happy farmer with a bountiful harvest of oilseeds.",
       "imageUrl": "https://images.unsplash.com/photo-1656635098050-cd59fc6a2a52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGZhcm1lcnxlbnwwfHx8fDE3NjA4NTIxNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "happy farmer"
+    },
+    {
+      "id": "comic-page-9",
+      "description": "A happy family celebrating their prosperity.",
+      "imageUrl": "https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGZhbWlseXxlbnwwfHx8fDE3NjA4NTQ3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy family"
+    },
+    {
+      "id": "comic-page-10",
+      "description": "The farmer mentoring other farmers in the village.",
+      "imageUrl": "https://images.unsplash.com/photo-1753286437247-49ae106b6334?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmYXJtZXIlMjB0ZWFjaGluZ3xlbnwwfHx8fDE3NjA4NTQ3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer teaching"
     }
   ]
 }
