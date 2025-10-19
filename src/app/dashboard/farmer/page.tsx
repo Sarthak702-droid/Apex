@@ -103,7 +103,10 @@ export default function FarmerDashboard() {
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} />
                 <YAxis tickLine={false} axisLine={false} />
-                <ChartTooltip content={<ChartTooltipContent />} />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="dot" />}
+                />
                 <Legend />
                 <Bar dataKey="yield" fill="var(--color-yield)" radius={4} name="Yield" />
               </BarChart>
@@ -121,7 +124,10 @@ export default function FarmerDashboard() {
                   <CartesianGrid vertical={false} />
                   <XAxis dataKey="month" tickLine={false} axisLine={false} />
                   <YAxis tickLine={false} axisLine={false} domain={['dataMin - 100', 'dataMax + 100']} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="dot" />}
+                  />
                   <Legend />
                   <Line type="monotone" dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} name="Price" />
                 </LineChart>
@@ -134,15 +140,15 @@ export default function FarmerDashboard() {
         <CropRecommendations />
       </div>
 
-      <Card className="mt-8">
+      <Card className="mt-8 bg-card/50 border-0 shadow-none">
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2">
-            <BookOpen className="h-6 w-6 text-primary" />
-            Learn About Oilseed Farming
+          <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
+            <BookOpen className="h-7 w-7 text-primary" />
+            The Journey of an Oilseed Farmer
           </CardTitle>
-          <CardDescription>Interactive stories to guide you on your oilseed cultivation journey.</CardDescription>
+          <CardDescription>An interactive story to guide you on your oilseed cultivation journey. Scroll to begin.</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0 m-0">
           <OilSeedComics />
         </CardContent>
       </Card>

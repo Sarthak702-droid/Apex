@@ -1,25 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
-import * as React from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const languages = [
   { value: 'en', label: 'English' },
@@ -44,7 +30,6 @@ const comicContent = {
     { imageId: 'comic-panel-3', text: 'सरकारी सहायता और बेहतर बाजार कीमतों से तिलहन बहुत लाभदायक हो सकता है।' },
     { imageId: 'comic-panel-4', text: 'अब, राजू के पास तिलहन की सफल फसल और एक समृद्ध भविष्य है!' },
   ],
-  // Add other languages here...
   mr: [
     { imageId: 'comic-panel-1', text: 'हे आहेत राजू. ते विचार करतात की त्यांच्या शेतीचे उत्पन्न कसे वाढवायचे.' },
     { imageId: 'comic-panel-2', text: 'त्यांना मोहरी आणि सोयाबीनसारख्या तेलबिया पिकांबद्दल माहिती मिळते, ज्यांना मोठी मागणी आहे.' },
@@ -77,30 +62,66 @@ const comicContent = {
   ]
 };
 
+const ComicPanel = ({ panel, index }: { panel: { imageId: string; text: string }, index: number }) => {
+  const image = PlaceHolderImages.find(p => p.id === panel.imageId);
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.9, 1], [0, 1, 1, 0]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ opacity }}
+      className="h-screen flex items-center justify-center snap-center"
+    >
+      <div className="relative w-[90vw] md:w-[70vw] lg:w-[50vw] aspect-[16/9] rounded-xl overflow-hidden shadow-2xl border-4 border-card">
+        {image && (
+          <motion.div className="absolute inset-0" style={{ y }}>
+            <Image
+              src={image.imageUrl}
+              alt={image.description}
+              fill
+              className="object-cover"
+              data-ai-hint={image.imageHint}
+              priority
+            />
+          </motion.div>
+        )}
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/80 to-transparent">
+          <motion.p
+            className="text-white text-lg md:text-2xl font-bold text-center drop-shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            {panel.text}
+          </motion.p>
+        </div>
+        <div className="absolute top-4 right-4 bg-black/50 text-white text-2xl font-bold rounded-full w-12 h-12 flex items-center justify-center">
+          {index + 1}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+
 export function OilSeedComics() {
   const [selectedLang, setSelectedLang] = useState<keyof typeof comicContent>('en');
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
-
   const panels = comicContent[selectedLang] || comicContent.en;
-
-  React.useEffect(() => {
-    if (!api) return;
-
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
 
   return (
     <div>
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 pr-4">
         <Select onValueChange={(value: keyof typeof comicContent) => setSelectedLang(value)} defaultValue={selectedLang}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] bg-background">
             <SelectValue placeholder="Select Language" />
           </SelectTrigger>
           <SelectContent>
@@ -111,61 +132,12 @@ export function OilSeedComics() {
         </Select>
       </div>
 
-      <Carousel setApi={setApi} className="w-full">
-        <CarouselContent>
-          {panels.map((panel, index) => {
-            const image = PlaceHolderImages.find(p => p.id === panel.imageId);
-            return (
-              <CarouselItem key={index} className="md:basis-1/2">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <div className="p-1">
-                      <Card className="cursor-pointer overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <CardContent className="relative aspect-[4/3] p-0">
-                          {image && (
-                            <Image
-                              src={image.imageUrl}
-                              alt={image.description}
-                              fill
-                              className="object-cover transition-transform duration-300 group-hover:scale-105"
-                              data-ai-hint={image.imageHint}
-                            />
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                          <div className="absolute bottom-0 left-0 p-4">
-                            <p className="text-base font-medium text-white shadow-lg">{panel.text}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-3xl p-0 border-0">
-                    <DialogTitle className="sr-only">Oilseed Farming Comic Panel</DialogTitle>
-                      <div className="relative aspect-video">
-                        {image && (
-                          <Image
-                            src={image.imageUrl}
-                            alt={image.description}
-                            fill
-                            className="object-contain"
-                            data-ai-hint={image.imageHint}
-                          />
-                        )}
-                         <div className="absolute inset-x-0 bottom-0 bg-black/60 p-6 backdrop-blur-sm">
-                           <p className="text-xl text-center font-medium text-white">{panel.text}</p>
-                        </div>
-                      </div>
-                  </DialogContent>
-                </Dialog>
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-        <CarouselPrevious className="ml-12"/>
-        <CarouselNext className="mr-12" />
-      </Carousel>
-      <div className="py-2 text-center text-sm text-muted-foreground">
-        Panel {current} of {count}
+      <div className="relative h-[400vh] w-full">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          {panels.map((panel, index) => (
+            <ComicPanel key={`${selectedLang}-${index}`} panel={panel} index={index} />
+          ))}
+        </div>
       </div>
     </div>
   );
