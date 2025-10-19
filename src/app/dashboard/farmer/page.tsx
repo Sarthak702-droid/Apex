@@ -1,11 +1,75 @@
-import { DollarSign, FileText, Wheat } from "lucide-react";
+'use client';
+
+import { useState } from 'react';
+import { DollarSign, FileText, Wheat, Filter, BookOpen } from "lucide-react";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import CropRecommendations from "@/components/dashboard/farmer/crop-recommendations";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Line, LineChart } from "recharts";
+import { ChartTooltip, ChartTooltipContent, ChartContainer } from "@/components/ui/chart";
+import { OilSeedComics } from '@/components/dashboard/farmer/oil-seed-comics';
+
+const yieldData = {
+  Telangana: [
+    { month: "Jan", yield: 1.8, price: 4500 },
+    { month: "Feb", yield: 1.9, price: 4600 },
+    { month: "Mar", yield: 2.1, price: 4800 },
+    { month: "Apr", yield: 2.0, price: 4750 },
+    { month: "May", yield: 2.2, price: 4900 },
+    { month: "Jun", yield: 2.3, price: 5100 },
+  ],
+  Maharashtra: [
+    { month: "Jan", yield: 1.5, price: 4200 },
+    { month: "Feb", yield: 1.6, price: 4300 },
+    { month: "Mar", yield: 1.8, price: 4500 },
+    { month: "Apr", yield: 1.7, price: 4450 },
+    { month: "May", yield: 1.9, price: 4600 },
+    { month: "Jun", yield: 2.0, price: 4800 },
+  ],
+  Odisha: [
+    { month: "Jan", yield: 1.2, price: 4000 },
+    { month: "Feb", yield: 1.3, price: 4100 },
+    { month: "Mar", yield: 1.5, price: 4300 },
+    { month: "Apr", yield: 1.4, price: 4250 },
+    { month: "May", yield: 1.6, price: 4400 },
+    { month: "Jun", yield: 1.7, price: 4600 },
+  ],
+};
+
+const chartConfig = {
+  yield: {
+    label: "Yield (tons/acre)",
+    color: "hsl(var(--chart-1))",
+  },
+  price: {
+    label: "Price (₹/quintal)",
+    color: "hsl(var(--chart-2))",
+  },
+};
 
 export default function FarmerDashboard() {
+  const [selectedState, setSelectedState] = useState<keyof typeof yieldData>('Telangana');
+
   return (
-    <div className="space-y-6">
-      <h1 className="font-headline text-3xl font-bold">Farmer Dashboard</h1>
+    <div className="space-y-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="font-headline text-3xl font-bold">Farmer Dashboard</h1>
+        <div className="flex items-center gap-2">
+          <Filter className="h-5 w-5 text-muted-foreground" />
+          <Select onValueChange={(value: keyof typeof yieldData) => setSelectedState(value)} defaultValue={selectedState}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a state" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.keys(yieldData).map(state => (
+                <SelectItem key={state} value={state}>{state}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <StatsCard
           title="Active Contracts"
@@ -17,18 +81,70 @@ export default function FarmerDashboard() {
           title="Recommended Crop"
           value="Soybean"
           icon={<Wheat className="h-5 w-5" />}
-          description="Highest potential profit"
+          description={`For ${selectedState}`}
         />
         <StatsCard
-          title="Estimated Earnings"
+          title="Est. Earnings"
           value="₹4,52,312"
           icon={<DollarSign className="h-5 w-5" />}
-          description="+12.5% from last season"
+          description={`Based on ${selectedState} data`}
         />
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Crop Yield Trend (tons/acre)</CardTitle>
+            <CardDescription>{selectedState} - Last 6 months</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-64 w-full">
+              <BarChart data={yieldData[selectedState]}>
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey="month" tickLine={false} axisLine={false} />
+                <YAxis tickLine={false} axisLine={false} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar dataKey="yield" fill="var(--color-yield)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Market Price Trend (₹/quintal)</CardTitle>
+            <CardDescription>{selectedState} - Last 6 months for Soybean</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-64 w-full">
+               <LineChart data={yieldData[selectedState]}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis dataKey="month" tickLine={false} axisLine={false} />
+                  <YAxis tickLine={false} axisLine={false} domain={['dataMin - 100', 'dataMax + 100']} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line type="monotone" dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} />
+                </LineChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+
       <div>
         <CropRecommendations />
       </div>
+
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle className="font-headline flex items-center gap-2">
+            <BookOpen className="h-6 w-6 text-primary" />
+            Learn About Oilseed Farming
+          </CardTitle>
+          <CardDescription>Interactive stories to guide you on your oilseed cultivation journey.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <OilSeedComics />
+        </CardContent>
+      </Card>
+
     </div>
   );
 }
