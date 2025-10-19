@@ -31,7 +31,6 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { Button } from '../ui/button';
 
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
   Farmer: [
@@ -85,10 +84,8 @@ export function DashboardSidebar() {
             <Leaf className="h-6 w-6 text-primary" />
             <span className="font-headline text-lg">Tel-Samriddhi</span>
           </Link>
-          <SidebarTrigger asChild>
-            <Button variant="ghost" size="icon" >
-                <Menu />
-            </Button>
+          <SidebarTrigger>
+            <Menu />
           </SidebarTrigger>
         </div>
       </SidebarHeader>
