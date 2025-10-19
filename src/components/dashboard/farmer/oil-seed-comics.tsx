@@ -4,7 +4,6 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent } from '@/components/ui/card';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const languages = [
@@ -19,7 +18,7 @@ const languages = [
 
 const comicContent = {
   en: [
-    { imageId: 'comic-panel-1', text: 'Meet Raju. He wonders how to increase his farm\'s income.' },
+    { imageId: 'comic-panel-1', text: "Meet Raju. He wonders how to increase his farm's income." },
     { imageId: 'comic-panel-2', text: 'He learns about oilseed crops like mustard and soybean, which are in high demand.' },
     { imageId: 'comic-panel-3', text: 'With government support and better market prices, oilseeds can be very profitable.' },
     { imageId: 'comic-panel-4', text: 'Now, Raju has a successful oilseed harvest and a prosperous future!' },
@@ -70,8 +69,10 @@ const ComicPanel = ({ panel, index }: { panel: { imageId: string; text: string }
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const y = useTransform(scrollYProgress, [0, 1], ['-20%', '10%']);
   const opacity = useTransform(scrollYProgress, [0, 0.4, 0.9, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+  const filter = useTransform(scrollYProgress, [0, 0.5, 1], ['grayscale(100%)', 'grayscale(0%)', 'grayscale(100%)']);
 
   return (
     <motion.div
@@ -81,25 +82,26 @@ const ComicPanel = ({ panel, index }: { panel: { imageId: string; text: string }
     >
       <div className="relative w-[90vw] md:w-[70vw] lg:w-[50vw] aspect-[16/9] rounded-xl overflow-hidden shadow-2xl border-4 border-card">
         {image && (
-          <motion.div className="absolute inset-0" style={{ y }}>
-            <Image
+          <motion.div className="absolute inset-0" style={{ scale, filter }}>
+             <Image
               src={image.imageUrl}
               alt={image.description}
               fill
               className="object-cover"
               data-ai-hint={image.imageHint}
               priority
+              style={{ y }}
             />
           </motion.div>
         )}
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 bg-gradient-to-t from-black/80 to-transparent">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 flex flex-col items-center justify-center text-center">
           <motion.p
-            className="text-white text-lg md:text-2xl font-bold text-center drop-shadow-lg"
+            className="text-white text-lg md:text-2xl font-bold drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             {panel.text}
           </motion.p>
@@ -119,7 +121,7 @@ export function OilSeedComics() {
 
   return (
     <div>
-      <div className="flex justify-end mb-4 pr-4">
+      <div className="sticky top-4 z-10 flex justify-end mb-4 pr-4">
         <Select onValueChange={(value: keyof typeof comicContent) => setSelectedLang(value)} defaultValue={selectedLang}>
           <SelectTrigger className="w-[180px] bg-background">
             <SelectValue placeholder="Select Language" />
@@ -133,7 +135,7 @@ export function OilSeedComics() {
       </div>
 
       <div className="relative h-[400vh] w-full">
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start overflow-hidden">
           {panels.map((panel, index) => (
             <ComicPanel key={`${selectedLang}-${index}`} panel={panel} index={index} />
           ))}
@@ -142,3 +144,5 @@ export function OilSeedComics() {
     </div>
   );
 }
+
+    
