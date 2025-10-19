@@ -60,7 +60,7 @@ const comicContent = {
     { imageId: 'comic-panel-1', text: 'ଏ ହେଉଛନ୍ତି ରାଜୁ। ସେ ଭାବୁଛନ୍ତି କିପରି ତାଙ୍କ ଫାର୍ମର ଆୟ ବଢାଇବେ।' },
     { imageId: 'comic-panel-2', text: 'ସେ ସୋରିଷ ଏବଂ ସୋୟାବିନ୍ ପରି ତୈଳବୀଜ ଫସଲ ବିଷୟରେ ଜାଣିବାକୁ ପାଆନ୍ତି, ଯାହାର ବହୁତ ଚାହିଦା ଅଛି।' },
     { imageId: 'comic-panel-3', text: 'ସରକାରୀ ସହାୟତା ଏବଂ ଉନ୍ନତ ବଜାର ମୂଲ୍ୟ ସହିତ, ତୈଳବୀଜ ବହୁତ ଲାଭଜନକ ହୋଇପାରେ।' },
-    { imageId: 'comic-panel-4', text: 'ବର୍ତ୍ତମାନ, ରାଜୁଙ୍କର ଏକ ସଫଳ ତୈଳବୀଜ ଅମଳ ଏବଂ ଏକ ସମୃଦ୍ଧ ଭବିଷ୍ୟତ ଅଛି!' },
+    { imageId: 'comic-panel-4', text: 'ବର୍ତ୍ତମାନ, ରାଜୁଙ୍କର ଏକ ସଫଳ ତୈଳବୀଜ ଅମଳ ଏବଂ ଏକ ସମୃଦ୍ଧ ଭବିଷ్యତ ଅଛି!' },
   ],
   pa: [
     { imageId: 'comic-panel-1', text: 'ਇਹ ਰਾਜੂ ਹੈ। ਉਹ ਸੋਚਦਾ ਹੈ ਕਿ ਆਪਣੇ ਖੇਤ ਦੀ ਆਮਦਨ ਕਿਵੇਂ ਵਧਾਈ ਜਾਵੇ।' },
@@ -115,12 +115,12 @@ export function OilSeedComics() {
           {panels.map((panel, index) => {
             const image = PlaceHolderImages.find(p => p.id === panel.imageId);
             return (
-              <CarouselItem key={index}>
+              <CarouselItem key={index} className="md:basis-1/2">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Card className="cursor-pointer overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="flex flex-col md:flex-row items-center justify-center p-6 gap-6 aspect-video">
-                        <div className="md:w-1/2 relative w-full h-48 md:h-full overflow-hidden rounded-lg">
+                    <div className="p-1">
+                      <Card className="cursor-pointer overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <CardContent className="relative aspect-[4/3] p-0">
                           {image && (
                             <Image
                               src={image.imageUrl}
@@ -130,28 +130,27 @@ export function OilSeedComics() {
                               data-ai-hint={image.imageHint}
                             />
                           )}
-                        </div>
-                        <div className="md:w-1/2 text-center md:text-left">
-                          <p className="text-lg font-medium text-foreground">{panel.text}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                          <div className="absolute bottom-0 left-0 p-4">
+                            <p className="text-base font-medium text-white shadow-lg">{panel.text}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </DialogTrigger>
-                  <DialogContent className="max-w-3xl p-0">
-                      <div className="flex flex-col md:flex-row items-stretch">
-                        <div className="md:w-1/2 relative w-full aspect-square">
-                          {image && (
-                            <Image
-                              src={image.imageUrl}
-                              alt={image.description}
-                              fill
-                              className="object-cover"
-                              data-ai-hint={image.imageHint}
-                            />
-                          )}
-                        </div>
-                        <div className="md:w-1/2 flex flex-col justify-center p-8">
-                           <p className="text-xl text-center font-medium text-foreground">{panel.text}</p>
+                  <DialogContent className="max-w-3xl p-0 border-0">
+                      <div className="relative aspect-video">
+                        {image && (
+                          <Image
+                            src={image.imageUrl}
+                            alt={image.description}
+                            fill
+                            className="object-contain"
+                            data-ai-hint={image.imageHint}
+                          />
+                        )}
+                         <div className="absolute inset-x-0 bottom-0 bg-black/60 p-6 backdrop-blur-sm">
+                           <p className="text-xl text-center font-medium text-white">{panel.text}</p>
                         </div>
                       </div>
                   </DialogContent>
@@ -160,8 +159,8 @@ export function OilSeedComics() {
             );
           })}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="ml-12"/>
+        <CarouselNext className="mr-12" />
       </Carousel>
       <div className="py-2 text-center text-sm text-muted-foreground">
         Panel {current} of {count}
