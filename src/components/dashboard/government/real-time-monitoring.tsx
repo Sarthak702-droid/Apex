@@ -17,9 +17,9 @@ const alerts = [
 ];
 
 const severityColors = {
-    High: "bg-red-500",
-    Medium: "bg-yellow-500",
-    Low: "bg-green-500"
+    High: "text-red-500",
+    Medium: "text-yellow-500",
+    Low: "text-green-500"
 }
 
 const alertSeverityData = [
@@ -47,7 +47,7 @@ export default function RealTimeMonitoring() {
             <Table>
             <TableHeader>
                 <TableRow>
-                <TableHead className="w-[100px]"></TableHead>
+                <TableHead className="w-12"></TableHead>
                 <TableHead>Region</TableHead>
                 <TableHead>Alert Type</TableHead>
                 <TableHead>Severity</TableHead>
@@ -55,11 +55,11 @@ export default function RealTimeMonitoring() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {alerts.map((alert) => (
-                <TableRow key={alert.timestamp}>
+                {alerts.map((alert, index) => (
+                <TableRow key={index}>
                     <TableCell>
-                        <div className="flex items-center gap-2">
-                            <Circle className={`h-3 w-3 ${severityColors[alert.severity as keyof typeof severityColors]} rounded-full animate-pulse`} />
+                        <div className="flex items-center justify-center">
+                            <Circle className={`h-3 w-3 ${severityColors[alert.severity as keyof typeof severityColors]} fill-current animate-pulse`} />
                             <span className="sr-only">{alert.severity}</span>
                         </div>
                     </TableCell>
@@ -70,13 +70,13 @@ export default function RealTimeMonitoring() {
                         {alert.severity}
                     </Badge>
                     </TableCell>
-                    <TableCell className="text-right text-muted-foreground">{alert.timestamp}</TableCell>
+                    <TableCell className="text-right text-muted-foreground text-xs">{alert.timestamp}</TableCell>
                 </TableRow>
                 ))}
             </TableBody>
             </Table>
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center">
             <h4 className="text-sm font-medium mb-2 text-center text-muted-foreground">Alerts by Severity</h4>
             <ChartContainer config={chartConfig} className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -88,7 +88,11 @@ export default function RealTimeMonitoring() {
                             cursor={false}
                             content={<ChartTooltipContent indicator="dot" />}
                         />
-                        <Bar dataKey="count" radius={4} />
+                        <Bar dataKey="count" radius={4}>
+                            {alertSeverityData.map((entry) => (
+                                <Cell key={`cell-${entry.severity}`} fill={entry.fill} />
+                            ))}
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
             </ChartContainer>
