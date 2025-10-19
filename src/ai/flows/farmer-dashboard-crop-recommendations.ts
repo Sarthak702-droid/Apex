@@ -21,7 +21,7 @@ const CropRecommendationsInputSchema = z.object({
 export type CropRecommendationsInput = z.infer<typeof CropRecommendationsInputSchema>;
 
 const CropRecommendationsOutputSchema = z.object({
-  recommendedCrops: z.array(z.string()).describe('A list of recommended crops for the given region and conditions.'),
+  recommendedCrops: z.array(z.string()).describe('A list of recommended oilseed crops for the given region and conditions.'),
   reasoning: z.string().describe('The reasoning behind the crop recommendations, considering regional data, crop prices, and farm conditions.'),
   profitabilityInsights: z.string().describe('Insights into the potential profitability of each recommended crop.'),
 });
@@ -35,7 +35,21 @@ const prompt = ai.definePrompt({
   name: 'cropRecommendationsPrompt',
   input: {schema: CropRecommendationsInputSchema},
   output: {schema: CropRecommendationsOutputSchema},
-  prompt: `You are an AI assistant that provides crop recommendations to farmers based on their region, current crop prices, farm size, soil type, water availability, and farmer preferences.\n\nRegion: {{{region}}}\nCurrent Crop Prices: {{{currentCropPrices}}}\nFarm Size: {{{farmSize}}} acres\nSoil Type: {{{soilType}}}\nWater Availability: {{{waterAvailability}}}\nFarmer Preferences: {{{farmerPreferences}}}\n\nBased on this information, recommend the best crops for the farmer to plant and explain your reasoning. Also, provide insights into the potential profitability of each recommended crop.\n\nFormat your output to be valid JSON that matches the schema descriptions provided. Return only the JSON, nothing else. Do not include any introductory or concluding remarks.\n`,
+  prompt: `You are an AI assistant that provides crop recommendations to farmers. Your recommendations must exclusively be oilseed crops (such as soybean, groundnut, rapeseed, mustard, sesame, sunflower, etc.).
+
+  Base your recommendations on the farmer's region, current crop prices, farm size, soil type, water availability, and farmer preferences.
+  
+  Region: {{{region}}}
+  Current Crop Prices: {{{currentCropPrices}}}
+  Farm Size: {{{farmSize}}} acres
+  Soil Type: {{{soilType}}}
+  Water Availability: {{{waterAvailability}}}
+  Farmer Preferences: {{{farmerPreferences}}}
+  
+  Based on this information, recommend the best oilseed crops for the farmer to plant and explain your reasoning. Also, provide insights into the potential profitability of each recommended crop.
+  
+  Format your output to be valid JSON that matches the schema descriptions provided. Return only the JSON, nothing else. Do not include any introductory or concluding remarks.
+  `,
 });
 
 const cropRecommendationsFlow = ai.defineFlow(
