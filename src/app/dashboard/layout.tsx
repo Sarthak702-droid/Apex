@@ -9,6 +9,7 @@ import {
   Sidebar,
   SidebarInset,
 } from '@/components/ui/sidebar';
+import { SaudaProvider } from '@/context/SaudaContext';
 
 
 export default function DashboardLayout({
@@ -19,16 +20,18 @@ export default function DashboardLayout({
   const [open, setOpen] = React.useState(true);
 
   return (
-    <SidebarProvider open={open} onOpenChange={setOpen}>
-      <Sidebar>
-        <DashboardSidebar />
-      </Sidebar>
-      <SidebarInset>
-        <DashboardHeader />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 bg-secondary/50">
-          {children}
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+    <SaudaProvider>
+      <SidebarProvider open={open} onOpenChange={setOpen}>
+        <Sidebar>
+          <DashboardSidebar />
+        </Sidebar>
+        <SidebarInset>
+          <DashboardHeader />
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 bg-secondary/50">
+            {children}
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
+    </SaudaProvider>
   );
 }

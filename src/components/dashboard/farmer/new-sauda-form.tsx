@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
@@ -32,6 +33,7 @@ import {
     FormLabel,
     FormMessage,
   } from '@/components/ui/form';
+import { Sauda, SaudaContext } from '@/context/SaudaContext';
 
 const saudaSchema = z.object({
   crop: z.string().min(1, 'Crop selection is required.'),
@@ -61,6 +63,7 @@ const NewSaudaForm = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [totalValue, setTotalValue] = useState(0);
+  const saudaContext = useContext(SaudaContext);
 
   const form = useForm<z.infer<typeof saudaSchema>>({
     resolver: zodResolver(saudaSchema),
@@ -83,7 +86,16 @@ const NewSaudaForm = () => {
   }, [quantity, pricePerQuintal]);
 
   const onSubmit = (values: z.infer<typeof saudaSchema>) => {
-    console.log('Sauda Created:', values);
+    if (saudaContext) {
+        // The context requires dates to be strings for serialization
+        const newSauda: Sauda = {
+            ...values,
+            sowingDate: values.sowingDate.toISOString(),
+            expectedHarvestDate: values.expectedHarvestDate.toISOString(),
+        };
+        saudaContext.addSauda(newSauda);
+    }
+    
     toast({
       title: 'Digital Sauda Created!',
       description: `Your contract for ${values.quantity} quintals of ${values.crop} has been logged.`,
