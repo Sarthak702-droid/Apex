@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -64,7 +65,7 @@ const comicContent = {
       { imageId: 'comic-panel-2', text: "రాజు తన ప్రాంతానికి సరైన, అధిక డిమాండ్ ఉన్న నూనెగింజల పంట అయిన సోయాబీన్‌ను నాటాలని నిర్ణయించుకున్నాడు." },
       { imageId: 'comic-page-5', text: "అతను యాప్ నుండి వచ్చిన చిట్కాలతో నేల తయారీ మరియు విత్తడానికి ఉత్తమ పద్ధతులను అనుసరిస్తాడు." },
       { imageId: 'comic-page-6', text: "అతని సోయాబీన్ మొక్కలు ఆరోగ్యంగా మరియు బలంగా పెరుగుతాయి, గొప్ప పంటను వాగ్దానం చేస్తాయి." },
-      { imageId: 'comic-panel-3', text: "ప్రభుత్వం మద్దతు అందిస్తుంది, మెరుగైన మార్కెట్ ధరలు మరియు ప్రత్యక్ష కొనుగోలుదారుల అనుసంధానాలను ಖಚಿತపరుస్తుంది." },
+      { imageId: 'comic-panel-3', text: "ప్రభుత్వం మద్దతు అందిస్తుంది, మెరుగైన మార్కెట్ ధరలు మరియు ప్రత్యక్ష కొనుగోలుదారుల అనుసంధానాలను ఖಚಿತపరుస్తుంది." },
       { imageId: 'comic-panel-4', text: "పంట కోత సమయం! రాజు తన కష్టానికి ప్రతిఫలంగా సమృద్ధిగా పంటను పొందుతాడు." },
       { imageId: 'comic-page-9', text: "అతని ఆదాయం రెట్టింపు అయింది! ఇప్పుడు అతను తన కుటుంబానికి మెరుగైన భవిష్యత్తును అందించగలడు." },
       { imageId: 'comic-page-10', text: "రాజు తన గ్రామంలోని ఇతర రైతులకు నూనెగింజల సేద్యం చేపట్టడానికి ప్రేరణగా నిలుస్తాడు." }
@@ -119,7 +120,7 @@ export function OilSeedComics() {
     api?.scrollTo(0);
   };
   
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) {
       return
     }
@@ -188,3 +189,5 @@ export function OilSeedComics() {
     </div>
   );
 }
+
+    
