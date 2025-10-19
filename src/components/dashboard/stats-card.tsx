@@ -8,7 +8,7 @@ type StatsCardProps = {
   title: string;
   value: string;
   icon: React.ReactNode;
-  description: string;
+  description: React.ReactNode;
   className?: string;
   index?: number;
 };
@@ -27,7 +27,7 @@ export function StatsCard({ title, value, icon, description, className, index = 
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{value}</div>
-          <p className="text-xs text-muted-foreground">{description}</p>
+          <div className="text-xs text-muted-foreground">{description}</div>
         </CardContent>
       </Card>
     </motion.div>
