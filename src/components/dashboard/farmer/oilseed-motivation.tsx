@@ -6,7 +6,7 @@ import { DollarSign, Landmark, Network, Leaf, Award, TrendingUp } from 'lucide-r
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card } from '../ui/card';
+import { Card } from '@/components/ui/card';
 
 type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'bn';
 
@@ -315,11 +315,11 @@ function BenefitCard({ benefit, index }: { benefit: (typeof benefitContent.en)[0
 }
 
 function Milestone({ scrollYProgress, index, total }: { scrollYProgress: any, index: number, total: number }) {
-  const scale = useTransform(
-    scrollYProgress,
-    [index / total, (index + 0.5) / total],
-    [1, 1.5]
-  );
+    const scale = useTransform(
+        scrollYProgress,
+        [index / total, (index + 0.5) / total],
+        [1, 1.5]
+      );
 
   return (
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -356,7 +356,7 @@ export function OilseedMotivation() {
           </SelectTrigger>
           <SelectContent>
             {Object.entries(languages).map(([key, value]) => (
-              <SelectItem key={key} value={key}>{value}</SelectItem>
+              <SelectItem key={key} value={key as Language}>{value}</SelectItem>
             ))}
           </SelectContent>
         </Select>
