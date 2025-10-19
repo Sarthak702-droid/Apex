@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, FileText, Wheat, Filter, BookOpen } from "lucide-react";
+import { DollarSign, FileText, Wheat, Filter } from "lucide-react";
 import { StatsCard } from "@/components/dashboard/stats-card";
 import CropRecommendations from "@/components/dashboard/farmer/crop-recommendations";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { ChartTooltip, ChartTooltipContent, ChartContainer } from "@/components/ui/chart";
 import { OilseedMotivation } from '@/components/dashboard/farmer/oilseed-motivation';
+import { BookOpen } from 'lucide-react';
 
 const yieldData = {
   Telangana: [
