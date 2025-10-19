@@ -39,12 +39,23 @@ import { Loader2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 
-const signupSchema = z.object({
+const baseSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
   role: z.enum(ROLES, { required_error: 'Please select a role.' }),
-  email: z.string().email('Please enter a valid email.').optional(),
-  mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10, 'Please enter a valid 10-digit mobile number.'),
 });
+
+const signupSchema = z.discriminatedUnion('signupMethod', [
+  z.object({
+    signupMethod: z.literal('email'),
+    email: z.string().email('Please enter a valid email.'),
+    mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10, 'Please enter a valid 10-digit mobile number.'),
+  }).merge(baseSchema),
+  z.object({
+    signupMethod: z.literal('mobile'),
+    mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10, 'Please enter a valid 10-digit mobile number.'),
+    email: z.string().email('Please enter a valid email.').optional(),
+  }).merge(baseSchema)
+]);
 
 const SignupForm = () => {
   const router = useRouter();
@@ -55,8 +66,24 @@ const SignupForm = () => {
 
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
-    defaultValues: { name: '', email: '', mobile: '' },
+    defaultValues: { 
+      name: '', 
+      email: '', 
+      mobile: '',
+      signupMethod: 'email'
+    },
   });
+
+  // Watch signupMethod to update form default
+  const watchedSignupMethod = form.watch('signupMethod');
+  if (watchedSignupMethod !== signupMethod) {
+    setSignupMethod(watchedSignupMethod);
+  }
+
+  React.useEffect(() => {
+    form.setValue('signupMethod', signupMethod);
+  }, [signupMethod, form]);
+
 
   const handleSignup = (values: z.infer<typeof signupSchema>) => {
     setLoading(true);
