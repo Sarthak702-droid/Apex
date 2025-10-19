@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +11,11 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import * as React from 'react';
@@ -112,24 +116,46 @@ export function OilSeedComics() {
             const image = PlaceHolderImages.find(p => p.id === panel.imageId);
             return (
               <CarouselItem key={index}>
-                <Card>
-                  <CardContent className="flex flex-col md:flex-row items-center justify-center p-6 gap-6 aspect-video">
-                    <div className="md:w-1/2 relative w-full h-48 md:h-full">
-                       {image && (
-                        <Image
-                          src={image.imageUrl}
-                          alt={image.description}
-                          fill
-                          className="object-cover rounded-lg"
-                          data-ai-hint={image.imageHint}
-                        />
-                      )}
-                    </div>
-                    <div className="md:w-1/2 text-center md:text-left">
-                       <p className="text-lg font-medium text-foreground">{panel.text}</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                      <CardContent className="flex flex-col md:flex-row items-center justify-center p-6 gap-6 aspect-video">
+                        <div className="md:w-1/2 relative w-full h-48 md:h-full">
+                          {image && (
+                            <Image
+                              src={image.imageUrl}
+                              alt={image.description}
+                              fill
+                              className="object-cover rounded-lg"
+                              data-ai-hint={image.imageHint}
+                            />
+                          )}
+                        </div>
+                        <div className="md:w-1/2 text-center md:text-left">
+                          <p className="text-lg font-medium text-foreground">{panel.text}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl">
+                      <div className="flex flex-col items-center justify-center p-6 gap-6">
+                        <div className="relative w-full aspect-video">
+                          {image && (
+                            <Image
+                              src={image.imageUrl}
+                              alt={image.description}
+                              fill
+                              className="object-contain rounded-lg"
+                              data-ai-hint={image.imageHint}
+                            />
+                          )}
+                        </div>
+                        <div className="text-center">
+                           <p className="text-xl font-medium text-foreground">{panel.text}</p>
+                        </div>
+                      </div>
+                  </DialogContent>
+                </Dialog>
               </CarouselItem>
             );
           })}
