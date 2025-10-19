@@ -14,11 +14,15 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import * as React from 'react';
+import { motion } from 'framer-motion';
 
 const languages = [
   { value: 'en', label: 'English' },
@@ -118,15 +122,15 @@ export function OilSeedComics() {
               <CarouselItem key={index}>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                    <Card className="cursor-pointer overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <CardContent className="flex flex-col md:flex-row items-center justify-center p-6 gap-6 aspect-video">
-                        <div className="md:w-1/2 relative w-full h-48 md:h-full">
+                        <div className="md:w-1/2 relative w-full h-48 md:h-full overflow-hidden rounded-lg">
                           {image && (
                             <Image
                               src={image.imageUrl}
                               alt={image.description}
                               fill
-                              className="object-cover rounded-lg"
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
                               data-ai-hint={image.imageHint}
                             />
                           )}
@@ -137,21 +141,21 @@ export function OilSeedComics() {
                       </CardContent>
                     </Card>
                   </DialogTrigger>
-                  <DialogContent className="max-w-3xl">
-                      <div className="flex flex-col items-center justify-center p-6 gap-6">
-                        <div className="relative w-full aspect-video">
+                  <DialogContent className="max-w-3xl p-0">
+                      <div className="flex flex-col md:flex-row items-stretch">
+                        <div className="md:w-1/2 relative w-full aspect-square">
                           {image && (
                             <Image
                               src={image.imageUrl}
                               alt={image.description}
                               fill
-                              className="object-contain rounded-lg"
+                              className="object-cover"
                               data-ai-hint={image.imageHint}
                             />
                           )}
                         </div>
-                        <div className="text-center">
-                           <p className="text-xl font-medium text-foreground">{panel.text}</p>
+                        <div className="md:w-1/2 flex flex-col justify-center p-8">
+                           <p className="text-xl text-center font-medium text-foreground">{panel.text}</p>
                         </div>
                       </div>
                   </DialogContent>

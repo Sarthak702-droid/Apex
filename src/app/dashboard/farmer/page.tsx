@@ -104,7 +104,8 @@ export default function FarmerDashboard() {
                 <XAxis dataKey="month" tickLine={false} axisLine={false} />
                 <YAxis tickLine={false} axisLine={false} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="yield" fill="var(--color-yield)" radius={4} />
+                <Legend />
+                <Bar dataKey="yield" fill="var(--color-yield)" radius={4} name="Yield" />
               </BarChart>
             </ChartContainer>
           </CardContent>
@@ -121,7 +122,8 @@ export default function FarmerDashboard() {
                   <XAxis dataKey="month" tickLine={false} axisLine={false} />
                   <YAxis tickLine={false} axisLine={false} domain={['dataMin - 100', 'dataMax + 100']} />
                   <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line type="monotone" dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} />
+                  <Legend />
+                  <Line type="monotone" dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} name="Price" />
                 </LineChart>
             </ChartContainer>
           </CardContent>
