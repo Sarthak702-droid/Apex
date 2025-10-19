@@ -1,10 +1,10 @@
 
 'use client';
 
-import { BarChart, Calendar, FileText, IndianRupee, Leaf, Plus, Scale, TrendingUp } from "lucide-react";
+import { BarChart, Calendar, FileText, IndianRupee, Leaf, Plus, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatsCard } from "@/components/dashboard/stats-card";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DigitalSaudas } from "@/components/dashboard/farmer/digital-saudas";
 import { Badge } from "@/components/ui/badge";
 
