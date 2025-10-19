@@ -37,6 +37,7 @@ import { ROLES } from '@/lib/constants';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from '@/components/ui/label';
 
 const emailSchema = z.object({
   role: z.enum(ROLES, { required_error: 'Please select a role.' }),

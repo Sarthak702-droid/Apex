@@ -159,17 +159,17 @@ const SignupForm = () => {
               </TabsContent>
             </Tabs>
           ) : (
-            <div className="space-y-4">
+            <form onSubmit={(e) => { e.preventDefault(); handleOtpVerification(); }} className="space-y-4">
                 <FormLabel>Enter Verification Code</FormLabel>
                 <Input placeholder="6-digit code" />
-                <Button onClick={handleOtpVerification} disabled={loading} className="w-full">
+                <Button type="submit" disabled={loading} className="w-full">
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Verify and Sign Up
                 </Button>
                 <Button variant="link" onClick={() => setShowOtp(false)} className="w-full">
                     Back to Sign Up
                 </Button>
-            </div>
+            </form>
           )}
         </CardContent>
         <CardFooter className="flex justify-center">
