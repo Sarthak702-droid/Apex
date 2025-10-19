@@ -26,6 +26,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -34,14 +36,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ROLES } from '@/lib/constants';
-import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const formSchema = z.object({
+  email: z.string().email('Please enter a valid email address.'),
+  password: z.string().min(1, 'Password is required.'),
   role: z.enum(ROLES, { required_error: 'Please select a role.' }),
-  email: z.string().email('Please enter a valid email address.').optional(),
-  mobile: z.string().min(10, 'Please enter a valid 10-digit mobile number.').max(10).optional(),
 });
 
 const LoginForm = () => {
@@ -51,18 +50,20 @@ const LoginForm = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '', mobile: '' },
+    defaultValues: { email: '', password: '' },
   });
 
-  const onOtpSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     setLoading(true);
     // Mock authentication
     setTimeout(() => {
       setLoading(false);
       toast({
         title: 'Login Successful',
-        description: `Welcome, ${values.role}! Redirecting to your dashboard...`,
+        description: `Welcome back! Redirecting to your dashboard...`,
       });
+      // This is a mock login, we need the role to redirect.
+      // In a real app, you'd get the role from the user's profile.
       const dashboardPath = `/dashboard/${values.role.toLowerCase().replace(' ', '-')}`;
       router.push(dashboardPath);
     }, 1500);
@@ -78,18 +79,53 @@ const LoginForm = () => {
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-headline">Welcome Back!</CardTitle>
           <CardDescription>
-            Select your role and sign in to continue
+            Sign in with your email and password to continue
           </CardDescription>
         </CardHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onOtpSubmit)} className="space-y-6">
-            <CardContent className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <CardContent className="space-y-4">
               <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email Address</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="e.g., user@example.com"
+                        {...field}
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        {...field}
+                        disabled={loading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+               <FormField
                 control={form.control}
                 name="role"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>I am a...</FormLabel>
+                    <FormLabel>Select your dashboard</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -108,68 +144,10 @@ const LoginForm = () => {
                   </FormItem>
                 )}
               />
-
-              {form.watch('role') && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-4 overflow-hidden"
-                >
-                  <Tabs defaultValue="email" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="email">Email</TabsTrigger>
-                      <TabsTrigger value="mobile">Mobile</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="email" className="pt-4 space-y-4">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email Address</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g., user@example.com"
-                                {...field}
-                                disabled={loading}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="submit" disabled={loading} className="w-full">
-                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Send Email OTP
-                      </Button>
-                    </TabsContent>
-                    <TabsContent value="mobile" className="pt-4 space-y-4">
-                      <FormField
-                        control={form.control}
-                        name="mobile"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Mobile Number</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g., 9876543210"
-                                {...field}
-                                disabled={loading}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="submit" disabled={loading} className="w-full">
-                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Send Mobile OTP
-                      </Button>
-                    </TabsContent>
-                  </Tabs>
-                </motion.div>
-              )}
+              <Button type="submit" disabled={loading} className="w-full">
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Log In
+              </Button>
             </CardContent>
           </form>
         </Form>
