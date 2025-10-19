@@ -69,10 +69,7 @@ const ComicPanel = ({ panel, index }: { panel: { imageId: string; text: string }
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['-20%', '10%']);
   const opacity = useTransform(scrollYProgress, [0, 0.4, 0.9, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-  const filter = useTransform(scrollYProgress, [0, 0.5, 1], ['grayscale(100%)', 'grayscale(0%)', 'grayscale(100%)']);
 
   return (
     <motion.div
@@ -82,15 +79,13 @@ const ComicPanel = ({ panel, index }: { panel: { imageId: string; text: string }
     >
       <div className="relative w-[90vw] md:w-[70vw] lg:w-[50vw] aspect-[16/9] rounded-xl overflow-hidden shadow-2xl border-4 border-card">
         {image && (
-          <motion.div className="absolute inset-0" style={{ scale, filter }}>
+          <motion.div className="absolute inset-0">
              <Image
               src={image.imageUrl}
               alt={image.description}
               fill
               className="object-cover"
               data-ai-hint={image.imageHint}
-              priority
-              style={{ y }}
             />
           </motion.div>
         )}
@@ -144,5 +139,3 @@ export function OilSeedComics() {
     </div>
   );
 }
-
-    
