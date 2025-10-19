@@ -14,6 +14,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -139,6 +140,7 @@ export function OilSeedComics() {
                     </div>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl p-0 border-0">
+                    <DialogTitle className="sr-only">Oilseed Farming Comic Panel</DialogTitle>
                       <div className="relative aspect-video">
                         {image && (
                           <Image
