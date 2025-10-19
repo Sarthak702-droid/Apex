@@ -2,20 +2,11 @@
 
 import { Sprout, Diamond, Droplets } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-type Crop = {
-  name: string;
-  variety: string;
-  type: 'OILSEED' | 'CEREAL';
-  roi: number;
-  profit: number;
-  duration: number;
-  risk: 'LOW' | 'MEDIUM' | 'HIGH';
-  score: number;
-};
+import type { Crop } from '@/app/dashboard/farmer/compare-crops/page';
 
 type CropComparisonCardProps = {
   crop: Crop;
+  onCardClick: () => void;
 };
 
 const roiColor = (roi: number) => {
@@ -39,11 +30,14 @@ const riskStyles = {
   },
 };
 
-const CropComparisonCard = ({ crop }: CropComparisonCardProps) => {
+const CropComparisonCard = ({ crop, onCardClick }: CropComparisonCardProps) => {
   const risk = riskStyles[crop.risk];
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] transition-transform hover:translate-x-[-2px] hover:translate-y-[-2px]">
+    <button
+      onClick={onCardClick}
+      className="bg-white dark:bg-gray-800 p-4 rounded-lg border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] transition-transform hover:translate-x-[-2px] hover:translate-y-[-2px] text-left w-full"
+    >
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center gap-3">
           <div className="bg-blue-600 text-white p-2 rounded-md border-2 border-black">
@@ -84,7 +78,7 @@ const CropComparisonCard = ({ crop }: CropComparisonCardProps) => {
       </div>
 
       <div className="flex justify-between items-center mt-6">
-        <button
+        <div
           className={cn(
             'flex items-center gap-1.5 text-white text-sm font-bold px-4 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]',
             risk.badge
@@ -92,13 +86,13 @@ const CropComparisonCard = ({ crop }: CropComparisonCardProps) => {
         >
           {risk.icon}
           {crop.risk}
-        </button>
-        <button className="flex items-center gap-1.5 text-white text-sm font-bold px-4 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-blue-600 hover:bg-blue-700 border-blue-800">
+        </div>
+        <div className="flex items-center gap-1.5 text-white text-sm font-bold px-4 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-blue-600 border-blue-800">
           <Droplets className="h-4 w-4" />
           {crop.score}/100
-        </button>
+        </div>
       </div>
-    </div>
+    </button>
   );
 };
 
