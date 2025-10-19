@@ -5,6 +5,7 @@ import { X, TrendingUp, IndianRupee, Diamond } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { Crop } from '@/app/dashboard/farmer/compare-crops/page';
+import React from 'react';
 
 type CropDetailsModalProps = {
   crop: Crop;
@@ -25,6 +26,19 @@ const riskStyles = {
 
 const CropDetailsModal = ({ crop, onClose }: CropDetailsModalProps) => {
     const risk = riskStyles[crop.risk as keyof typeof riskStyles];
+
+    React.useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          onClose();
+        }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [onClose]);
 
   return (
     <motion.div
@@ -47,9 +61,9 @@ const CropDetailsModal = ({ crop, onClose }: CropDetailsModalProps) => {
           variant="default"
           onClick={onClose}
           className="absolute top-2 right-2 w-8 h-8 bg-pink-500 hover:bg-pink-600 text-white rounded-md border-2 border-black"
+          aria-label="Close modal"
         >
           <X className="w-5 h-5" />
-          <span className="sr-only">Close</span>
         </Button>
 
         <h2 className="font-bold text-4xl mb-4 font-headline">{crop.name}</h2>
