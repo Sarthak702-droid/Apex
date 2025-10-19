@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Line, LineChart } from "recharts";
 import { ChartTooltip, ChartTooltipContent, ChartContainer } from "@/components/ui/chart";
-import { OilSeedComics } from '@/components/dashboard/farmer/oil-seed-comics';
+import { OilseedMotivation } from '@/components/dashboard/farmer/oilseed-motivation';
 
 const yieldData = {
   Telangana: [
@@ -144,12 +144,12 @@ export default function FarmerDashboard() {
         <CardHeader>
           <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
             <BookOpen className="h-7 w-7 text-primary" />
-            The Journey of an Oilseed Farmer
+            The Path to Prosperity with Oilseeds
           </CardTitle>
-          <CardDescription>An interactive story to guide you on your oilseed cultivation journey. Scroll to begin.</CardDescription>
+          <CardDescription>An interactive journey showcasing the benefits of oilseed farming.</CardDescription>
         </CardHeader>
-        <CardContent className="p-0 m-0">
-          <OilSeedComics />
+        <CardContent>
+          <OilseedMotivation />
         </CardContent>
       </Card>
 
