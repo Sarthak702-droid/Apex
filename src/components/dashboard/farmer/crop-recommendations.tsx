@@ -11,7 +11,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -88,47 +87,48 @@ const CropRecommendations = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2">
-            <Sparkles className="text-primary h-6 w-6" />
-            AI Crop Recommender
-          </CardTitle>
-          <CardDescription>
-            Fill in your farm details to get personalized, AI-driven crop recommendations.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FormField control={form.control} name="region" render={({ field }) => (
-                  <FormItem><FormLabel>Region</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-0">
+      <div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline flex items-center gap-2">
+              AI Crop Recommender
+            </CardTitle>
+            <CardDescription>
+              Fill in your farm details to get personalized, AI-driven crop recommendations.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <FormField control={form.control} name="region" render={({ field }) => (
+                    <FormItem><FormLabel>Region</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                  )} />
+                  <FormField control={form.control} name="farmSize" render={({ field }) => (
+                    <FormItem><FormLabel>Farm Size (acres)</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
+                  )} />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <FormField control={form.control} name="soilType" render={({ field }) => (
+                    <FormItem><FormLabel>Soil Type</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                  )} />
+                  <FormField control={form.control} name="waterAvailability" render={({ field }) => (
+                    <FormItem><FormLabel>Water Availability</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                  )} />
+                </div>
+                <FormField control={form.control} name="farmerPreferences" render={({ field }) => (
+                  <FormItem><FormLabel>Preferences (Optional)</FormLabel><FormControl><Textarea placeholder="e.g., prefer low-water crops" {...field} /></FormControl><FormMessage /></FormItem>
                 )} />
-                <FormField control={form.control} name="farmSize" render={({ field }) => (
-                  <FormItem><FormLabel>Farm Size (acres)</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
-                )} />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FormField control={form.control} name="soilType" render={({ field }) => (
-                  <FormItem><FormLabel>Soil Type</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                )} />
-                <FormField control={form.control} name="waterAvailability" render={({ field }) => (
-                  <FormItem><FormLabel>Water Availability</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                )} />
-              </div>
-              <FormField control={form.control} name="farmerPreferences" render={({ field }) => (
-                <FormItem><FormLabel>Preferences (Optional)</FormLabel><FormControl><Textarea placeholder="e.g., prefer low-water crops" {...field} /></FormControl><FormMessage /></FormItem>
-              )} />
-              <Button type="submit" disabled={loading} className="w-full">
-                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-                Generate Recommendations
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+                <Button type="submit" disabled={loading} className="w-full">
+                  {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+                  Generate Recommendations
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
       
       <div className="flex items-center justify-center">
         <AnimatePresence>
