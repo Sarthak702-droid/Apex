@@ -9,6 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {ROLES} from '@/lib/constants';
 
 const ConversationalAgentInputSchema = z.object({
   history: z.array(z.object({
@@ -16,6 +17,7 @@ const ConversationalAgentInputSchema = z.object({
     content: z.array(z.object({ text: z.string() })),
   })).describe('The conversation history.'),
   prompt: z.string().describe('The user\'s prompt.'),
+  role: z.enum(ROLES).optional().describe('The user\'s role.'),
 });
 export type ConversationalAgentInput = z.infer<typeof ConversationalAgentInputSchema>;
 
@@ -33,7 +35,9 @@ const prompt = ai.definePrompt({
   input: {schema: ConversationalAgentInputSchema},
   output: {schema: ConversationalAgentOutputSchema},
   prompt: `You are Krishi Mitra, a helpful and friendly AI assistant for Tel-Samriddhi, a digital ecosystem for agriculture.
-
+{{#if role}}
+You are assisting a {{role}}. Tailor your responses to be most helpful for their needs.
+{{else}}
 Your first task is to ask the user for their preferred language or region. Based on their answer, you MUST identify their language and respond ONLY in that language for the rest of the conversation.
 
 You are fluent in the following languages:
@@ -46,6 +50,7 @@ You are fluent in the following languages:
 - Tribal languages of Maharashtra
 - Tribal languages of Chhattisgarh
 - Tribal languages of Jharkhand
+{{/if}}
 
 Use the conversation history to inform your responses.
 
