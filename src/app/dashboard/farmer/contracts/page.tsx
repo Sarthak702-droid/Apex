@@ -53,16 +53,6 @@ const dummyContracts = [
     expectedEndDate: "2024-12-10",
   },
   {
-    id: "CTR-004",
-    buyer: "Agro Traders",
-    crop: "Rice",
-    quantity: 200,
-    pricePerQuintal: 2040,
-    status: "Active",
-    startDate: "2024-06-20",
-    expectedEndDate: "2024-09-30",
-  },
-    {
     id: "CTR-005",
     buyer: "Modern Foods",
     crop: "Sunflower",
@@ -71,6 +61,16 @@ const dummyContracts = [
     status: "Pending",
     startDate: "2024-08-10",
     expectedEndDate: "2024-11-15",
+  },
+  {
+    id: "CTR-006",
+    buyer: "Global Oils",
+    crop: "Safflower",
+    quantity: 90,
+    pricePerQuintal: 5200,
+    status: "Active",
+    startDate: "2024-07-20",
+    expectedEndDate: "2024-11-25",
   },
 ];
 
@@ -82,12 +82,12 @@ const statusStyles = {
 
 export default function ContractsPage() {
   const [statusFilter, setStatusFilter] = useState("All");
-  const [cropTypeFilter, setCropTypeFilter] = useState("All");
+  const [cropFilter, setCropFilter] = useState("All");
 
   const filteredContracts = dummyContracts.filter(contract => {
     const statusMatch = statusFilter === "All" || contract.status === statusFilter;
-    const cropTypeMatch = cropTypeFilter === "All" || (cropTypeFilter === "Oilseeds" && oilseedCrops.includes(contract.crop));
-    return statusMatch && cropTypeMatch;
+    const cropMatch = cropFilter === "All" || contract.crop === cropFilter;
+    return statusMatch && cropMatch;
   });
 
   return (
@@ -116,13 +116,15 @@ export default function ContractsPage() {
                             <SelectItem value="Completed">Completed</SelectItem>
                         </SelectContent>
                     </Select>
-                    <Select value={cropTypeFilter} onValueChange={setCropTypeFilter}>
+                    <Select value={cropFilter} onValueChange={setCropFilter}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Filter by crop type" />
+                            <SelectValue placeholder="Filter by crop" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="All">All Crops</SelectItem>
-                            <SelectItem value="Oilseeds">Oilseeds</SelectItem>
+                            <SelectItem value="All">All Oilseeds</SelectItem>
+                            {oilseedCrops.map(crop => (
+                                <SelectItem key={crop} value={crop}>{crop}</SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                 </div>
