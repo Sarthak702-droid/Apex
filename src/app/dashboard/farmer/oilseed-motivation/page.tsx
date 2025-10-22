@@ -1,5 +1,6 @@
 
-import GovtSchemesSection from "@/components/dashboard/farmer/govt-schemes-section";
+
+import { GovtSchemesSection } from "@/components/dashboard/farmer/oilseed-motivation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Landmark } from "lucide-react";
 
@@ -12,7 +13,7 @@ export default function OilseedMotivationPage() {
           Government Schemes for Oilseed Farming
         </CardTitle>
         <CardDescription>
-          Learn how the 'Tel-Samriddhi' mission can help you grow and prosper.
+          Learn how the 'Tel-Samriddhi' mission and other schemes can help you grow and prosper.
         </CardDescription>
       </CardHeader>
       <CardContent>

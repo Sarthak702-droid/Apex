@@ -1,13 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle } from 'lucide-react';
+import FarmerJourneySection from './farmer-journey-section';
 
 const AboutSection = () => {
-  const aboutImage = PlaceHolderImages.find(p => p.id === 'about-image');
   const goals = [
     "Empower farmers with data-driven insights.",
     "Create a transparent and efficient supply chain.",
@@ -18,7 +15,7 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-20 lg:py-32 bg-secondary">
       <div className="container">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-1 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -47,28 +44,9 @@ const AboutSection = () => {
               ))}
             </div>
           </motion.div>
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Card className="overflow-hidden">
-              <CardContent className="p-0">
-                {aboutImage && (
-                  <Image
-                    src={aboutImage.imageUrl}
-                    alt={aboutImage.description}
-                    width={600}
-                    height={400}
-                    className="object-cover w-full h-auto"
-                    data-ai-hint={aboutImage.imageHint}
-                  />
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
+        </div>
+        <div className="mt-20">
+          <FarmerJourneySection />
         </div>
       </div>
     </section>
