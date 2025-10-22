@@ -7,7 +7,6 @@ import { DollarSign, Landmark, Network, Leaf, Award, TrendingUp } from 'lucide-r
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card } from '@/components/ui/card';
 
 type Language = 'en' | 'hi' | 'mr' | 'te' | 'ta' | 'bn' | 'or' | 'pa' | 'hinv' | 'ch' | 'jh';
 
@@ -527,7 +526,7 @@ function Milestone({ scrollYProgress, index, total }: { scrollYProgress: any, in
   );
 }
 
-export function GovtSchemesSection() {
+export default function GovtSchemesSection() {
   const scrollRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -544,7 +543,7 @@ export function GovtSchemesSection() {
   });
 
   return (
-    <Card className='p-4 md:p-6'>
+    <div className='p-0 md:p-0'>
       <div className="flex justify-end mb-6">
         <Select onValueChange={(value: Language) => setLanguage(value)} defaultValue={language}>
           <SelectTrigger className="w-[180px]">
@@ -571,6 +570,6 @@ export function GovtSchemesSection() {
           ))}
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

@@ -35,6 +35,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   Farmer: [
     { href: '/dashboard/farmer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/farmer/crop-recommendations', label: 'Crop Recommendations', icon: <Wheat className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/oilseed-motivation', label: 'Govt Schemes', icon: <Landmark className="h-4 w-4" /> },
     { href: '/dashboard/farmer/profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
     { href: '/dashboard/farmer/contracts', label: 'Contracts', icon: <FileText className="h-4 w-4" /> },
   ],
