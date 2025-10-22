@@ -1,8 +1,25 @@
 
+'use client';
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FileText, User, Wheat, IndianRupee, Calendar, Check, X } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const oilseedCrops = [
+  'Soybean',
+  'Groundnut',
+  'Rapeseed',
+  'Mustard',
+  'Sesame',
+  'Sunflower',
+  'Castor',
+  'Linseed',
+  'Nigerseed',
+  'Safflower',
+];
 
 const dummyContracts = [
   {
@@ -35,6 +52,26 @@ const dummyContracts = [
     startDate: "2024-08-01",
     expectedEndDate: "2024-12-10",
   },
+  {
+    id: "CTR-004",
+    buyer: "Agro Traders",
+    crop: "Rice",
+    quantity: 200,
+    pricePerQuintal: 2040,
+    status: "Active",
+    startDate: "2024-06-20",
+    expectedEndDate: "2024-09-30",
+  },
+    {
+    id: "CTR-005",
+    buyer: "Modern Foods",
+    crop: "Sunflower",
+    quantity: 80,
+    pricePerQuintal: 6200,
+    status: "Pending",
+    startDate: "2024-08-10",
+    expectedEndDate: "2024-11-15",
+  },
 ];
 
 const statusStyles = {
@@ -44,22 +81,57 @@ const statusStyles = {
 };
 
 export default function ContractsPage() {
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [cropTypeFilter, setCropTypeFilter] = useState("All");
+
+  const filteredContracts = dummyContracts.filter(contract => {
+    const statusMatch = statusFilter === "All" || contract.status === statusFilter;
+    const cropTypeMatch = cropTypeFilter === "All" || (cropTypeFilter === "Oilseeds" && oilseedCrops.includes(contract.crop));
+    return statusMatch && cropTypeMatch;
+  });
+
   return (
     <div className="space-y-6">
        <Card>
         <CardHeader>
-            <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
-                <FileText className="h-7 w-7 text-primary" />
-                My Contracts
-            </CardTitle>
-            <CardDescription>
-                An overview of all your active, pending, and completed contracts.
-            </CardDescription>
+            <div className="flex flex-wrap justify-between items-center gap-4">
+                <div>
+                    <CardTitle className="font-headline flex items-center gap-2 text-2xl md:text-3xl">
+                        <FileText className="h-7 w-7 text-primary" />
+                        My Contracts
+                    </CardTitle>
+                    <CardDescription>
+                        An overview of all your active, pending, and completed contracts.
+                    </CardDescription>
+                </div>
+                <div className="flex flex-wrap items-center gap-4">
+                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Filter by status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="All">All Statuses</SelectItem>
+                            <SelectItem value="Active">Active</SelectItem>
+                            <SelectItem value="Pending">Pending</SelectItem>
+                            <SelectItem value="Completed">Completed</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <Select value={cropTypeFilter} onValueChange={setCropTypeFilter}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Filter by crop type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="All">All Crops</SelectItem>
+                            <SelectItem value="Oilseeds">Oilseeds</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
         </CardHeader>
        </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {dummyContracts.map((contract) => (
+        {filteredContracts.map((contract) => (
           <Card key={contract.id} className="flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between pb-4">
               <CardTitle className="text-lg font-semibold">{contract.id}</CardTitle>
@@ -107,6 +179,13 @@ export default function ContractsPage() {
           </Card>
         ))}
       </div>
+      {filteredContracts.length === 0 && (
+        <Card>
+            <CardContent className="py-12 text-center text-muted-foreground">
+                <p>No contracts match the selected filters.</p>
+            </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
