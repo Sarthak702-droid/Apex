@@ -167,16 +167,18 @@ export default function ContractsPage() {
                     </p>
                 </div>
                  <Button className="w-full mt-4">View Details</Button>
-                 <div className="flex gap-2 mt-2">
-                    <Button className="w-full bg-green-600 hover:bg-green-700">
-                        <Check className="mr-2 h-4 w-4" />
-                        Accept Contract
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                        <X className="mr-2 h-4 w-4" />
-                         Reject
-                    </Button>
-                </div>
+                 {contract.status !== 'Completed' && (
+                    <div className="flex gap-2 mt-2">
+                        <Button className="w-full bg-green-600 hover:bg-green-700">
+                            <Check className="mr-2 h-4 w-4" />
+                            Accept Contract
+                        </Button>
+                        <Button variant="outline" className="w-full">
+                            <X className="mr-2 h-4 w-4" />
+                            Reject
+                        </Button>
+                    </div>
+                )}
             </div>
           </Card>
         ))}
