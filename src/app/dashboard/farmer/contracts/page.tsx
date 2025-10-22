@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FileText, User, Wheat, IndianRupee, Calendar } from "lucide-react";
+import { FileText, User, Wheat, IndianRupee, Calendar, Check, X } from "lucide-react";
 
 const dummyContracts = [
   {
@@ -93,6 +93,18 @@ export default function ContractsPage() {
                     </p>
                 </div>
                  <Button className="w-full mt-4">View Details</Button>
+                 {contract.status === 'Pending' && (
+                    <div className="flex gap-2 mt-2">
+                        <Button className="w-full bg-green-600 hover:bg-green-700">
+                            <Check className="mr-2 h-4 w-4" />
+                            Accept Contract
+                        </Button>
+                        <Button variant="outline" className="w-full">
+                            <X className="mr-2 h-4 w-4" />
+                             Reject
+                        </Button>
+                    </div>
+                 )}
             </div>
           </Card>
         ))}
