@@ -9,9 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 const quickActions = [
-    { label: "Quality Check", icon: <FileText className="h-4 w-4" /> },
-    { label: "Carbon Credits", icon: <Leaf className="h-4 w-4" /> },
-    { label: "Crop Economics", icon: <BarChart className="h-4 w-4" /> },
+    { label: "Quality Check", icon: <FileText className="h-4 w-4" />, href: "/dashboard/farmer/quality-check" },
+    { label: "Carbon Credits", icon: <Leaf className="h-4 w-4" />, href: "#" },
+    { label: "Crop Economics", icon: <BarChart className="h-4 w-4" />, href: "/dashboard/farmer/compare-crops" },
 ];
 
 export default function FarmerDashboard() {
@@ -76,9 +76,11 @@ export default function FarmerDashboard() {
                 </CardHeader>
                 <CardContent className="flex flex-col gap-2">
                     {quickActions.map(action => (
-                        <Button key={action.label} variant="outline" className="w-full justify-start gap-2">
-                            {action.icon}
-                            {action.label}
+                        <Button key={action.label} variant="outline" className="w-full justify-start gap-2" asChild>
+                           <Link href={action.href}>
+                             {action.icon}
+                             {action.label}
+                           </Link>
                         </Button>
                     ))}
                 </CardContent>
