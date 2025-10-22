@@ -22,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, CircleUser } from 'lucide-react';
 import { ThemeToggle } from '../theme-toggle';
 import { DashboardSidebar } from './sidebar';
@@ -49,6 +49,10 @@ const DashboardHeader = () => {
              </Button>
            </SheetTrigger>
            <SheetContent side="left" className="flex flex-col p-0">
+             <SheetHeader className="sr-only">
+                <SheetTitle>Navigation Menu</SheetTitle>
+                <SheetDescription>Main navigation for the dashboard.</SheetDescription>
+             </SheetHeader>
              <DashboardSidebar />
            </SheetContent>
          </Sheet>
