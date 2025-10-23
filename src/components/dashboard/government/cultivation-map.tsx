@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -83,10 +84,10 @@ export default function CultivationMap() {
                         <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                             <div className='bg-background p-2 rounded-md shadow-lg border text-sm'>
                                 <p className='font-bold'>{point.name}</p>
-                                <p className='text-muted-foreground'>
+                                <div className='text-muted-foreground'>
                                     <Badge variant="secondary" className='mr-1.5'>{point.crop}</Badge>
                                     {point.value}% cultivation
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
