@@ -1,11 +1,25 @@
-import { FileText, ShoppingBasket, Truck } from "lucide-react";
-import { StatsCard } from "@/components/dashboard/stats-card";
-import AIQualityReport from "@/components/dashboard/buyer/ai-quality-report";
+'use client';
+
+import { FileText, ShoppingBasket, Truck, Plus } from 'lucide-react';
+import { StatsCard } from '@/components/dashboard/stats-card';
+import AIQualityReport from '@/components/dashboard/buyer/ai-quality-report';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import AvailableProduce from '@/components/dashboard/buyer/available-produce';
 
 export default function BuyerDashboard() {
   return (
     <div className="space-y-6">
-      <h1 className="font-headline text-3xl font-bold">Buyer Dashboard</h1>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="font-headline text-3xl font-bold">Buyer Dashboard</h1>
+        <Button asChild>
+          <Link href="/dashboard/buyer/new-contract">
+            <Plus className="mr-2 h-4 w-4" />
+            Create New Contract
+          </Link>
+        </Button>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <StatsCard
           title="Active Contracts"
@@ -26,6 +40,11 @@ export default function BuyerDashboard() {
           description="+8% from last month"
         />
       </div>
+
+      <div>
+        <AvailableProduce />
+      </div>
+
       <div>
         <AIQualityReport />
       </div>

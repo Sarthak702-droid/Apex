@@ -17,7 +17,7 @@ import {
   ShoppingBasket,
   FileText,
   DollarSign,
-  Menu,
+  Plus,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
@@ -48,9 +48,9 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   ],
   Buyer: [
     { href: '/dashboard/buyer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/buyer#purchase-insights', label: 'Purchase Insights', icon: <ShoppingBasket className="h-4 w-4" /> },
+    { href: '/dashboard/buyer/new-contract', label: 'Create Contract', icon: <Plus className="h-4 w-4" /> },
     { href: '/dashboard/buyer#quality-reports', label: 'Quality Reports', icon: <FileText className="h-4 w-4" /> },
-    { href: '/dashboard/buyer#contracts', label: 'Contracts', icon: <Briefcase className="h-4 w-4" /> },
+    { href: '/dashboard/buyer#contracts', label: 'My Contracts', icon: <Briefcase className="h-4 w-4" /> },
   ],
   Government: [
     { href: '/dashboard/government', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -72,9 +72,12 @@ const getRoleFromPath = (path: string): Role => {
   if (ROLES.includes(roleSegment)) {
     return roleSegment;
   }
-  // Fallback for nested farmer routes
-  if (segments[1] === 'farmer') {
-    return 'Farmer';
+  // Fallback for nested farmer/buyer routes
+  if (segments[1] === 'farmer' || segments[1] === 'buyer') {
+    const role = segments[1].charAt(0).toUpperCase() + segments[1].slice(1) as Role;
+    if (ROLES.includes(role)) {
+      return role;
+    }
   }
   return 'Farmer'; // Default fallback
 };
@@ -90,7 +93,7 @@ export function DashboardSidebar() {
     // Exact match for overview pages
     if (pathname === href) return true;
     // For nested routes, check if the path starts with the link's href
-    if (href !== '/dashboard/farmer' && pathname.startsWith(href)) return true;
+    if ((href.includes('/farmer/') || href.includes('/buyer/')) && pathname.startsWith(href)) return true;
     return false;
   };
 
