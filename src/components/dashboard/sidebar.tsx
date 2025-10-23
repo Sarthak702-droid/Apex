@@ -18,6 +18,7 @@ import {
   FileText,
   DollarSign,
   Plus,
+  TrendingUp,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
@@ -34,11 +35,11 @@ import {
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
   Farmer: [
     { href: '/dashboard/farmer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/crop-recommendations', label: 'Crop Recommendations', icon: <Wheat className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/crop-recommendations', label: 'AI Recommendations', icon: <Wheat className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/compare-crops', label: 'Compare Crops', icon: <TrendingUp className="h-4 w-4" /> },
     { href: '/dashboard/farmer/quality-check', label: 'Quality Check', icon: <FileText className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/oilseed-motivation', label: 'Govt Schemes', icon: <Landmark className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/contracts', label: 'My Contracts', icon: <Briefcase className="h-4 w-4" /> },
     { href: '/dashboard/farmer/profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/contracts', label: 'Contracts', icon: <FileText className="h-4 w-4" /> },
   ],
   FPO: [
     { href: '/dashboard/fpo', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -93,7 +94,10 @@ export function DashboardSidebar() {
     // Exact match for overview pages
     if (pathname === href) return true;
     // For nested routes, check if the path starts with the link's href
-    if ((href.includes('/farmer/') || href.includes('/buyer/')) && pathname.startsWith(href)) return true;
+    if (href.split('/').length > 3 && pathname.startsWith(href)) return true;
+    // For hash links on the overview page
+    if (pathname === `/dashboard/${role.toLowerCase()}` && href.includes('#')) return false;
+
     return false;
   };
 

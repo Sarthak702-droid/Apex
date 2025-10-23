@@ -1,19 +1,27 @@
 'use client';
 
-import { Landmark, Leaf, BarChart3, FileSpreadsheet } from 'lucide-react';
+import { Landmark, Leaf, BarChart3, Map, Plus } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import PolicyAnalytics from '@/components/dashboard/government/policy-analytics';
 import SustainabilityData from '@/components/dashboard/government/sustainability-data';
 import RealTimeMonitoring from '@/components/dashboard/government/real-time-monitoring';
+import CultivationMap from '@/components/dashboard/government/cultivation-map';
+import { Button } from '@/components/ui/button';
 
 export default function GovernmentDashboard() {
   return (
     <div className="space-y-6">
-      <h1 className="font-headline text-3xl font-bold">Government Dashboard</h1>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="font-headline text-3xl font-bold">Government Dashboard</h1>
+         <Button>
+          <Plus className="mr-2 h-4 w-4" />
+          Create New Scheme
+        </Button>
+      </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
-          title="Policies Implemented"
-          value="25"
+          title="Active Schemes"
+          value="42"
           icon={<Landmark className="h-5 w-5" />}
           description="Across all regions"
         />
@@ -24,28 +32,33 @@ export default function GovernmentDashboard() {
           description="Improvement in sustainable practices"
         />
         <StatsCard
-          title="Real-time Alerts"
-          value="15"
+          title="Farmer Adoption"
+          value="62%"
           icon={<BarChart3 className="h-5 w-5" />}
-          description="Critical alerts today"
+          description="Of promoted oilseed schemes"
         />
          <StatsCard
-          title="Data Reports"
-          value="1,200+"
-          icon={<FileSpreadsheet className="h-5 w-5" />}
-          description="Total reports available"
+          title="Regional Coverage"
+          value="15 States"
+          icon={<Map className="h-5 w-5" />}
+          description="Under Tel-Samriddhi Mission"
         />
       </div>
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3">
+           <CultivationMap />
+        </div>
+        <div className="lg:col-span-2">
+            <PolicyAnalytics />
+        </div>
+      </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 scroll-mt-20">
-        <div id="policy-analytics" className="xl:col-span-2">
-          <PolicyAnalytics />
+        <div id="real-time-monitoring" className="xl:col-span-2 scroll-mt-20">
+            <RealTimeMonitoring />
         </div>
         <div id="sustainability-data" className="scroll-mt-20">
           <SustainabilityData />
         </div>
-      </div>
-      <div id="real-time-monitoring" className="scroll-mt-20">
-        <RealTimeMonitoring />
       </div>
     </div>
   );

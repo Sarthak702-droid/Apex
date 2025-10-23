@@ -5,30 +5,46 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Legend
 import { ChartTooltip, ChartTooltipContent, ChartContainer, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 
 const chartData = [
-  { region: "Odisha", success: 3, failed: 1 },
-  { region: "Maharashtra", success: 5, failed: 2 },
-  { region: "Chhattisgarh", success: 3, failed: 0 },
-  { region: "Jharkhand", success: 4, failed: 1 },
-  { region: "Telangana", success: 5, failed: 1 },
+  { region: "Odisha", Groundnut: 65, Mustard: 40 },
+  { region: "Maharashtra", Soybean: 80, Sunflower: 55 },
+  { region: "Chhattisgarh", Soybean: 50, Linseed: 70 },
+  { region: "Jharkhand", Mustard: 60, Sesame: 45 },
+  { region: "Telangana", Sunflower: 75, Groundnut: 60 },
 ];
 
 const chartConfig = {
-  success: {
-    label: "Successful",
+  Soybean: {
+    label: "Soybean",
     color: "hsl(var(--chart-1))",
   },
-  failed: {
-    label: "Failed",
-    color: "hsl(var(--destructive))",
+  Groundnut: {
+    label: "Groundnut",
+    color: "hsl(var(--chart-2))",
   },
+  Mustard: {
+    label: "Mustard",
+    color: "hsl(var(--chart-3))",
+  },
+  Sunflower: {
+    label: "Sunflower",
+    color: "hsl(var(--chart-4))",
+  },
+  Linseed: {
+      label: "Linseed",
+      color: "hsl(var(--chart-5))",
+  },
+  Sesame: {
+      label: "Sesame",
+      color: "hsl(var(--destructive))",
+  }
 };
 
 export default function PolicyAnalytics() {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle className="font-headline">Policy Analytics</CardTitle>
-        <CardDescription>Success and failure rates of policies by region.</CardDescription>
+        <CardTitle className="font-headline">Scheme Adoption Analytics</CardTitle>
+        <CardDescription>Adoption rate (%) of oilseed schemes by state.</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-80 w-full">
@@ -45,17 +61,23 @@ export default function PolicyAnalytics() {
                 tickLine={false} 
                 axisLine={false}
                 tickMargin={10}
+                width={80}
               />
               <XAxis 
                 type="number"
+                tickSuffix="%"
               />
               <ChartTooltip
                 cursor={true}
                 content={<ChartTooltipContent indicator="dot" />}
               />
                <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="success" stackId="a" fill="var(--color-success)" radius={[0, 4, 4, 0]} />
-              <Bar dataKey="failed" stackId="a" fill="var(--color-failed)" radius={[4, 0, 0, 4]} />
+              <Bar dataKey="Soybean" stackId="a" fill="var(--color-Soybean)" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="Groundnut" stackId="a" fill="var(--color-Groundnut)" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="Mustard" stackId="a" fill="var(--color-Mustard)" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="Sunflower" stackId="a" fill="var(--color-Sunflower)" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="Linseed" stackId="a" fill="var(--color-Linseed)" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="Sesame" stackId="a" fill="var(--color-Sesame)" radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
