@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
 
 const cultivationData = {
     all: [
@@ -57,20 +59,23 @@ const cultivationData = {
 };
 
 type Oilseed = keyof typeof cultivationData;
+type MapType = 'roadmap' | 'satellite' | 'terrain';
 
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-const mapUrl = googleMapsApiKey 
-    ? `https://maps.googleapis.com/maps/api/staticmap?center=22.5937,78.9629&zoom=4&size=800x600&maptype=roadmap&style=feature:all|element:labels|visibility:off&style=feature:administrative|element:geometry|visibility:on&style=feature:administrative.country|element:geometry.stroke|color:0x000000|weight:1.5&style=feature:administrative.province|element:geometry.stroke|color:0x000000|weight:0.5&style=feature:landscape|color:0xf2f2f2&style=feature:water|color:0xaad5e2&key=${googleMapsApiKey}`
-    : "https://picsum.photos/seed/mapindia/800/600";
-
 
 export default function CultivationMap() {
     const [selectedCrop, setSelectedCrop] = useState<Oilseed>('all');
+    const [mapType, setMapType] = useState<MapType>('roadmap');
     const dataPoints = cultivationData[selectedCrop];
+
+    const mapUrl = googleMapsApiKey 
+    ? `https://maps.googleapis.com/maps/api/staticmap?center=22.5937,78.9629&zoom=4&size=800x600&maptype=${mapType}&style=feature:all|element:labels|visibility:off&style=feature:administrative|element:geometry|visibility:on&style=feature:administrative.country|element:geometry.stroke|color:0x000000|weight:1.5&style=feature:administrative.province|element:geometry.stroke|color:0x000000|weight:0.5&style=feature:landscape|color:0xf2f2f2&style=feature:water|color:0xaad5e2&key=${googleMapsApiKey}`
+    : "https://picsum.photos/seed/mapindia/800/600";
+
 
   return (
     <Card className="h-full">
-      <CardHeader className='flex-row items-center justify-between'>
+      <CardHeader className='flex-row items-start justify-between'>
         <div>
             <CardTitle className="font-headline">Oilseed Cultivation Map</CardTitle>
             <CardDescription>Percentage of land under oilseed cultivation by state.</CardDescription>
@@ -97,8 +102,9 @@ export default function CultivationMap() {
                 src={mapUrl}
                 alt="Map of India" 
                 fill
-                className="object-cover opacity-80"
+                className="object-cover"
                 data-ai-hint="india map"
+                key={mapType}
             />
             <AnimatePresence>
                 {dataPoints.map((point, index) => (
@@ -124,6 +130,22 @@ export default function CultivationMap() {
                     </motion.div>
                 ))}
             </AnimatePresence>
+        </div>
+        <div className="mt-4">
+          <RadioGroup defaultValue="roadmap" onValueChange={(v) => setMapType(v as MapType)} className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="roadmap" id="roadmap" />
+              <Label htmlFor="roadmap">Roadmap</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="satellite" id="satellite" />
+              <Label htmlFor="satellite">Satellite</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="terrain" id="terrain" />
+              <Label htmlFor="terrain">Terrain</Label>
+            </div>
+          </RadioGroup>
         </div>
       </CardContent>
     </Card>
