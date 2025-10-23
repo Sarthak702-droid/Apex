@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { ZoomIn, ZoomOut } from 'lucide-react';
 
 const cultivationData = {
     all: [
@@ -59,17 +61,21 @@ const cultivationData = {
 };
 
 type Oilseed = keyof typeof cultivationData;
-type MapType = 'roadmap' | 'satellite' | 'terrain';
+type MapType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';
 
 const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 export default function CultivationMap() {
     const [selectedCrop, setSelectedCrop] = useState<Oilseed>('all');
     const [mapType, setMapType] = useState<MapType>('roadmap');
+    const [zoom, setZoom] = useState(4);
     const dataPoints = cultivationData[selectedCrop];
 
+    const handleZoomIn = () => setZoom(prev => Math.min(prev + 1, 7));
+    const handleZoomOut = () => setZoom(prev => Math.max(prev - 1, 3));
+
     const mapUrl = googleMapsApiKey 
-    ? `https://maps.googleapis.com/maps/api/staticmap?center=22.5937,78.9629&zoom=4&size=800x600&maptype=${mapType}&style=feature:all|element:labels|visibility:off&style=feature:administrative|element:geometry|visibility:on&style=feature:administrative.country|element:geometry.stroke|color:0x000000|weight:1.5&style=feature:administrative.province|element:geometry.stroke|color:0x000000|weight:0.5&style=feature:landscape|color:0xf2f2f2&style=feature:water|color:0xaad5e2&key=${googleMapsApiKey}`
+    ? `https://maps.googleapis.com/maps/api/staticmap?center=22.5937,78.9629&zoom=${zoom}&size=800x600&maptype=${mapType}&style=feature:all|element:labels|visibility:off&style=feature:administrative|element:geometry|visibility:on&style=feature:administrative.country|element:geometry.stroke|color:0x000000|weight:1.5&style=feature:administrative.province|element:geometry.stroke|color:0x000000|weight:0.5&style=feature:landscape|color:0xf2f2f2&style=feature:water|color:0xaad5e2&key=${googleMapsApiKey}`
     : "https://picsum.photos/seed/mapindia/800/600";
 
 
@@ -104,7 +110,7 @@ export default function CultivationMap() {
                 fill
                 className="object-cover"
                 data-ai-hint="india map"
-                key={mapType}
+                key={`${mapType}-${zoom}`}
             />
             <AnimatePresence>
                 {dataPoints.map((point, index) => (
@@ -131,7 +137,7 @@ export default function CultivationMap() {
                 ))}
             </AnimatePresence>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
           <RadioGroup defaultValue="roadmap" onValueChange={(v) => setMapType(v as MapType)} className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="roadmap" id="roadmap" />
@@ -145,7 +151,21 @@ export default function CultivationMap() {
               <RadioGroupItem value="terrain" id="terrain" />
               <Label htmlFor="terrain">Terrain</Label>
             </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="hybrid" id="hybrid" />
+              <Label htmlFor="hybrid">Hybrid</Label>
+            </div>
           </RadioGroup>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="icon" onClick={handleZoomOut} disabled={zoom <= 3}>
+                <ZoomOut className="h-4 w-4" />
+                <span className="sr-only">Zoom Out</span>
+            </Button>
+            <Button variant="outline" size="icon" onClick={handleZoomIn} disabled={zoom >= 7}>
+                <ZoomIn className="h-4 w-4" />
+                <span className="sr-only">Zoom In</span>
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
