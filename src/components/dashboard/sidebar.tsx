@@ -58,7 +58,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
     { href: '/dashboard/government/new-scheme', label: 'Create Scheme', icon: <Plus className="h-4 w-4" /> },
     { href: '/dashboard/government#policy-analytics', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
     { href: '/dashboard/government#sustainability-data', label: 'Sustainability Data', icon: <Leaf className="h-4 w-4" /> },
-    { href: '/dashboard/government#real-time-monitoring', label: 'Real-time Monitoring', icon: <BarChart3.Icon className="h-4 w-4" /> },
+    { href: '/dashboard/government#real-time-monitoring', label: 'Real-time Monitoring', icon: <BarChart3 className="h-4 w-4" /> },
   ],
   Admin: [
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
