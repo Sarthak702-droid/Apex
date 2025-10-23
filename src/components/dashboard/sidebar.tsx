@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -40,6 +39,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
     { href: '/dashboard/farmer/quality-check', label: 'Quality Check', icon: <FileText className="h-4 w-4" /> },
     { href: '/dashboard/farmer/contracts', label: 'My Contracts', icon: <Briefcase className="h-4 w-4" /> },
     { href: '/dashboard/farmer/profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/oilseed-motivation', label: 'Govt Schemes', icon: <Landmark className="h-4 w-4" /> },
   ],
   FPO: [
     { href: '/dashboard/fpo', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -55,6 +55,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   ],
   Government: [
     { href: '/dashboard/government', label: 'Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/government/new-scheme', label: 'Create Scheme', icon: <Plus className="h-4 w-4" /> },
     { href: '/dashboard/government#policy-analytics', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
     { href: '/dashboard/government#sustainability-data', label: 'Sustainability Data', icon: <Leaf className="h-4 w-4" /> },
     { href: '/dashboard/government#real-time-monitoring', label: 'Real-time Monitoring', icon: <BarChart3.Icon className="h-4 w-4" /> },
@@ -70,16 +71,17 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
 const getRoleFromPath = (path: string): Role => {
   const segments = path.split('/').filter(Boolean);
   const roleSegment = segments[1] as (typeof ROLES[number]);
-  if (ROLES.includes(roleSegment)) {
-    return roleSegment;
+  if (ROLES.map(r => r.toLowerCase()).includes(roleSegment)) {
+      const role = ROLES.find(r => r.toLowerCase() === roleSegment);
+      if(role) return role;
   }
-  // Fallback for nested farmer/buyer routes
-  if (segments[1] === 'farmer' || segments[1] === 'buyer') {
-    const role = segments[1].charAt(0).toUpperCase() + segments[1].slice(1) as Role;
-    if (ROLES.includes(role)) {
-      return role;
-    }
+  
+  // Fallback for nested routes
+  const potentialRole = segments[1]?.charAt(0).toUpperCase() + segments[1]?.slice(1) as Role;
+  if (ROLES.includes(potentialRole)) {
+    return potentialRole;
   }
+  
   return 'Farmer'; // Default fallback
 };
 
@@ -94,7 +96,7 @@ export function DashboardSidebar() {
     // Exact match for overview pages
     if (pathname === href) return true;
     // For nested routes, check if the path starts with the link's href
-    if (href.split('/').length > 3 && pathname.startsWith(href)) return true;
+    if (!href.includes('#') && pathname.startsWith(href)) return true;
     // For hash links on the overview page
     if (pathname === `/dashboard/${role.toLowerCase()}` && href.includes('#')) return false;
 

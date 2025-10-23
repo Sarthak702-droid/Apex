@@ -7,15 +7,18 @@ import SustainabilityData from '@/components/dashboard/government/sustainability
 import RealTimeMonitoring from '@/components/dashboard/government/real-time-monitoring';
 import CultivationMap from '@/components/dashboard/government/cultivation-map';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function GovernmentDashboard() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="font-headline text-3xl font-bold">Government Dashboard</h1>
-         <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Create New Scheme
+         <Button asChild>
+          <Link href="/dashboard/government/new-scheme">
+            <Plus className="mr-2 h-4 w-4" />
+            Create New Scheme
+          </Link>
         </Button>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
