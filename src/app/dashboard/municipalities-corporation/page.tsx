@@ -8,8 +8,6 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { ActiveAlerts } from '@/components/dashboard/municipalities/active-alerts';
-import { EmergencyPlanning } from '@/components/dashboard/municipalities/emergency-planning';
-import { Separator } from '@/components/ui/separator';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -92,14 +90,6 @@ export default function MunicipalitiesCorporationDashboard() {
           </Card>
         </div>
       </div>
-      
-      <Separator />
-
-      <div id="planning" className="space-y-4">
-        <h2 className="font-headline text-2xl font-bold">Emergency Planning</h2>
-        <EmergencyPlanning />
-      </div>
-
     </div>
   );
 }
