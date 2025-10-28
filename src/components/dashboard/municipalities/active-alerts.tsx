@@ -1,8 +1,8 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, MapPin, Clock } from 'lucide-react';
+import { MapPin, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const alerts = [
@@ -42,13 +42,6 @@ const badgeColors = {
 
 export function ActiveAlerts() {
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle className="font-headline flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-destructive" />
-          Active Alerts
-        </CardTitle>
-      </CardHeader>
       <CardContent className="space-y-4">
         {alerts.map((alert, index) => (
           <div key={index} className={cn("p-4 rounded-lg border", levelColors[alert.level as keyof typeof levelColors])}>
@@ -72,6 +65,5 @@ export function ActiveAlerts() {
           </div>
         ))}
       </CardContent>
-    </Card>
   );
 }

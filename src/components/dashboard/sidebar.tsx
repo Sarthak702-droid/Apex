@@ -7,7 +7,6 @@ import {
   Home,
   Users,
   Briefcase,
-  Landmark,
   Shield,
   BarChart3,
   Settings,
@@ -15,6 +14,7 @@ import {
   Truck,
   Building2,
   Siren,
+  Map,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
