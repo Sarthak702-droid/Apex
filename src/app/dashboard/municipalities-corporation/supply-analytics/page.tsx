@@ -20,6 +20,12 @@ export default function SupplyAnalyticsPage() {
             <SupplyTrends />
         </Card>
         <Card>
+            <ZonalSupplyBreakdown />
+        </Card>
+        <Card>
+            <SupplyStatusDistribution />
+        </Card>
+        <Card>
             <PriceVolatilityChart />
         </Card>
         <Card>

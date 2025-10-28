@@ -15,7 +15,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { ZonalSupplyBreakdown } from '@/components/dashboard/municipalities/zonal-supply-breakdown';
-import { SupplyStatusDistribution } from '@/components/dashboard/municipalities/supply-status-distribution';
 
 export default function MunicipalitiesCorporationDashboard() {
   return (
@@ -79,9 +78,6 @@ export default function MunicipalitiesCorporationDashboard() {
             <CardContent>
                 <ZonalSupplyBreakdown />
             </CardContent>
-          </Card>
-          <Card>
-            <SupplyStatusDistribution />
           </Card>
         </div>
         <div className="lg:col-span-1">
