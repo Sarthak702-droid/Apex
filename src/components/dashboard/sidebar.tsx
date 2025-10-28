@@ -16,6 +16,7 @@ import {
   Building2,
   Siren,
   Map,
+  CloudSun,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
@@ -33,6 +34,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   'Municipalities Corporation': [
     { href: '/dashboard/municipalities-corporation', label: 'City Overview', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/municipalities-corporation/supply-analytics', label: 'Supply Analytics', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/municipalities-corporation/weather-forecast', label: 'Weather Forecast', icon: <CloudSun className="h-4 w-4" /> },
     { href: '/dashboard/municipalities-corporation/ai-insights', label: 'Emergency Planning', icon: <Siren className="h-4 w-4" /> },
   ],
   'Development Authorities': [
