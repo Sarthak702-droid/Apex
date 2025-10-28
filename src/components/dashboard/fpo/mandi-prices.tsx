@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 type MandiRecord = {
   state: string;
@@ -125,7 +125,7 @@ export function MandiPrices() {
                 placeholder="Search Commodity..." 
                 className="pl-8"
                 value={commodityFilter}
-                onChange={e => setCommodityFilter(e.target.value)}
+                onChange={e => setCommodifyFilter(e.target.value)}
             />
           </div>
         </div>
@@ -188,3 +188,5 @@ export function MandiPrices() {
     </Card>
   );
 }
+
+    
