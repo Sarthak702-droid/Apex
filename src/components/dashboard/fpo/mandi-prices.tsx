@@ -53,7 +53,7 @@ export function MandiPrices() {
             throw new Error("No records found in API response.");
         }
       } catch (err: any) {
-        setError(`Failed to load market data: ${err.message}. This could be a CORS issue or an invalid API key. The request may need to be proxied through a backend.`);
+        setError(`Failed to load market data: ${err.message}. This is likely due to the external API's CORS policy which prevents direct browser requests.`);
         console.error(err);
       } finally {
         setLoading(false);
