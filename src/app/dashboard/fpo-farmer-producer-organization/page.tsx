@@ -1,6 +1,8 @@
-import { Users, BarChart3, GitGraph, DollarSign } from 'lucide-react';
+import { Users, BarChart3, GitGraph, DollarSign, Store, ArrowRight } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function FPODashboard() {
   return (
@@ -32,6 +34,29 @@ export default function FPODashboard() {
           description="Overall FPO efficiency"
         />
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-headline flex items-center gap-2">
+            <Store className="h-5 w-5 text-primary" />
+            Mandi Price Tracker
+          </CardTitle>
+          <CardDescription>
+            Access real-time commodity prices from markets across the country.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className='text-sm text-muted-foreground'>
+            Use this tool to make informed decisions about where and when to sell your produce.
+          </p>
+          <Button variant="outline" asChild className='mt-4'>
+              <Link href="/dashboard/fpo-farmer-producer-organization/mandi-prices">
+                  View Mandi Prices <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+          </Button>
+        </CardContent>
+      </Card>
+      
       <Card>
         <CardHeader>
           <CardTitle className="font-headline">FPO Overview</CardTitle>
