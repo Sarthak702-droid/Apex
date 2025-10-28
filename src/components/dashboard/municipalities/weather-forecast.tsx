@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/chart';
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line, ResponsiveContainer } from 'recharts';
 import { Loader2 } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 type WeatherData = {
   time: string[];
@@ -39,7 +39,7 @@ export function WeatherForecast() {
         const result = await response.json();
         
         const transformedData = result.hourly.time.map((t: string, index: number) => ({
-          time: new Date(t),
+          time: t, // Keep as ISO string for recharts
           temperature: result.hourly.temperature_2m[index],
         })).filter((_: any, index: number) => index % 3 === 0); // Take data every 3 hours for readability
 
@@ -85,17 +85,18 @@ export function WeatherForecast() {
                 top: 5,
                 right: 20,
                 left: -10,
-                bottom: 5,
+                bottom: 60,
               }}
             >
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
               <XAxis
                 dataKey="time"
-                tickFormatter={(tick) => format(tick, 'MMM d, HH:mm')}
+                tickFormatter={(tick) => format(parseISO(tick), 'MMM d, HH:mm')}
                 angle={-45}
                 textAnchor="end"
-                height={60}
+                height={80}
                 tick={{ fontSize: 12 }}
+                interval={4}
               />
               <YAxis
                 domain={['dataMin - 2', 'dataMax + 2']}
@@ -106,7 +107,12 @@ export function WeatherForecast() {
               <Tooltip
                 content={<ChartTooltipContent indicator="dot" />}
                 formatter={(value, name, props) => [`${value}°C`, 'Temperature']}
-                labelFormatter={(label) => format(label, 'eeee, MMM d, HH:mm')}
+                labelFormatter={(label) => {
+                    if(typeof label === 'string' && label.trim() !== '') {
+                        return format(parseISO(label), 'eeee, MMM d, HH:mm');
+                    }
+                    return label;
+                 }}
               />
               <Line
                 dataKey="temperature"
