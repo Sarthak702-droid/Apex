@@ -22,7 +22,7 @@ type MandiRecord = {
   modal_price: string;
 };
 
-const API_KEY = '579b464db66ec23bdd000001cdc3b56454624e4272845db96b3644a4';
+const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
 const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000`;
 
 export function MandiPrices() {
@@ -41,30 +41,23 @@ export function MandiPrices() {
     async function fetchData() {
       setLoading(true);
       setError(null);
-      // The direct API call is blocked by CORS. A backend proxy is required.
-      // For now, we will use mock data and show an informative error.
-      // try {
-      //   const response = await fetch(API_URL);
-      //   if (!response.ok) {
-      //     throw new Error(`API request failed with status ${response.status}`);
-      //   }
-      //   const result = await response.json();
-      //   if (result.records) {
-      //     setData(result.records);
-      //   } else {
-      //       throw new Error("No records found in API response.");
-      //   }
-      // } catch (err: any) {
-      //   setError(`Failed to load market data: ${err.message}. This is likely a CORS issue. The request must be proxied through a backend.`);
-      //   console.error(err);
-      // } finally {
-      //   setLoading(false);
-      // }
-
-      // Mock data to prevent crash and show error
-      setData([]);
-      setLoading(false);
-      setError("Live data is temporarily unavailable due to a network restriction (CORS). This feature requires a backend proxy to function correctly.");
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        const result = await response.json();
+        if (result.records) {
+          setData(result.records);
+        } else {
+            throw new Error("No records found in API response.");
+        }
+      } catch (err: any) {
+        setError(`Failed to load market data: ${err.message}. This could be a CORS issue or an invalid API key. The request may need to be proxied through a backend.`);
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchData();
