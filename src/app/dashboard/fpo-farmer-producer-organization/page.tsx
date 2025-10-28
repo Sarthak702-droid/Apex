@@ -60,7 +60,15 @@ export default function FPODashboard() {
       </Card>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <FpoMemberGrowth />
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Member Growth</CardTitle>
+            <CardDescription>New member sign-ups over the last 6 months.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <FpoMemberGrowth />
+          </CardContent>
+        </Card>
         <FpoProduceDistribution />
       </div>
     </div>
