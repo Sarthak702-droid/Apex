@@ -4,31 +4,31 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { BarChart, Bot, FileText, LandPlot } from 'lucide-react';
+import { Bot, BarChart, Map, AlertTriangle } from 'lucide-react';
 
 const features = [
   {
-    icon: <LandPlot className="h-8 w-8 text-primary" />,
-    title: 'For Farmers',
-    description: 'Get AI-powered crop recommendations, manage digital contracts, and get fair market access.',
+    icon: <BarChart className="h-8 w-8 text-primary" />,
+    title: 'Demand & Supply Forecasting',
+    description: 'Use time-series forecasting to predict food demand and potential supply gaps based on weather, consumption, and price trends.',
     image: PlaceHolderImages.find(p => p.id === 'feature-crop-recommendation'),
   },
   {
-    icon: <FileText className="h-8 w-8 text-primary" />,
-    title: 'For Buyers',
-    description: 'Source produce directly, view AI quality reports, and manage contracts seamlessly.',
+    icon: <AlertTriangle className="h-8 w-8 text-primary" />,
+    title: 'Disruption Prediction',
+    description: 'Our ML models analyze rainfall, market trends, and logistics data to predict disruptions before they happen.',
     image: PlaceHolderImages.find(p => p.id === 'feature-quality-report'),
   },
   {
-    icon: <Bot className="h-8 w-8 text-primary" />,
-    title: 'AI-Driven Insights',
-    description: 'Leverage cutting-edge AI for profitability analysis, quality assessment, and market trends.',
+    icon: <Map className="h-8 w-8 text-primary" />,
+    title: 'Supply Route Optimization',
+    description: 'In a crisis, our algorithms find the best alternate supply routes to redistribute food between markets and urban zones efficiently.',
     image: PlaceHolderImages.find(p => p.id === 'feature-market-linkage'),
   },
   {
-    icon: <BarChart className="h-8 w-8 text-primary" />,
-    title: 'For Government & FPOs',
-    description: 'Access real-time data, monitor policy impact, and manage organization members efficiently.',
+    icon: <Bot className="h-8 w-8 text-primary" />,
+    title: 'Urban Planning Integration',
+    description: 'Provide city officials with a "City Food Vulnerability Index" and simulation tools for robust emergency planning.',
     image: PlaceHolderImages.find(p => p.id === 'about-image'),
   },
 ];
@@ -39,10 +39,10 @@ const FeaturesSection = () => {
       <div className="container">
         <div className="text-center">
           <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-            An Ecosystem for Growth
+            An AI-Powered Resilience Toolkit
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Tel-Samriddhi offers a suite of powerful tools tailored for every stakeholder in the agricultural value chain.
+            Our platform offers a suite of powerful AI tools for every stakeholder in the urban food supply chain.
           </p>
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">

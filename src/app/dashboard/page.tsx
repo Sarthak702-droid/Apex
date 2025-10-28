@@ -10,12 +10,12 @@ export default function DashboardHomePage() {
             <Mountain className="h-12 w-12 text-primary" />
           </div>
           <CardTitle className="mt-4 font-headline text-3xl">
-            Welcome to Apex
+            Welcome to UFR-AI
           </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Please select an option from the sidebar to get started. Your personalized dashboard experience awaits!
+            Please select an option from the sidebar to get started. Your personalized dashboard experience for urban food resilience awaits!
           </p>
         </CardContent>
       </Card>

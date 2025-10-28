@@ -18,6 +18,7 @@ import {
   DollarSign,
   Plus,
   TrendingUp,
+  Map,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
@@ -33,32 +34,28 @@ import {
 
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
   Farmer: [
-    { href: '/dashboard/farmer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/crop-recommendations', label: 'AI Recommendations', icon: <Wheat className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/compare-crops', label: 'Compare Crops', icon: <TrendingUp className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/quality-check', label: 'Quality Check', icon: <FileText className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/contracts', label: 'My Contracts', icon: <Briefcase className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/profitability', label: 'Profitability', icon: <DollarSign className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/oilseed-motivation', label: 'Govt Schemes', icon: <Landmark className="h-4 w-4" /> },
+    { href: '/dashboard/farmer', label: 'My Supply', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/contracts', label: 'Contracts', icon: <Briefcase className="h-4 w-4" /> },
+    { href: '/dashboard/farmer/new-sauda', label: 'Log New Sauda', icon: <Plus className="h-4 w-4" /> },
   ],
   FPO: [
-    { href: '/dashboard/fpo', label: 'Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/fpo', label: 'FPO Overview', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/fpo#member-stats', label: 'Member Stats', icon: <Users className="h-4 w-4" /> },
     { href: '/dashboard/fpo#performance', label: 'Performance', icon: <BarChart3 className="h-4 w-4" /> },
-    { href: '/dashboard/fpo#aggregation', label: 'Aggregation', icon: <GitGraph className="h-4 w-4" /> },
+    { href: '/dashboard/fpo#aggregation', label: 'Supply Aggregation', icon: <GitGraph className="h-4 w-4" /> },
   ],
   Buyer: [
-    { href: '/dashboard/buyer', label: 'Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/buyer', label: 'Marketplace', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/buyer/new-contract', label: 'Create Contract', icon: <Plus className="h-4 w-4" /> },
-    { href: '/dashboard/buyer#quality-reports', label: 'Quality Reports', icon: <FileText className="h-4 w-4" /> },
+    { href: '/dashboard/buyer#quality-reports', label: 'AI Quality Reports', icon: <FileText className="h-4 w-4" /> },
     { href: '/dashboard/buyer#contracts', label: 'My Contracts', icon: <Briefcase className="h-4 w-4" /> },
   ],
   Government: [
-    { href: '/dashboard/government', label: 'Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/government/new-scheme', label: 'Create Scheme', icon: <Plus className="h-4 w-4" /> },
+    { href: '/dashboard/government', label: 'City Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/government/new-scheme', label: 'New Policy', icon: <Plus className="h-4 w-4" /> },
     { href: '/dashboard/government#policy-analytics', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
-    { href: '/dashboard/government#sustainability-data', label: 'Sustainability Data', icon: <Mountain className="h-4 w-4" /> },
-    { href: '/dashboard/government#real-time-monitoring', label: 'Real-time Monitoring', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/government#sustainability-data', label: 'Vulnerability Index', icon: <Shield className="h-4 w-4" /> },
+    { href: '/dashboard/government#real-time-monitoring', label: 'Disruption Alerts', icon: <BarChart3 className="h-4 w-4" /> },
   ],
   Admin: [
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -96,7 +93,7 @@ export function DashboardSidebar() {
     // Exact match for overview pages
     if (pathname === href) return true;
     // For nested routes, check if the path starts with the link's href
-    if (!href.includes('#') && pathname.startsWith(href)) return true;
+    if (!href.includes('#') && pathname.startsWith(href) && href !== `/dashboard/${role.toLowerCase()}`) return true;
     // For hash links on the overview page
     if (pathname === `/dashboard/${role.toLowerCase()}` && href.includes('#')) return false;
 
@@ -109,7 +106,7 @@ export function DashboardSidebar() {
         <div className="flex items-center justify-between">
           <Link href="/home" className={cn("flex items-center gap-2 font-semibold", state === 'collapsed' && 'invisible')}>
             <Mountain className="h-6 w-6 text-primary" />
-            <span className="font-headline text-lg">Apex</span>
+            <span className="font-headline text-lg">UFR-AI</span>
           </Link>
         </div>
       </SidebarHeader>

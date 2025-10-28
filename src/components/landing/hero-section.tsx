@@ -26,7 +26,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              The Digital Dawn of <span className="text-primary">Agriculture</span>
+              Building Resilient <span className="text-primary">Urban Food Systems</span>
             </motion.h1>
             <motion.p 
               className="mt-6 max-w-2xl mx-auto lg:mx-0 text-lg md:text-xl text-muted-foreground"
@@ -34,7 +34,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              Tel-Samriddhi bridges the gap between farmers and markets, leveraging AI to foster growth, transparency, and prosperity for all.
+              An AI-driven platform to monitor, predict, and prepare for urban food supply disruptions, ensuring stability for cities.
             </motion.p>
             <motion.div 
               className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
@@ -44,7 +44,7 @@ const HeroSection = () => {
             >
               <Button asChild size="lg" className="group">
                 <Link href="/login">
-                  Get Started
+                  Access Dashboard
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

@@ -26,7 +26,7 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
     {
       role: 'model',
       content:
-        'Hello! I am Krishi Mitra, your AI assistant. To help you better, please tell me your preferred language or region.',
+        'Hello! I am the UFR-AI assistant. How can I help you with urban food supply chain data today?',
     },
   ]);
   const [input, setInput] = useState('');
@@ -96,7 +96,7 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
         <header className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-2">
             <Mountain className="h-6 w-6 text-primary" />
-            <h3 className="font-headline text-lg">Krishi Mitra</h3>
+            <h3 className="font-headline text-lg">UFR-AI Assistant</h3>
           </div>
         </header>
 
@@ -154,7 +154,7 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask anything..."
+                placeholder="Ask about supply data..."
                 className="pr-12"
                 disabled={isLoading}
               />

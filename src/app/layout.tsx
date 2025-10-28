@@ -4,8 +4,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Apex',
-  description: 'A next-generation digital ecosystem for agriculture.',
+  title: 'Urban Food Resilience AI',
+  description: 'An AI-driven platform to monitor, predict, and prepare for urban food supply disruptions.',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 

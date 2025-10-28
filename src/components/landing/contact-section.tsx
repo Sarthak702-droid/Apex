@@ -16,7 +16,7 @@ const ContactSection = () => {
             Get in Touch
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Have questions or want to partner with us? Reach out and let's cultivate the future together.
+            Have questions or want to partner with us? Reach out and let's build resilient cities together.
           </p>
         </div>
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -56,7 +56,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Our Office</h3>
-                <p className="text-muted-foreground">123 Green Valley, Agri-Tech Park, New Delhi, India</p>
+                <p className="text-muted-foreground">123 Urban Futures Plaza, Smart City One, India</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -65,7 +65,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Email Us</h3>
-                <p className="text-muted-foreground">contact@telsamriddhi.gov.in</p>
+                <p className="text-muted-foreground">contact@urbanfood.ai</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -74,7 +74,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Call Us</h3>
-                <p className="text-muted-foreground">+91-11-1234-5678</p>
+                <p className="text-muted-foreground">+91-11-9876-5432</p>
               </div>
             </div>
           </motion.div>

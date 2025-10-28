@@ -79,7 +79,7 @@ const LoginForm = () => {
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-headline">Welcome Back!</CardTitle>
           <CardDescription>
-            Sign in with your email and password to continue
+            Sign in to access the Urban Food Resilience dashboard.
           </CardDescription>
         </CardHeader>
         <Form {...form}>

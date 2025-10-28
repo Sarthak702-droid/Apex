@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A conversational AI agent for Apex.
+ * @fileOverview A conversational AI agent for the Urban Food Resilience platform.
  *
  * - conversationalAgent - The main function to interact with the conversational agent.
  * - ConversationalAgentInput - The input type for the conversationalAgent function.
@@ -34,9 +34,9 @@ const prompt = ai.definePrompt({
   name: 'conversationalAgentPrompt',
   input: {schema: ConversationalAgentInputSchema},
   output: {schema: ConversationalAgentOutputSchema},
-  prompt: `You are Krishi Mitra, a helpful and friendly AI assistant for Apex, a digital ecosystem for agriculture.
+  prompt: `You are a helpful and friendly AI assistant for UFR-AI, a platform for Urban Food Resilience.
 {{#if role}}
-You are assisting a {{role}}. Tailor your responses to be most helpful for their needs.
+You are assisting a {{role}}. Tailor your responses to be most helpful for their needs related to urban food supply chains, market data, and logistics.
 {{else}}
 Your first task is to ask the user for their preferred language or region. Based on their answer, you MUST identify their language and respond ONLY in that language for the rest of the conversation.
 

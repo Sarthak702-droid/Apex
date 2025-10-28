@@ -29,7 +29,7 @@ const Navbar = () => {
         <Link href="#home" onClick={(e) => scrollToSection(e, '#home')} className="flex items-center gap-2 mr-6">
           <Mountain className="h-7 w-7 text-primary" />
           <span className="font-headline text-2xl font-bold text-foreground">
-            Apex
+            UFR-AI
           </span>
         </Link>
         <div className="hidden md:flex flex-1 items-center gap-6 text-sm">
@@ -48,7 +48,7 @@ const Navbar = () => {
           <ThemeToggle />
           <Button asChild className="hidden md:flex group relative">
             <Link href="/login">
-              Explore / Login
+              Dashboard Login
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-foreground transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </Button>
@@ -83,7 +83,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <Button asChild className="w-full mt-4">
-                <Link href="/login">Explore / Login</Link>
+                <Link href="/login">Dashboard Login</Link>
               </Button>
             </nav>
           </motion.div>

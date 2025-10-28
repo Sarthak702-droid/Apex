@@ -2,14 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
-import FarmerJourneySection from './farmer-journey-section';
 
 const AboutSection = () => {
   const goals = [
-    "Empower farmers with data-driven insights.",
-    "Create a transparent and efficient supply chain.",
-    "Promote sustainable agricultural practices.",
-    "Ensure fair prices for producers and buyers."
+    "Forecast food demand and supply gaps in cities.",
+    "Predict disruptions using machine learning models.",
+    "Optimize alternate supply routes during crises.",
+    "Integrate with urban dashboards for emergency planning."
   ];
 
   return (
@@ -23,10 +22,10 @@ const AboutSection = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-headline text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-              Connecting Roots, Cultivating Futures
+              From Fragile to Agile
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Tel-Samriddhi is a government-backed initiative designed to revolutionize the agricultural landscape. Our platform serves as a central hub for Farmers, FPOs, Buyers, and Government agencies to interact, transact, and grow together.
+             Urban food systems are vulnerable to disruptions like floods, transport bottlenecks, and policy shifts, leading to price spikes and shortages. Our AI-driven platform monitors, predicts, and prepares cities for these challenges, ensuring a stable and secure food supply.
             </p>
             <div className="mt-8 space-y-4">
               {goals.map((goal, index) => (
@@ -44,9 +43,6 @@ const AboutSection = () => {
               ))}
             </div>
           </motion.div>
-        </div>
-        <div className="mt-20">
-          <FarmerJourneySection />
         </div>
       </div>
     </section>

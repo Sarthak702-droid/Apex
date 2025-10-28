@@ -11,11 +11,11 @@ const Footer = () => {
             <Link href="/" className="flex items-center gap-2">
               <Mountain className="h-7 w-7 text-primary" />
               <span className="font-headline text-2xl font-bold">
-                Apex
+                UFR-AI
               </span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
-              Empowering agriculture through technology and collaboration.
+              AI for resilient urban food systems.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 md:col-span-3 gap-8">
@@ -47,7 +47,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Apex. A Government of India Initiative. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Urban Food Resilience AI. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -32,7 +32,7 @@ const LoadingScreen = () => {
           >
             <Mountain className="h-12 w-12 text-primary" />
             <span className="font-headline text-4xl font-bold text-primary">
-              Apex
+              UFR-AI
             </span>
           </motion.div>
           <motion.div
@@ -54,7 +54,7 @@ const LoadingScreen = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
-            Empowering the future of agriculture...
+            Building resilient urban food systems...
           </motion.p>
         </motion.div>
       )}

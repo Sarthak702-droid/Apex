@@ -2,105 +2,45 @@
   "placeholderImages": [
     {
       "id": "hero-image",
-      "description": "A futuristic agricultural landscape with data overlays.",
-      "imageUrl": "https://images.unsplash.com/photo-1732112622699-fd32f6e7b19e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmdXR1cmlzdGljJTIwYWdyaWN1bHR1cmV8ZW58MHx8fHwxNzYwODUyMTczfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "futuristic agriculture"
+      "description": "A futuristic cityscape with glowing data lines representing food supply routes.",
+      "imageUrl": "https://images.unsplash.com/photo-1542159817-2321aa7a3e7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmdXR1cmlzdGljJTIwY2l0eSUyMGRhdGF8ZW58MHx8fHwxNzYwODU2NTg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic city"
     },
     {
       "id": "about-image",
-      "description": "A diverse group of farmers collaborating and using technology.",
-      "imageUrl": "https://images.unsplash.com/photo-1707721690626-10e5f0366bcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXJtZXJzJTIwdGVjaG5vbG9neXxlbnwwfHx8fDE3NjA4NTIxNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmers technology"
+      "description": "A city official looking at a large dashboard displaying maps and charts of food supply data.",
+      "imageUrl": "https://images.unsplash.com/photo-1632207198274-9c17533f813c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkYXNoYm9hcmQlMjBkYXRhJTIwYW5hbHlzaXN8ZW58MHx8fHwxNzYwODU2NjM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "data dashboard"
     },
     {
       "id": "feature-crop-recommendation",
-      "description": "A farmer looking at a tablet with crop data in a field.",
-      "imageUrl": "https://images.unsplash.com/photo-1606384682764-c3065dbcaf85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYXJtZXIlMjB0YWJsZXR8ZW58MHx8fHwxNzYwODEzMTU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer tablet"
+      "description": "A close-up of a screen showing a time-series graph with predictions.",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0aW1lJTIwc2VyaWVzJTIwZm9yZWNhc3R8ZW58MHx8fHwxNzYwODU2NjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "forecasting chart"
     },
     {
       "id": "feature-quality-report",
-      "description": "A close-up of fresh produce being inspected with AI indicators.",
-      "imageUrl": "https://images.unsplash.com/photo-1651525670054-279c154bc3b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9kdWNlJTIwaW5zcGVjdGlvbnxlbnwwfHx8fDE3NjA4NTIxNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "produce inspection"
+      "description": "A map showing weather patterns and potential disruption alerts.",
+      "imageUrl": "https://images.unsplash.com/photo-1611756593529-87c2438c823f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3ZWF0aGVyJTIwZGlzcnVwdGlvbiUyMG1hcHxlbnwwfHx8fDE3NjA4NTY2ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "weather map"
     },
     {
       "id": "feature-market-linkage",
-      "description": "A handshake between a farmer and a buyer in a market setting.",
-      "imageUrl": "https://images.unsplash.com/photo-1629805484635-212686eff46f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmYXJtZXIlMjBidXllcnxlbnwwfHx8fDE3NjA4NTIxNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer buyer"
+      "description": "A map showing logistics routes between different city zones.",
+      "imageUrl": "https://images.unsplash.com/photo-1596276122653-333148197127?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsb2dpc3RpY3MlMjByb3V0ZSUyMG1hcHxlbnwwfHx8fDE3NjA4NTY2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "logistics map"
     },
     {
       "id": "farmer-avatar",
-      "description": "Avatar for a farmer.",
-      "imageUrl": "https://images.unsplash.com/photo-1655979990658-5c652f44c4d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmYXJtZXIlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjA4NTIxNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer portrait"
+      "description": "Avatar for a supply chain manager.",
+      "imageUrl": "https://images.unsplash.com/photo-1556157382-97eda2d62296?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXBwbHklMjBjaGFpbiUyMG1hbmFnZXJ8ZW58MHx8fHwxNzYwODU2ODg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "supply chain"
     },
     {
       "id": "buyer-avatar",
-      "description": "Avatar for a buyer.",
-      "imageUrl": "https://images.unsplash.com/photo-1684919556999-a42d37ffccc1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvZmVzc2lvbmFsJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzYwODIyODgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "professional portrait"
-    },
-    {
-      "id": "comic-panel-1",
-      "description": "A farmer looking thoughtfully at their land.",
-      "imageUrl": "https://images.unsplash.com/photo-1679128719010-aaa99859ad97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYXJtZXIlMjB0aGlua2luZ3xlbnwwfHx8fDE3NjA4NTIxNzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer thinking"
-    },
-    {
-      "id": "comic-page-2",
-      "description": "A village meeting with an official speaking.",
-      "imageUrl": "https://images.unsplash.com/photo-1557199868-02a704b27808?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx2aWxsYWdlJTIwbWVldGluZ3xlbnwwfHx8fDE3NjA4NTQ3MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "village meeting"
-    },
-    {
-      "id": "comic-page-3",
-      "description": "Farmer using a smartphone app with an AI logo.",
-      "imageUrl": "https://images.unsplash.com/photo-1586819158505-d7f6227d19d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmYXJtZXIlMjBzbWFydHBob25lfGVufDB8fHx8MTc2MDgxNTU1OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer smartphone"
-    },
-    {
-      "id": "comic-panel-2",
-      "description": "A close-up of healthy oilseed crops like mustard or soybean.",
-      "imageUrl": "https://images.unsplash.com/photo-1621679613775-fc6d5c6514fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxvaWxzZWVkJTIwY3JvcHxlbnwwfHx8fDE3NjA4NTIxOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "oilseed crop"
-    },
-    {
-      "id": "comic-page-5",
-      "description": "Farmer preparing the soil for sowing seeds.",
-      "imageUrl": "https://images.unsplash.com/photo-1759522006638-350c9e9ea2ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2lsJTIwcHJlcGFyYXRpb258ZW58MHx8fHwxNzYwODU0NzE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "soil preparation"
-    },
-    {
-      "id": "comic-page-6",
-      "description": "Healthy young soybean plants in neat rows.",
-      "imageUrl": "https://images.unsplash.com/photo-1624745726502-019e7fd68150?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzb3liZWFuJTIwcGxhbnRzfGVufDB8fHx8MTc2MDg1NDcxNnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "soybean plants"
-    },
-    {
-      "id": "comic-panel-3",
-      "description": "A diagram showing the economic benefits of oilseed farming.",
-      "imageUrl": "https://images.unsplash.com/photo-1744782211816-c5224434614f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlY29ub21pYyUyMGNoYXJ0fGVufDB8fHx8MTc2MDczNzczN3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "economic chart"
-    },
-    {
-      "id": "comic-panel-4",
-      "description": "A happy farmer with a bountiful harvest of oilseeds.",
-      "imageUrl": "https://images.unsplash.com/photo-1656635098050-cd59fc6a2a52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGZhcm1lcnxlbnwwfHx8fDE3NjA4NTIxNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "happy farmer"
-    },
-    {
-      "id": "comic-page-9",
-      "description": "A happy family celebrating their prosperity.",
-      "imageUrl": "https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoYXBweSUyMGZhbWlseXxlbnwwfHx8fDE3NjA4NTQ3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "happy family"
-    },
-    {
-      "id": "comic-page-10",
-      "description": "The farmer mentoring other farmers in the village.",
-      "imageUrl": "https://images.unsplash.com/photo-1753286437247-49ae106b6334?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmYXJtZXIlMjB0ZWFjaGluZ3xlbnwwfHx8fDE3NjA4NTQ3MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "farmer teaching"
+      "description": "Avatar for a city planner.",
+      "imageUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwcGxhbm5lcnxlbnwwfHx8fDE3NjA4NTY4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city planner"
     }
   ]
 }

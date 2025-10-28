@@ -82,7 +82,7 @@ const SignupForm = () => {
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-headline">Create an Account</CardTitle>
           <CardDescription>
-            Join the agricultural revolution today!
+            Join the Urban Food Resilience initiative!
           </CardDescription>
         </CardHeader>
         <Form {...form}>
