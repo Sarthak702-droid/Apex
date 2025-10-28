@@ -32,7 +32,7 @@ export function WeatherForecast() {
   useEffect(() => {
     async function fetchWeatherData() {
       try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m');
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m');
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
@@ -74,7 +74,7 @@ export function WeatherForecast() {
     <Card>
       <CardHeader>
         <CardTitle className="font-headline">Hourly Temperature Forecast</CardTitle>
-        <CardDescription>Next 7 days for Berlin, Germany</CardDescription>
+        <CardDescription>Next 7 days for Bhubaneswar, India</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-96 w-full">
@@ -109,7 +109,11 @@ export function WeatherForecast() {
                 formatter={(value, name, props) => [`${value}°C`, 'Temperature']}
                 labelFormatter={(label) => {
                     if(typeof label === 'string' && label.trim() !== '') {
-                        return format(parseISO(label), 'eeee, MMM d, HH:mm');
+                        try {
+                            return format(parseISO(label), 'eeee, MMM d, HH:mm');
+                        } catch (e) {
+                            return label;
+                        }
                     }
                     return label;
                  }}
