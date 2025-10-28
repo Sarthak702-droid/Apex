@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
@@ -25,19 +24,19 @@ type MandiRecord = {
 const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
 const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000`;
 
-
 export function MandiPrices() {
   const [data, setData] = useState<MandiRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const [stateFilter, setStateFilter] = useState('');
   const [districtFilter, setDistrictFilter] = useState('');
   const [commodityFilter, setCommodityFilter] = useState('');
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 15;
 
+  // Fetch data
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -51,37 +50,48 @@ export function MandiPrices() {
         if (result.records) {
           setData(result.records);
         } else {
-            throw new Error("No records found in API response.");
+          throw new Error('No records found in API response.');
         }
-      } catch (err: any) {
-        setError(`Failed to load market data. This may be due to the external API's rate limits or a CORS policy issue which can block direct browser requests.`);
+      } catch (err) {
+        setError(
+          'Failed to load market data. This may be due to external API rate limits or CORS policy issues that block direct browser requests.'
+        );
         console.error(err);
       } finally {
         setLoading(false);
       }
     }
+
     fetchData();
   }, []);
 
+  // Reset pagination when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [stateFilter, districtFilter, commodityFilter]);
+
+  // Filter options
   const states = useMemo(() => [...new Set(data.map(item => item.state))].sort(), [data]);
   const districts = useMemo(() => {
-      if (!stateFilter) return [];
-      return [...new Set(data.filter(item => item.state === stateFilter).map(item => item.district))].sort();
+    if (!stateFilter) return [];
+    return [...new Set(data.filter(item => item.state === stateFilter).map(item => item.district))].sort();
   }, [data, stateFilter]);
 
+  // Filtered + paginated data
   const filteredData = useMemo(() => {
-    return data.filter(item => 
+    return data.filter(
+      item =>
         (stateFilter ? item.state === stateFilter : true) &&
         (districtFilter ? item.district === districtFilter : true) &&
         (commodityFilter ? item.commodity.toLowerCase().includes(commodityFilter.toLowerCase()) : true)
     );
   }, [data, stateFilter, districtFilter, commodityFilter]);
-    
+
   const paginatedData = useMemo(() => {
     const startIndex = (currentPage - 1) * recordsPerPage;
     return filteredData.slice(startIndex, startIndex + recordsPerPage);
-  }, [filteredData, currentPage, recordsPerPage]);
-  
+  }, [filteredData, currentPage]);
+
   const totalPages = Math.ceil(filteredData.length / recordsPerPage);
 
   if (loading) {
@@ -101,35 +111,66 @@ export function MandiPrices() {
         <CardTitle>Market Prices</CardTitle>
         <CardDescription>Filter and search for commodity prices from various mandis.</CardDescription>
       </CardHeader>
+
       <CardContent>
-        {error && <div className="text-amber-600 p-4 border border-amber-500/50 rounded-lg bg-amber-500/10 mb-6">{error}</div>}
+        {error && (
+          <div className="text-amber-600 p-4 border border-amber-500/50 rounded-lg bg-amber-500/10 mb-6">
+            {error}
+          </div>
+        )}
+
+        {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <Select value={stateFilter} onValueChange={value => { setStateFilter(value); setDistrictFilter(''); }}>
-            <SelectTrigger><SelectValue placeholder="Select State" /></SelectTrigger>
+          {/* State Filter */}
+          <Select
+            value={stateFilter}
+            onValueChange={value => {
+              setStateFilter(value);
+              setDistrictFilter('');
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select State" />
+            </SelectTrigger>
             <SelectContent>
-                <SelectItem value="">All States</SelectItem>
-                {states.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+              <SelectItem value="">All States</SelectItem>
+              {states.map(s => (
+                <SelectItem key={s} value={s}>
+                  {s}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
+
+          {/* District Filter */}
           <Select value={districtFilter} onValueChange={setDistrictFilter} disabled={!stateFilter}>
-            <SelectTrigger><SelectValue placeholder="Select District" /></SelectTrigger>
+            <SelectTrigger>
+              <SelectValue placeholder="Select District" />
+            </SelectTrigger>
             <SelectContent>
-                 <SelectItem value="">All Districts</SelectItem>
-                 {districts.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+              <SelectItem value="">All Districts</SelectItem>
+              {districts.map(d => (
+                <SelectItem key={d} value={d}>
+                  {d}
+                </SelectItem>
+              ))}
             </SelectContent>
-          </select>
+          </Select>
+
+          {/* Commodity Search */}
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input 
-                placeholder="Search Commodity..." 
-                className="pl-8"
-                value={commodityFilter}
-                onChange={e => setCommodityFilter(e.target.value)}
+            <Input
+              placeholder="Search Commodity..."
+              className="pl-8"
+              value={commodityFilter}
+              onChange={e => setCommodityFilter(e.target.value)}
             />
           </div>
         </div>
-        
-        <div className="rounded-md border">
+
+        {/* Table */}
+        <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -141,22 +182,27 @@ export function MandiPrices() {
                 <TableHead className="hidden lg:table-cell">Arrival Date</TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
               {paginatedData.length > 0 ? (
                 paginatedData.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell>
-                        <div className='font-medium'>{item.commodity}</div>
-                        <div className='text-sm text-muted-foreground'>{item.variety}</div>
+                      <div className="font-medium">{item.commodity}</div>
+                      <div className="text-sm text-muted-foreground">{item.variety}</div>
                     </TableCell>
                     <TableCell>
-                        <div>{item.market}</div>
-                        <div className='text-sm text-muted-foreground'>{item.district}, {item.state}</div>
+                      <div>{item.market}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {item.district}, {item.state}
+                      </div>
                     </TableCell>
                     <TableCell className="text-right font-semibold">₹{item.modal_price}</TableCell>
                     <TableCell className="hidden md:table-cell text-right">₹{item.min_price}</TableCell>
                     <TableCell className="hidden md:table-cell text-right">₹{item.max_price}</TableCell>
-                    <TableCell className="hidden lg:table-cell">{format(new Date(item.arrival_date), 'dd MMM yyyy')}</TableCell>
+                    <TableCell className="hidden lg:table-cell">
+                      {item.arrival_date ? format(new Date(item.arrival_date), 'dd MMM yyyy') : 'N/A'}
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
@@ -170,18 +216,29 @@ export function MandiPrices() {
           </Table>
         </div>
 
+        {/* Pagination */}
         <div className="flex items-center justify-between mt-4">
-            <p className="text-sm text-muted-foreground">
-                Showing page {currentPage} of {totalPages}
-            </p>
-            <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
-                    Previous
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>
-                    Next
-                </Button>
-            </div>
+          <p className="text-sm text-muted-foreground">
+            Showing page {currentPage} of {totalPages}
+          </p>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
