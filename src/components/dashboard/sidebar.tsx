@@ -53,7 +53,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
     { href: '/dashboard/fpo-farmer-producer-organization', label: 'FPO Overview', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/fpo-farmer-producer-organization/mandi-prices', label: 'Mandi Prices', icon: <Store className="h-4 w-4" /> },
     { href: '/dashboard/fpo-farmer-producer-organization/member-stats', label: 'Member Stats', icon: <Users className="h-4 w-4" /> },
-    { href: '/dashboard/fpo-farmer-producer-organization#performance', label: 'Performance', icon: <BarChart3
+    { href: '/dashboard/fpo-farmer-producer-organization/performance', label: 'Performance', icon: <BarChart3
 className="h-4 w-4" /> },
     { href: '/dashboard/fpo-farmer-producer-organization#aggregation', label: 'Supply Aggregation', icon: <GitGraph className="h-4 w-4" /> },
   ],
