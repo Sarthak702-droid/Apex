@@ -9,11 +9,13 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
-import { Loader2, Droplets, Wind, Umbrella, CloudRain } from 'lucide-react';
+import { Loader2, Droplets, Wind, Umbrella, CloudSun } from 'lucide-react';
 import { format, parseISO, addHours, startOfHour } from 'date-fns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { DailyWeatherCard } from './daily-weather-card';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
-type WeatherData = {
+type HourlyData = {
   time: string;
   temperature: number;
   precipitation_probability: number;
@@ -21,6 +23,13 @@ type WeatherData = {
   relative_humidity_2m: number;
   wind_speed_10m: number;
 };
+
+type DailyData = {
+    time: string;
+    weather_code: number;
+    temperature_2m_max: number;
+    temperature_2m_min: number;
+}
 
 type FilterPeriod = '24h' | '3d' | '7d' | '16d';
 
@@ -55,8 +64,9 @@ const chartConfigWind = {
 
 
 export function WeatherForecast() {
-  const [allData, setAllData] = useState<WeatherData[]>([]);
-  const [filteredData, setFilteredData] = useState<WeatherData[]>([]);
+  const [hourlyData, setHourlyData] = useState<HourlyData[]>([]);
+  const [dailyData, setDailyData] = useState<DailyData[]>([]);
+  const [filteredHourlyData, setFilteredHourlyData] = useState<HourlyData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filterPeriod, setFilterPeriod] = useState<FilterPeriod>('7d');
@@ -64,13 +74,13 @@ export function WeatherForecast() {
   useEffect(() => {
     async function fetchWeatherData() {
       try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,wind_speed_10m&forecast_days=16');
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=16');
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
         const result = await response.json();
         
-        const transformedData = result.hourly.time.map((t: string, index: number) => ({
+        const transformedHourlyData = result.hourly.time.map((t: string, index: number) => ({
           time: t,
           temperature: result.hourly.temperature_2m[index],
           precipitation_probability: result.hourly.precipitation_probability[index],
@@ -79,7 +89,16 @@ export function WeatherForecast() {
           wind_speed_10m: result.hourly.wind_speed_10m[index],
         }));
 
-        setAllData(transformedData);
+        const transformedDailyData = result.daily.time.map((t: string, index: number) => ({
+            time: t,
+            weather_code: result.daily.weather_code[index],
+            temperature_2m_max: result.daily.temperature_2m_max[index],
+            temperature_2m_min: result.daily.temperature_2m_min[index],
+        }));
+
+
+        setHourlyData(transformedHourlyData);
+        setDailyData(transformedDailyData);
       } catch (err) {
         setError('Could not load weather data.');
         console.error(err);
@@ -92,7 +111,7 @@ export function WeatherForecast() {
   }, []);
 
   useEffect(() => {
-    if (allData.length === 0) return;
+    if (hourlyData.length === 0) return;
 
     const now = startOfHour(new Date());
     let endTime: Date;
@@ -113,14 +132,14 @@ export function WeatherForecast() {
             break;
     }
 
-    const data = allData.filter(d => {
+    const data = hourlyData.filter(d => {
         const pointTime = parseISO(d.time);
         return pointTime >= now && pointTime <= endTime;
     });
 
-    setFilteredData(data);
+    setFilteredHourlyData(data);
 
-  }, [allData, filterPeriod]);
+  }, [hourlyData, filterPeriod]);
 
   const getAxisConfig = () => {
     switch (filterPeriod) {
@@ -168,141 +187,157 @@ export function WeatherForecast() {
 
   return (
     <div className="space-y-8">
-    <Card>
-      <CardHeader className='flex-row items-center justify-between'>
-        <div>
-          <CardTitle className="font-headline">Hourly Temperature Forecast</CardTitle>
-          <CardDescription>Bhubaneswar, India</CardDescription>
-        </div>
-        <Select value={filterPeriod} onValueChange={(value: FilterPeriod) => setFilterPeriod(value)}>
-            <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select period" />
-            </SelectTrigger>
-            <SelectContent>
-                <SelectItem value="24h">Next 24 Hours</SelectItem>
-                <SelectItem value="3d">Next 3 Days</SelectItem>
-                <SelectItem value="7d">Next 7 Days</SelectItem>
-                <SelectItem value="16d">Next 16 Days</SelectItem>
-            </SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfigTemp} className="h-96 w-full">
-          <ResponsiveContainer>
-            <LineChart
-              data={filteredData}
-              margin={{
-                top: 5,
-                right: 20,
-                left: -10,
-                bottom: 60,
-              }}
-            >
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis
-                dataKey="time"
-                tickFormatter={tickFormatter}
-                angle={-45}
-                textAnchor="end"
-                height={80}
-                tick={{ fontSize: 12 }}
-                interval={interval}
-              />
-              <YAxis
-                domain={['dataMin - 2', 'dataMax + 2']}
-                allowDataOverflow
-                unit="°C"
-                tick={{ fontSize: 12 }}
-              />
-              <Tooltip
-                content={<ChartTooltipContent indicator="dot" />}
-                formatter={(value) => [`${value}°C`, 'Temperature']}
-                 labelFormatter={(label) => {
-                    if(typeof label === 'string' && label.trim() !== '') {
-                        try {
-                            return format(parseISO(label), 'eeee, MMM d, HH:mm');
-                        } catch (e) {
-                            return label;
-                        }
-                    }
-                    return label;
-                 }}
-              />
-              <Line
-                dataKey="temperature"
-                type="monotone"
-                stroke="var(--color-temperature)"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle className='font-headline'>7-Day Forecast</CardTitle>
+          <CardDescription>At a glance summary of the upcoming week's weather.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea>
+            <div className="flex space-x-4 pb-4">
+              {dailyData.slice(0, 7).map((day) => (
+                <DailyWeatherCard key={day.time} day={day} />
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader className='flex-row items-center justify-between'>
+          <div>
+            <CardTitle className="font-headline">Hourly Temperature Forecast</CardTitle>
+            <CardDescription>Bhubaneswar, India</CardDescription>
+          </div>
+          <Select value={filterPeriod} onValueChange={(value: FilterPeriod) => setFilterPeriod(value)}>
+              <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select period" />
+              </SelectTrigger>
+              <SelectContent>
+                  <SelectItem value="24h">Next 24 Hours</SelectItem>
+                  <SelectItem value="3d">Next 3 Days</SelectItem>
+                  <SelectItem value="7d">Next 7 Days</SelectItem>
+                  <SelectItem value="16d">Next 16 Days</SelectItem>
+              </SelectContent>
+          </Select>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfigTemp} className="h-96 w-full">
+            <ResponsiveContainer>
+              <LineChart
+                data={filteredHourlyData}
+                margin={{
+                  top: 5,
+                  right: 20,
+                  left: -10,
+                  bottom: 60,
+                }}
+              >
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="time"
+                  tickFormatter={tickFormatter}
+                  angle={-45}
+                  textAnchor="end"
+                  height={80}
+                  tick={{ fontSize: 12 }}
+                  interval={interval}
+                />
+                <YAxis
+                  domain={['dataMin - 2', 'dataMax + 2']}
+                  allowDataOverflow
+                  unit="°C"
+                  tick={{ fontSize: 12 }}
+                />
+                <Tooltip
+                  content={<ChartTooltipContent indicator="dot" />}
+                  formatter={(value) => [`${value}°C`, 'Temperature']}
+                  labelFormatter={(label) => {
+                      if(typeof label === 'string' && label.trim() !== '') {
+                          try {
+                              return format(parseISO(label), 'eeee, MMM d, HH:mm');
+                          } catch (e) {
+                              return label;
+                          }
+                      }
+                      return label;
+                  }}
+                />
+                <Line
+                  dataKey="temperature"
+                  type="monotone"
+                  stroke="var(--color-temperature)"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </CardContent>
+      </Card>
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card>
-            <CardHeader>
-                <CardTitle className="font-headline flex items-center gap-2">
-                  <Umbrella className="h-5 w-5" />
-                  Precipitation & Rain
-                </CardTitle>
-                <CardDescription>Forecasted probability and amount of rain.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfigPrecip} className="h-80 w-full">
-                    <ResponsiveContainer>
-                        <BarChart data={filteredData} margin={{top: 5, right: 20, left: -10, bottom: 20}}>
-                            <CartesianGrid vertical={false} />
-                             <XAxis
-                                dataKey="time"
-                                tickFormatter={tickFormatter}
-                                tick={{ fontSize: 10 }}
-                                interval={interval * 2}
-                            />
-                            <YAxis yAxisId="left" orientation="left" unit="%" />
-                            <YAxis yAxisId="right" orientation="right" unit="mm" />
-                            <Tooltip content={<ChartTooltipContent indicator="dot" />} />
-                            <Legend />
-                            <Bar yAxisId="left" dataKey="precipitation_probability" fill="var(--color-precipitation_probability)" radius={4} />
-                            <Bar yAxisId="right" dataKey="rain" fill="var(--color-rain)" radius={4} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </ChartContainer>
-            </CardContent>
-        </Card>
-         <Card>
-            <CardHeader>
-                <CardTitle className="font-headline flex items-center gap-2">
-                  <Droplets className="h-5 w-5" />
-                  Humidity & Wind
-                </CardTitle>
-                <CardDescription>Relative humidity and wind speed.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfigWind} className="h-80 w-full">
-                    <ResponsiveContainer>
-                        <LineChart data={filteredData} margin={{top: 5, right: 20, left: -10, bottom: 20}}>
-                            <CartesianGrid vertical={false} />
-                             <XAxis
-                                dataKey="time"
-                                tickFormatter={tickFormatter}
-                                tick={{ fontSize: 10 }}
-                                interval={interval * 2}
-                            />
-                            <YAxis yAxisId="left" orientation="left" unit="%" />
-                            <YAxis yAxisId="right" orientation="right" unit="km/h" />
-                            <Tooltip content={<ChartTooltipContent indicator="dot" />} />
-                            <Legend />
-                            <Line yAxisId="left" dataKey="relative_humidity_2m" stroke="var(--color-relative_humidity_2m)" dot={false} />
-                            <Line yAxisId="right" dataKey="wind_speed_10m" stroke="var(--color-wind_speed_10m)" dot={false} />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </ChartContainer>
-            </CardContent>
-        </Card>
-    </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <Card>
+              <CardHeader>
+                  <CardTitle className="font-headline flex items-center gap-2">
+                    <Umbrella className="h-5 w-5" />
+                    Precipitation & Rain
+                  </CardTitle>
+                  <CardDescription>Forecasted probability and amount of rain.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <ChartContainer config={chartConfigPrecip} className="h-80 w-full">
+                      <ResponsiveContainer>
+                          <BarChart data={filteredHourlyData} margin={{top: 5, right: 20, left: -10, bottom: 20}}>
+                              <CartesianGrid vertical={false} />
+                              <XAxis
+                                  dataKey="time"
+                                  tickFormatter={tickFormatter}
+                                  tick={{ fontSize: 10 }}
+                                  interval={interval * 2}
+                              />
+                              <YAxis yAxisId="left" orientation="left" unit="%" />
+                              <YAxis yAxisId="right" orientation="right" unit="mm" />
+                              <Tooltip content={<ChartTooltipContent indicator="dot" />} />
+                              <Legend />
+                              <Bar yAxisId="left" dataKey="precipitation_probability" fill="var(--color-precipitation_probability)" radius={4} />
+                              <Bar yAxisId="right" dataKey="rain" fill="var(--color-rain)" radius={4} />
+                          </BarChart>
+                      </ResponsiveContainer>
+                  </ChartContainer>
+              </CardContent>
+          </Card>
+          <Card>
+              <CardHeader>
+                  <CardTitle className="font-headline flex items-center gap-2">
+                    <Droplets className="h-5 w-5" />
+                    Humidity & Wind
+                  </CardTitle>
+                  <CardDescription>Relative humidity and wind speed.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <ChartContainer config={chartConfigWind} className="h-80 w-full">
+                      <ResponsiveContainer>
+                          <LineChart data={filteredHourlyData} margin={{top: 5, right: 20, left: -10, bottom: 20}}>
+                              <CartesianGrid vertical={false} />
+                              <XAxis
+                                  dataKey="time"
+                                  tickFormatter={tickFormatter}
+                                  tick={{ fontSize: 10 }}
+                                  interval={interval * 2}
+                              />
+                              <YAxis yAxisId="left" orientation="left" unit="%" />
+                              <YAxis yAxisId="right" orientation="right" unit="km/h" />
+                              <Tooltip content={<ChartTooltipContent indicator="dot" />} />
+                              <Legend />
+                              <Line yAxisId="left" dataKey="relative_humidity_2m" stroke="var(--color-relative_humidity_2m)" dot={false} />
+                              <Line yAxisId="right" dataKey="wind_speed_10m" stroke="var(--color-wind_speed_10m)" dot={false} />
+                          </LineChart>
+                      </ResponsiveContainer>
+                  </ChartContainer>
+              </CardContent>
+          </Card>
+      </div>
     </div>
   );
 }
