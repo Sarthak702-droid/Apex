@@ -37,6 +37,8 @@ export function SupplyStatusDistribution() {
                             outerRadius={80}
                             dataKey="value"
                             paddingAngle={5}
+                            startAngle={90}
+                            endAngle={450}
                         >
                             {data.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.fill} />

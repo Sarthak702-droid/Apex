@@ -9,21 +9,19 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { ResponsiveContainer, Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { ResponsiveContainer, Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 const chartData = [
   { commodity: 'Lentils', current: 1800, forecast: 2000 },
-  { commodity: 'Onions', current: 3000, forecast: 2800 },
   { commodity: 'Potatoes', current: 4500, forecast: 4000 },
-  { commodity: 'Tomatoes', current: 1500, forecast: 2000 },
-  { commodity: 'Wheat', current: 3500, forecast: 3200 },
+  { commodity: 'Wheat', current: 3200, forecast: 3500 },
   { commodity: 'Rice', current: 5200, forecast: 5000 },
 ];
 
 const chartConfig = {
   current: {
     label: 'Current Supply',
-    color: 'hsl(var(--primary))',
+    color: 'hsl(var(--chart-1))',
   },
   forecast: {
     label: 'Demand Forecast',
@@ -45,37 +43,30 @@ export function SupplyTrends() {
             <LineChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="commodity" tickLine={false} axisLine={false} />
-              <YAxis tickLine={false} axisLine={false} />
+              <YAxis tickLine={false} axisLine={false} domain={[0, 6000]} />
               <Tooltip
                 content={<ChartTooltipContent indicator="dot" />}
               />
+              <Legend />
               <Line
                 dataKey="current"
+                name="Current Supply"
                 type="monotone"
                 stroke="var(--color-current)"
                 strokeWidth={2}
-                dot={true}
+                dot={{ r: 4, fill: 'var(--color-current)' }}
               />
               <Line
                 dataKey="forecast"
+                name="Demand Forecast"
                 type="monotone"
                 stroke="var(--color-forecast)"
                 strokeWidth={2}
-                dot={true}
+                dot={{ r: 4, fill: 'var(--color-forecast)' }}
               />
             </LineChart>
           </ResponsiveContainer>
         </ChartContainer>
-         <div className="flex justify-center gap-6 mt-4 text-sm">
-            <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-primary" />
-                <span>Current Supply</span>
-            </div>
-            <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[hsl(var(--chart-4))]" />
-                <span>Demand Forecast</span>
-            </div>
-        </div>
       </div>
     </>
   );
