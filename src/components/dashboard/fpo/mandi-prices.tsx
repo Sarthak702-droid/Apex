@@ -25,6 +25,7 @@ type MandiRecord = {
 const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
 const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000`;
 
+
 export function MandiPrices() {
   const [data, setData] = useState<MandiRecord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +60,6 @@ export function MandiPrices() {
         setLoading(false);
       }
     }
-
     fetchData();
   }, []);
 
@@ -162,7 +162,7 @@ export function MandiPrices() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center h-24">
-                    No results found.
+                    No results found. (Live data is currently disabled).
                   </TableCell>
                 </TableRow>
               )}
