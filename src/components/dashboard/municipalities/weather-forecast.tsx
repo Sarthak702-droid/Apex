@@ -8,24 +8,51 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line, ResponsiveContainer } from 'recharts';
-import { Loader2 } from 'lucide-react';
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+import { Loader2, Droplets, Wind, Umbrella, CloudRain } from 'lucide-react';
 import { format, parseISO, addHours, startOfHour } from 'date-fns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type WeatherData = {
   time: string;
   temperature: number;
+  precipitation_probability: number;
+  rain: number;
+  relative_humidity_2m: number;
+  wind_speed_10m: number;
 };
 
 type FilterPeriod = '24h' | '3d' | '7d' | '16d';
 
-const chartConfig = {
+const chartConfigTemp = {
   temperature: {
     label: 'Temperature (°C)',
     color: 'hsl(var(--chart-2))',
   },
 };
+
+const chartConfigPrecip = {
+    precipitation_probability: {
+        label: 'Precipitation %',
+        color: 'hsl(var(--chart-1))',
+    },
+    rain: {
+        label: 'Rain (mm)',
+        color: 'hsl(var(--chart-3))',
+    }
+}
+
+const chartConfigWind = {
+    relative_humidity_2m: {
+        label: 'Humidity %',
+        color: 'hsl(var(--chart-4))',
+    },
+    wind_speed_10m: {
+        label: 'Wind (km/h)',
+        color: 'hsl(var(--chart-5))',
+    }
+}
+
 
 export function WeatherForecast() {
   const [allData, setAllData] = useState<WeatherData[]>([]);
@@ -37,7 +64,7 @@ export function WeatherForecast() {
   useEffect(() => {
     async function fetchWeatherData() {
       try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m&forecast_days=16');
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,wind_speed_10m&forecast_days=16');
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
@@ -46,6 +73,10 @@ export function WeatherForecast() {
         const transformedData = result.hourly.time.map((t: string, index: number) => ({
           time: t,
           temperature: result.hourly.temperature_2m[index],
+          precipitation_probability: result.hourly.precipitation_probability[index],
+          rain: result.hourly.rain[index],
+          relative_humidity_2m: result.hourly.relative_humidity_2m[index],
+          wind_speed_10m: result.hourly.wind_speed_10m[index],
         }));
 
         setAllData(transformedData);
@@ -136,6 +167,7 @@ export function WeatherForecast() {
   }
 
   return (
+    <div className="space-y-8">
     <Card>
       <CardHeader className='flex-row items-center justify-between'>
         <div>
@@ -155,7 +187,7 @@ export function WeatherForecast() {
         </Select>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-96 w-full">
+        <ChartContainer config={chartConfigTemp} className="h-96 w-full">
           <ResponsiveContainer>
             <LineChart
               data={filteredData}
@@ -208,5 +240,69 @@ export function WeatherForecast() {
         </ChartContainer>
       </CardContent>
     </Card>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                  <Umbrella className="h-5 w-5" />
+                  Precipitation & Rain
+                </CardTitle>
+                <CardDescription>Forecasted probability and amount of rain.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={chartConfigPrecip} className="h-80 w-full">
+                    <ResponsiveContainer>
+                        <BarChart data={filteredData} margin={{top: 5, right: 20, left: -10, bottom: 20}}>
+                            <CartesianGrid vertical={false} />
+                             <XAxis
+                                dataKey="time"
+                                tickFormatter={tickFormatter}
+                                tick={{ fontSize: 10 }}
+                                interval={interval * 2}
+                            />
+                            <YAxis yAxisId="left" orientation="left" unit="%" />
+                            <YAxis yAxisId="right" orientation="right" unit="mm" />
+                            <Tooltip content={<ChartTooltipContent indicator="dot" />} />
+                            <Legend />
+                            <Bar yAxisId="left" dataKey="precipitation_probability" fill="var(--color-precipitation_probability)" radius={4} />
+                            <Bar yAxisId="right" dataKey="rain" fill="var(--color-rain)" radius={4} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </ChartContainer>
+            </CardContent>
+        </Card>
+         <Card>
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                  <Droplets className="h-5 w-5" />
+                  Humidity & Wind
+                </CardTitle>
+                <CardDescription>Relative humidity and wind speed.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={chartConfigWind} className="h-80 w-full">
+                    <ResponsiveContainer>
+                        <LineChart data={filteredData} margin={{top: 5, right: 20, left: -10, bottom: 20}}>
+                            <CartesianGrid vertical={false} />
+                             <XAxis
+                                dataKey="time"
+                                tickFormatter={tickFormatter}
+                                tick={{ fontSize: 10 }}
+                                interval={interval * 2}
+                            />
+                            <YAxis yAxisId="left" orientation="left" unit="%" />
+                            <YAxis yAxisId="right" orientation="right" unit="km/h" />
+                            <Tooltip content={<ChartTooltipContent indicator="dot" />} />
+                            <Legend />
+                            <Line yAxisId="left" dataKey="relative_humidity_2m" stroke="var(--color-relative_humidity_2m)" dot={false} />
+                            <Line yAxisId="right" dataKey="wind_speed_10m" stroke="var(--color-wind_speed_10m)" dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </ChartContainer>
+            </CardContent>
+        </Card>
+    </div>
+    </div>
   );
 }
