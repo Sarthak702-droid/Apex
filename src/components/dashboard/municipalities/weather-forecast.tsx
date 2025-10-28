@@ -10,12 +10,15 @@ import {
 } from '@/components/ui/chart';
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line, ResponsiveContainer } from 'recharts';
 import { Loader2 } from 'lucide-react';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, addHours, startOfHour } from 'date-fns';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type WeatherData = {
-  time: string[];
-  temperature: number[];
+  time: string;
+  temperature: number;
 };
+
+type FilterPeriod = '24h' | '3d' | '7d';
 
 const chartConfig = {
   temperature: {
@@ -25,9 +28,11 @@ const chartConfig = {
 };
 
 export function WeatherForecast() {
-  const [data, setData] = useState<any[]>([]);
+  const [allData, setAllData] = useState<WeatherData[]>([]);
+  const [filteredData, setFilteredData] = useState<WeatherData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [filterPeriod, setFilterPeriod] = useState<FilterPeriod>('7d');
 
   useEffect(() => {
     async function fetchWeatherData() {
@@ -39,11 +44,11 @@ export function WeatherForecast() {
         const result = await response.json();
         
         const transformedData = result.hourly.time.map((t: string, index: number) => ({
-          time: t, // Keep as ISO string for recharts
+          time: t,
           temperature: result.hourly.temperature_2m[index],
-        })).filter((_: any, index: number) => index % 3 === 0); // Take data every 3 hours for readability
+        }));
 
-        setData(transformedData);
+        setAllData(transformedData);
       } catch (err) {
         setError('Could not load weather data.');
         console.error(err);
@@ -54,6 +59,58 @@ export function WeatherForecast() {
 
     fetchWeatherData();
   }, []);
+
+  useEffect(() => {
+    if (allData.length === 0) return;
+
+    const now = startOfHour(new Date());
+    let endTime: Date;
+
+    switch (filterPeriod) {
+        case '24h':
+            endTime = addHours(now, 24);
+            break;
+        case '3d':
+            endTime = addHours(now, 72);
+            break;
+        case '7d':
+        default:
+            endTime = addHours(now, 168);
+            break;
+    }
+
+    const data = allData.filter(d => {
+        const pointTime = parseISO(d.time);
+        return pointTime >= now && pointTime <= endTime;
+    });
+
+    setFilteredData(data);
+
+  }, [allData, filterPeriod]);
+
+  const getAxisConfig = () => {
+    switch (filterPeriod) {
+        case '24h':
+            return {
+                tickFormatter: (tick: string) => format(parseISO(tick), 'HH:mm'),
+                interval: 2,
+            };
+        case '3d':
+            return {
+                tickFormatter: (tick: string) => format(parseISO(tick), 'MMM d, HH:mm'),
+                interval: 8,
+            };
+        case '7d':
+        default:
+            return {
+                tickFormatter: (tick: string) => format(parseISO(tick), 'MMM d'),
+                interval: 24,
+            };
+    }
+  }
+
+  const { tickFormatter, interval } = getAxisConfig();
+
 
   if (loading) {
     return (
@@ -72,15 +129,27 @@ export function WeatherForecast() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="font-headline">Hourly Temperature Forecast</CardTitle>
-        <CardDescription>Next 7 days for Bhubaneswar, India</CardDescription>
+      <CardHeader className='flex-row items-center justify-between'>
+        <div>
+          <CardTitle className="font-headline">Hourly Temperature Forecast</CardTitle>
+          <CardDescription>Bhubaneswar, India</CardDescription>
+        </div>
+        <Select value={filterPeriod} onValueChange={(value: FilterPeriod) => setFilterPeriod(value)}>
+            <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select period" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="24h">Next 24 Hours</SelectItem>
+                <SelectItem value="3d">Next 3 Days</SelectItem>
+                <SelectItem value="7d">Next 7 Days</SelectItem>
+            </SelectContent>
+        </Select>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-96 w-full">
           <ResponsiveContainer>
             <LineChart
-              data={data}
+              data={filteredData}
               margin={{
                 top: 5,
                 right: 20,
@@ -91,12 +160,12 @@ export function WeatherForecast() {
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
               <XAxis
                 dataKey="time"
-                tickFormatter={(tick) => format(parseISO(tick), 'MMM d, HH:mm')}
+                tickFormatter={tickFormatter}
                 angle={-45}
                 textAnchor="end"
                 height={80}
                 tick={{ fontSize: 12 }}
-                interval={4}
+                interval={interval}
               />
               <YAxis
                 domain={['dataMin - 2', 'dataMax + 2']}
@@ -106,8 +175,8 @@ export function WeatherForecast() {
               />
               <Tooltip
                 content={<ChartTooltipContent indicator="dot" />}
-                formatter={(value, name, props) => [`${value}°C`, 'Temperature']}
-                labelFormatter={(label) => {
+                formatter={(value) => [`${value}°C`, 'Temperature']}
+                 labelFormatter={(label) => {
                     if(typeof label === 'string' && label.trim() !== '') {
                         try {
                             return format(parseISO(label), 'eeee, MMM d, HH:mm');
