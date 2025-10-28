@@ -1,9 +1,6 @@
 'use client';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -11,10 +8,8 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
 } from '@/components/ui/chart';
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer, Line, LineChart } from 'recharts';
+import { ResponsiveContainer, Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 const chartData = [
   { commodity: 'Lentils', current: 1800, forecast: 2000 },
@@ -38,13 +33,13 @@ const chartConfig = {
 
 export function SupplyTrends() {
   return (
-    <Card>
+    <>
       <CardHeader>
         <CardTitle className="font-headline flex items-center gap-2">
-          Supply Trends
+          Supply vs. Demand
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <div className="p-6 pt-0">
         <ChartContainer config={chartConfig} className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
@@ -81,7 +76,7 @@ export function SupplyTrends() {
                 <span>Demand Forecast</span>
             </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </>
   );
 }

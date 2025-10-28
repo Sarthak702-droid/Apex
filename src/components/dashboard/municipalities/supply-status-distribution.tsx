@@ -1,6 +1,9 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   ChartContainer,
   ChartTooltip,
@@ -13,16 +16,14 @@ const data = [
   { name: 'Warning', value: 20, fill: 'hsl(var(--chart-4))' },
   { name: 'Critical', value: 10, fill: 'hsl(var(--destructive))' },
 ];
-const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-4))', 'hsl(var(--destructive))'];
-
 
 export function SupplyStatusDistribution() {
   return (
-    <Card>
+    <>
       <CardHeader>
         <CardTitle className="font-headline">Supply Status Distribution</CardTitle>
       </CardHeader>
-      <CardContent>
+      <div className="p-6 pt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
                  <ChartContainer config={{}} className="h-48 w-full">
@@ -61,7 +62,7 @@ export function SupplyStatusDistribution() {
                 ))}
             </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </>
   );
 }

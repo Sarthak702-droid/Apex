@@ -31,7 +31,7 @@ import {
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
   'Municipalities Corporation': [
     { href: '/dashboard/municipalities-corporation', label: 'City Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/municipalities-corporation#analytics', label: 'Supply Analytics', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/municipalities-corporation/supply-analytics', label: 'Supply Analytics', icon: <BarChart3 className="h-4 w-4" /> },
     { href: '/dashboard/municipalities-corporation#planning', label: 'Emergency Planning', icon: <Siren className="h-4 w-4" /> },
   ],
   'Development Authorities': [
@@ -83,12 +83,19 @@ export function DashboardSidebar() {
   const links = navLinks[role] || [];
 
   const isLinkActive = (href: string) => {
-    // Exact match for overview pages
-    if (pathname === href) return true;
-    // For nested routes, check if the path starts with the link's href
-    if (!href.includes('#') && pathname.startsWith(href) && href !== `/dashboard/${role.toLowerCase().replace(/\s+/g, '-').replace(/\(|\)/g, '')}`) return true;
-    // For hash links on the overview page
-    if (pathname === `/dashboard/${role.toLowerCase().replace(/\s+/g, '-').replace(/\(|\)/g, '')}` && href.includes('#')) return false;
+    // For hash links, we want to check if the base path matches.
+    const [baseHref] = href.split('#');
+    const [basePathname] = pathname.split('#');
+
+    // Exact match for pages without hashes.
+    if (baseHref === basePathname && !href.includes('#')) {
+      return true;
+    }
+    
+    // For overview pages with hash links, we only want the overview to be active.
+    if (basePathname === baseHref) {
+        return true;
+    }
 
     return false;
   };

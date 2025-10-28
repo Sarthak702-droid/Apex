@@ -6,12 +6,15 @@ import {
   Radar,
   AlertTriangle,
 } from 'lucide-react';
-import { SupplyTrends } from '@/components/dashboard/municipalities/supply-trends';
 import { ActiveAlerts } from '@/components/dashboard/municipalities/active-alerts';
-import { SupplyStatusDistribution } from '@/components/dashboard/municipalities/supply-status-distribution';
 import { EmergencyPlanning } from '@/components/dashboard/municipalities/emergency-planning';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
+import { SupplyTrends } from '@/components/dashboard/municipalities/supply-trends';
+import { SupplyStatusDistribution } from '@/components/dashboard/municipalities/supply-status-distribution';
 
 export default function MunicipalitiesCorporationDashboard() {
   return (
@@ -58,11 +61,22 @@ export default function MunicipalitiesCorporationDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <div id="analytics" className="space-y-4">
-             <h2 className="font-headline text-2xl font-bold">Supply Analytics</h2>
-            <SupplyTrends />
-            <SupplyStatusDistribution />
-          </div>
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="font-headline text-2xl font-bold">Supply Analytics</CardTitle>
+                <Button variant="ghost" asChild>
+                  <Link href="/dashboard/municipalities-corporation/supply-analytics">
+                    View Details <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </CardHeader>
+            <div className='p-6 pt-0 grid md:grid-cols-2 gap-6'>
+                <SupplyTrends />
+                <SupplyStatusDistribution />
+            </div>
+          </Card>
         </div>
         <div className="lg:col-span-1">
            <Card className="h-full">
