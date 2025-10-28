@@ -7,7 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { format, parse } from 'date-fns';
+import { parse, format } from 'date-fns';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 type MandiRecord = {
   state: string;
@@ -25,8 +27,9 @@ const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
 const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=5000`;
 
 const parseDate = (dateString: string): Date | null => {
+  if (!dateString || typeof dateString !== 'string') return null;
   try {
-    // API format is dd/mm/yyyy
+    // API format can be dd/mm/yyyy
     return parse(dateString, 'dd/MM/yyyy', new Date());
   } catch (error) {
     console.error('Failed to parse date:', dateString, error);
@@ -46,7 +49,6 @@ export function MandiPrices() {
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 15;
 
-  // Fetch data
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -75,19 +77,16 @@ export function MandiPrices() {
     fetchData();
   }, []);
 
-  // Reset pagination when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [stateFilter, districtFilter, commodityFilter]);
 
-  // Filter options
   const states = useMemo(() => [...new Set(data.map(item => item.state))].sort(), [data]);
   const districts = useMemo(() => {
     if (stateFilter === 'all') return [];
     return [...new Set(data.filter(item => item.state === stateFilter).map(item => item.district))].sort();
   }, [data, stateFilter]);
 
-  // Filtered + paginated data
   const filteredData = useMemo(() => {
     return data.filter(
       item =>
@@ -104,6 +103,39 @@ export function MandiPrices() {
 
   const totalPages = Math.ceil(filteredData.length / recordsPerPage);
 
+  const chartData = useMemo(() => {
+    if (!filteredData.length) return { statePrices: [], commodityDistribution: [] };
+
+    // State Prices
+    const statePriceMap = new Map<string, { total: number; count: number }>();
+    filteredData.forEach(item => {
+      const price = parseFloat(item.modal_price);
+      if (isNaN(price)) return;
+      if (!statePriceMap.has(item.state)) {
+        statePriceMap.set(item.state, { total: 0, count: 0 });
+      }
+      const stateData = statePriceMap.get(item.state)!;
+      stateData.total += price;
+      stateData.count++;
+    });
+    const statePrices = Array.from(statePriceMap.entries())
+      .map(([name, { total, count }]) => ({ name, avgPrice: Math.round(total / count) }))
+      .sort((a, b) => b.avgPrice - a.avgPrice)
+      .slice(0, 5);
+
+    // Commodity Distribution
+    const commodityCount = new Map<string, number>();
+    filteredData.forEach(item => {
+      commodityCount.set(item.commodity, (commodityCount.get(item.commodity) || 0) + 1);
+    });
+    const commodityDistribution = Array.from(commodityCount.entries())
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5);
+
+    return { statePrices, commodityDistribution };
+  }, [filteredData]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center rounded-lg border bg-card p-8 h-96">
@@ -114,6 +146,8 @@ export function MandiPrices() {
       </div>
     );
   }
+
+  const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
   return (
     <Card>
@@ -128,10 +162,50 @@ export function MandiPrices() {
             {error}
           </div>
         )}
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline text-lg">Top 5 States by Avg. Price (₹)</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ChartContainer config={{}} className="h-64 w-full">
+                        <ResponsiveContainer>
+                            <BarChart data={chartData.statePrices} layout="vertical" margin={{ left: 20 }}>
+                                <CartesianGrid horizontal={false} />
+                                <XAxis type="number" hide />
+                                <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} width={100} />
+                                <ChartTooltip content={<ChartTooltipContent />} />
+                                <Bar dataKey="avgPrice" fill="var(--color-chart-1)" radius={4} />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline text-lg">Top 5 Commodity Distribution</CardTitle>
+                </CardHeader>
+                <CardContent className='flex justify-center'>
+                     <ChartContainer config={{}} className="h-64 w-full">
+                        <ResponsiveContainer>
+                            <PieChart>
+                                <Pie data={chartData.commodityDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label>
+                                    {chartData.commodityDistribution.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Legend />
+                                <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
+        </div>
 
-        {/* Filters */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          {/* State Filter */}
           <Select
             value={stateFilter}
             onValueChange={value => {
@@ -152,7 +226,6 @@ export function MandiPrices() {
             </SelectContent>
           </Select>
 
-          {/* District Filter */}
           <Select value={districtFilter} onValueChange={setDistrictFilter} disabled={stateFilter === 'all'}>
             <SelectTrigger>
               <SelectValue placeholder="Select District" />
@@ -167,7 +240,6 @@ export function MandiPrices() {
             </SelectContent>
           </Select>
 
-          {/* Commodity Search */}
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -179,7 +251,6 @@ export function MandiPrices() {
           </div>
         </div>
 
-        {/* Table */}
         <div className="rounded-md border overflow-x-auto">
           <Table>
             <TableHeader>
@@ -229,7 +300,6 @@ export function MandiPrices() {
           </Table>
         </div>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between mt-4">
           <p className="text-sm text-muted-foreground">
             Showing page {currentPage} of {totalPages}
