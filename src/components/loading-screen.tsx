@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf } from 'lucide-react';
+import { Mountain } from 'lucide-react';
 
 const LoadingScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -30,9 +30,9 @@ const LoadingScreen = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center space-x-3"
           >
-            <Leaf className="h-12 w-12 text-primary" />
+            <Mountain className="h-12 w-12 text-primary" />
             <span className="font-headline text-4xl font-bold text-primary">
-              Tel-Samriddhi
+              Apex
             </span>
           </motion.div>
           <motion.div

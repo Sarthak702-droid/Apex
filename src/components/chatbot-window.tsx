@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CornerDownLeft, Loader2, User, Bot, Leaf } from 'lucide-react';
+import { CornerDownLeft, Loader2, User, Bot, Mountain } from 'lucide-react';
 
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -95,7 +95,7 @@ const ChatbotWindow = ({ onClose }: ChatbotWindowProps) => {
       <div className="bg-card shadow-2xl rounded-xl border flex flex-col h-[60vh]">
         <header className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-2">
-            <Leaf className="h-6 w-6 text-primary" />
+            <Mountain className="h-6 w-6 text-primary" />
             <h3 className="font-headline text-lg">Krishi Mitra</h3>
           </div>
         </header>

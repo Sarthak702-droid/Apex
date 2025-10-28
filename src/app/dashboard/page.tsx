@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Leaf } from "lucide-react";
+import { Mountain } from "lucide-react";
 
 export default function DashboardHomePage() {
   return (
@@ -7,10 +7,10 @@ export default function DashboardHomePage() {
       <Card className="w-full max-w-lg text-center">
         <CardHeader>
           <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-            <Leaf className="h-12 w-12 text-primary" />
+            <Mountain className="h-12 w-12 text-primary" />
           </div>
           <CardTitle className="mt-4 font-headline text-3xl">
-            Welcome to Tel-Samriddhi
+            Welcome to Apex
           </CardTitle>
         </CardHeader>
         <CardContent>

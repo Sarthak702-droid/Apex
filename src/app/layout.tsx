@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Tel-Samriddhi',
+  title: 'Apex',
   description: 'A next-generation digital ecosystem for agriculture.',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };

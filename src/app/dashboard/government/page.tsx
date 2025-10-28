@@ -1,6 +1,6 @@
 'use client';
 
-import { Landmark, Leaf, BarChart3, Map, Plus } from 'lucide-react';
+import { Landmark, Mountain, BarChart3, Map, Plus } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import PolicyAnalytics from '@/components/dashboard/government/policy-analytics';
 import SustainabilityData from '@/components/dashboard/government/sustainability-data';
@@ -31,7 +31,7 @@ export default function GovernmentDashboard() {
         <StatsCard
           title="Sustainability Index"
           value="78%"
-          icon={<Leaf className="h-5 w-5" />}
+          icon={<Mountain className="h-5 w-5" />}
           description="Improvement in sustainable practices"
         />
         <StatsCard
@@ -44,7 +44,7 @@ export default function GovernmentDashboard() {
           title="Regional Coverage"
           value="15 States"
           icon={<Map className="h-5 w-5" />}
-          description="Under Tel-Samriddhi Mission"
+          description="Under Apex Mission"
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">

@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A conversational AI agent for Tel-Samriddhi.
+ * @fileOverview A conversational AI agent for Apex.
  *
  * - conversationalAgent - The main function to interact with the conversational agent.
  * - ConversationalAgentInput - The input type for the conversationalAgent function.
@@ -34,7 +34,7 @@ const prompt = ai.definePrompt({
   name: 'conversationalAgentPrompt',
   input: {schema: ConversationalAgentInputSchema},
   output: {schema: ConversationalAgentOutputSchema},
-  prompt: `You are Krishi Mitra, a helpful and friendly AI assistant for Tel-Samriddhi, a digital ecosystem for agriculture.
+  prompt: `You are Krishi Mitra, a helpful and friendly AI assistant for Apex, a digital ecosystem for agriculture.
 {{#if role}}
 You are assisting a {{role}}. Tailor your responses to be most helpful for their needs.
 {{else}}

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Leaf,
+  Mountain,
   Home,
   Users,
   Briefcase,
@@ -57,7 +57,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
     { href: '/dashboard/government', label: 'Overview', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/government/new-scheme', label: 'Create Scheme', icon: <Plus className="h-4 w-4" /> },
     { href: '/dashboard/government#policy-analytics', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
-    { href: '/dashboard/government#sustainability-data', label: 'Sustainability Data', icon: <Leaf className="h-4 w-4" /> },
+    { href: '/dashboard/government#sustainability-data', label: 'Sustainability Data', icon: <Mountain className="h-4 w-4" /> },
     { href: '/dashboard/government#real-time-monitoring', label: 'Real-time Monitoring', icon: <BarChart3 className="h-4 w-4" /> },
   ],
   Admin: [
@@ -108,8 +108,8 @@ export function DashboardSidebar() {
       <SidebarHeader>
         <div className="flex items-center justify-between">
           <Link href="/home" className={cn("flex items-center gap-2 font-semibold", state === 'collapsed' && 'invisible')}>
-            <Leaf className="h-6 w-6 text-primary" />
-            <span className="font-headline text-lg">Tel-Samriddhi</span>
+            <Mountain className="h-6 w-6 text-primary" />
+            <span className="font-headline text-lg">Apex</span>
           </Link>
         </div>
       </SidebarHeader>

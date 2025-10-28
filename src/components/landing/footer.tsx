@@ -1,4 +1,4 @@
-import { Leaf } from 'lucide-react';
+import { Mountain } from 'lucide-react';
 import Link from 'next/link';
 import { FaTwitter, FaFacebook, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
@@ -9,9 +9,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2">
-              <Leaf className="h-7 w-7 text-primary" />
+              <Mountain className="h-7 w-7 text-primary" />
               <span className="font-headline text-2xl font-bold">
-                Tel-Samriddhi
+                Apex
               </span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
@@ -47,7 +47,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Tel-Samriddhi. A Government of India Initiative. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Apex. A Government of India Initiative. All rights reserved.</p>
         </div>
       </div>
     </footer>

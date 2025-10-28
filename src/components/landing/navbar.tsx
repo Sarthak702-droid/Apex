@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Leaf, Menu, X } from 'lucide-react';
+import { Mountain, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useState } from 'react';
@@ -27,9 +27,9 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <Link href="#home" onClick={(e) => scrollToSection(e, '#home')} className="flex items-center gap-2 mr-6">
-          <Leaf className="h-7 w-7 text-primary" />
+          <Mountain className="h-7 w-7 text-primary" />
           <span className="font-headline text-2xl font-bold text-foreground">
-            Tel-Samriddhi
+            Apex
           </span>
         </Link>
         <div className="hidden md:flex flex-1 items-center gap-6 text-sm">
