@@ -8,7 +8,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
 const AIInsightInputSchema = z.object({
   query: z.string().describe('The natural language query from the user.'),
