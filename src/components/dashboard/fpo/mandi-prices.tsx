@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 type MandiRecord = {
   state: string;
@@ -23,6 +23,16 @@ type MandiRecord = {
 
 const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
 const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000`;
+
+const parseDate = (dateString: string): Date | null => {
+  try {
+    // API format is dd/mm/yyyy
+    return parse(dateString, 'dd/MM/yyyy', new Date());
+  } catch (error) {
+    console.error('Failed to parse date:', dateString, error);
+    return null;
+  }
+};
 
 export function MandiPrices() {
   const [data, setData] = useState<MandiRecord[]>([]);
@@ -185,26 +195,29 @@ export function MandiPrices() {
 
             <TableBody>
               {paginatedData.length > 0 ? (
-                paginatedData.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <div className="font-medium">{item.commodity}</div>
-                      <div className="text-sm text-muted-foreground">{item.variety}</div>
-                    </TableCell>
-                    <TableCell>
-                      <div>{item.market}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {item.district}, {item.state}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right font-semibold">₹{item.modal_price}</TableCell>
-                    <TableCell className="hidden md:table-cell text-right">₹{item.min_price}</TableCell>
-                    <TableCell className="hidden md:table-cell text-right">₹{item.max_price}</TableCell>
-                    <TableCell className="hidden lg:table-cell">
-                      {item.arrival_date ? format(new Date(item.arrival_date), 'dd MMM yyyy') : 'N/A'}
-                    </TableCell>
-                  </TableRow>
-                ))
+                paginatedData.map((item, index) => {
+                  const arrivalDate = parseDate(item.arrival_date);
+                  return (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <div className="font-medium">{item.commodity}</div>
+                        <div className="text-sm text-muted-foreground">{item.variety}</div>
+                      </TableCell>
+                      <TableCell>
+                        <div>{item.market}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {item.district}, {item.state}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right font-semibold">₹{item.modal_price}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right">₹{item.min_price}</TableCell>
+                      <TableCell className="hidden md:table-cell text-right">₹{item.max_price}</TableCell>
+                      <TableCell className="hidden lg:table-cell">
+                        {arrivalDate ? format(arrivalDate, 'dd MMM yyyy') : 'N/A'}
+                      </TableCell>
+                    </TableRow>
+                  )
+                })
               ) : (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center h-24">
