@@ -3,6 +3,8 @@ import { StatsCard } from '@/components/dashboard/stats-card';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { FpoMemberGrowth } from '@/components/dashboard/fpo/fpo-member-growth';
+import { FpoProduceDistribution } from '@/components/dashboard/fpo/fpo-produce-distribution';
 
 export default function FPODashboard() {
   return (
@@ -57,15 +59,10 @@ export default function FPODashboard() {
         </CardContent>
       </Card>
       
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">FPO Overview</CardTitle>
-          <CardDescription>More detailed analytics and management tools for your Farmer Producer Organization are coming soon.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">This dashboard will provide insights into member statistics, aggregation data, and performance tracking to help you manage your FPO effectively.</p>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <FpoMemberGrowth />
+        <FpoProduceDistribution />
+      </div>
     </div>
   );
 }
