@@ -22,7 +22,7 @@ type MandiRecord = {
   modal_price: string;
 };
 
-const API_KEY = '579b464db66ec23bdd000001cdd39501a23641a0623f9584a23015a9';
+const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
 const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000`;
 
 
