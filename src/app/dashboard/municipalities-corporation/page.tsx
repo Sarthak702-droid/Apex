@@ -9,7 +9,7 @@ import {
 import { ActiveAlerts } from '@/components/dashboard/municipalities/active-alerts';
 import { EmergencyPlanning } from '@/components/dashboard/municipalities/emergency-planning';
 import { Separator } from '@/components/ui/separator';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -64,7 +64,7 @@ export default function MunicipalitiesCorporationDashboard() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="font-headline text-2xl font-bold">Supply Analytics</CardTitle>
+                <CardTitle className="font-headline text-xl">Supply Trends</CardTitle>
                 <Button variant="ghost" asChild>
                   <Link href="/dashboard/municipalities-corporation/supply-analytics">
                     View Details <ArrowRight className="ml-2 h-4 w-4" />
@@ -72,10 +72,12 @@ export default function MunicipalitiesCorporationDashboard() {
                 </Button>
               </div>
             </CardHeader>
-            <div className='p-6 pt-0 grid md:grid-cols-2 gap-6'>
+            <CardContent>
                 <SupplyTrends />
-                <SupplyStatusDistribution />
-            </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <SupplyStatusDistribution />
           </Card>
         </div>
         <div className="lg:col-span-1">
