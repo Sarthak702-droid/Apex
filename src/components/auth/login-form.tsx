@@ -64,7 +64,7 @@ const LoginForm = () => {
       });
       // This is a mock login, we need the role to redirect.
       // In a real app, you'd get the role from the user's profile.
-      const dashboardPath = `/dashboard/${values.role.toLowerCase().replace(' ', '-')}`;
+      const dashboardPath = `/dashboard/${values.role.toLowerCase().replace(/\s+/g, '-').replace(/\(|\)/g, '')}`;
       router.push(dashboardPath);
     }, 1500);
   };

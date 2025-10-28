@@ -12,13 +12,9 @@ import {
   BarChart3,
   Settings,
   GitGraph,
-  Wheat,
-  ShoppingBasket,
-  FileText,
-  DollarSign,
-  Plus,
-  TrendingUp,
-  Map,
+  Truck,
+  Building2,
+  Siren,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
@@ -33,29 +29,31 @@ import {
 } from '@/components/ui/sidebar';
 
 const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNode }[]> = {
-  Farmer: [
-    { href: '/dashboard/farmer', label: 'My Supply', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/contracts', label: 'Contracts', icon: <Briefcase className="h-4 w-4" /> },
-    { href: '/dashboard/farmer/new-sauda', label: 'Log New Sauda', icon: <Plus className="h-4 w-4" /> },
+  'Municipalities Corporation': [
+    { href: '/dashboard/municipalities-corporation', label: 'City Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/municipalities-corporation#analytics', label: 'Supply Analytics', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/municipalities-corporation#planning', label: 'Emergency Planning', icon: <Siren className="h-4 w-4" /> },
   ],
-  FPO: [
-    { href: '/dashboard/fpo', label: 'FPO Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/fpo#member-stats', label: 'Member Stats', icon: <Users className="h-4 w-4" /> },
-    { href: '/dashboard/fpo#performance', label: 'Performance', icon: <BarChart3 className="h-4 w-4" /> },
-    { href: '/dashboard/fpo#aggregation', label: 'Supply Aggregation', icon: <GitGraph className="h-4 w-4" /> },
+  'Development Authorities': [
+    { href: '/dashboard/development-authorities', label: 'Infra Overview', icon: <Building2 className="h-4 w-4" /> },
+    { href: '/dashboard/development-authorities#zoning', label: 'Food Zoning', icon: <Map className="h-4 w-4" /> },
+    { href: '/dashboard/development-authorities#logistics', label: 'Logistics Infra', icon: <Truck className="h-4 w-4" /> },
   ],
-  Buyer: [
-    { href: '/dashboard/buyer', label: 'Marketplace', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/buyer/new-contract', label: 'Create Contract', icon: <Plus className="h-4 w-4" /> },
-    { href: '/dashboard/buyer#quality-reports', label: 'AI Quality Reports', icon: <FileText className="h-4 w-4" /> },
-    { href: '/dashboard/buyer#contracts', label: 'My Contracts', icon: <Briefcase className="h-4 w-4" /> },
+  'Disaster Management Agencies': [
+    { href: '/dashboard/disaster-management-agencies', label: 'Crisis Center', icon: <Siren className="h-4 w-4" /> },
+    { href: '/dashboard/disaster-management-agencies#alerts', label: 'Disruption Alerts', icon: <Shield className="h-4 w-4" /> },
+    { href: '/dashboard/disaster-management-agencies#response', label: 'Response Plans', icon: <Briefcase className="h-4 w-4" /> },
   ],
-  Government: [
-    { href: '/dashboard/government', label: 'City Overview', icon: <Home className="h-4 w-4" /> },
-    { href: '/dashboard/government/new-scheme', label: 'New Policy', icon: <Plus className="h-4 w-4" /> },
-    { href: '/dashboard/government#policy-analytics', label: 'Policy Analytics', icon: <Landmark className="h-4 w-4" /> },
-    { href: '/dashboard/government#sustainability-data', label: 'Vulnerability Index', icon: <Shield className="h-4 w-4" /> },
-    { href: '/dashboard/government#real-time-monitoring', label: 'Disruption Alerts', icon: <BarChart3 className="h-4 w-4" /> },
+  'FPO (Farmer Producer Organization)': [
+    { href: '/dashboard/fpo-farmer-producer-organization', label: 'FPO Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/fpo-farmer-producer-organization#member-stats', label: 'Member Stats', icon: <Users className="h-4 w-4" /> },
+    { href: '/dashboard/fpo-farmer-producer-organization#performance', label: 'Performance', icon: <BarChart3 className="h-4 w-4" /> },
+    { href: '/dashboard/fpo-farmer-producer-organization#aggregation', label: 'Supply Aggregation', icon: <GitGraph className="h-4 w-4" /> },
+  ],
+  'Logistic Supporter': [
+    { href: '/dashboard/logistic-supporter', label: 'Logistics Hub', icon: <Truck className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter#routes', label: 'Route Optimization', icon: <Map className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter#fleet', label: 'Fleet Management', icon: <Briefcase className="h-4 w-4" /> },
   ],
   Admin: [
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
@@ -67,19 +65,14 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
 
 const getRoleFromPath = (path: string): Role => {
   const segments = path.split('/').filter(Boolean);
-  const roleSegment = segments[1] as (typeof ROLES[number]);
-  if (ROLES.map(r => r.toLowerCase()).includes(roleSegment)) {
-      const role = ROLES.find(r => r.toLowerCase() === roleSegment);
-      if(role) return role;
+  const roleSegment = segments[1];
+  const matchingRole = ROLES.find(r => r.toLowerCase().replace(/\s+/g, '-').replace(/\(|\)/g, '') === roleSegment);
+  if (matchingRole) {
+    return matchingRole;
   }
   
-  // Fallback for nested routes
-  const potentialRole = segments[1]?.charAt(0).toUpperCase() + segments[1]?.slice(1) as Role;
-  if (ROLES.includes(potentialRole)) {
-    return potentialRole;
-  }
-  
-  return 'Farmer'; // Default fallback
+  // Fallback for default case if no role matches
+  return 'Municipalities Corporation';
 };
 
 
@@ -93,9 +86,9 @@ export function DashboardSidebar() {
     // Exact match for overview pages
     if (pathname === href) return true;
     // For nested routes, check if the path starts with the link's href
-    if (!href.includes('#') && pathname.startsWith(href) && href !== `/dashboard/${role.toLowerCase()}`) return true;
+    if (!href.includes('#') && pathname.startsWith(href) && href !== `/dashboard/${role.toLowerCase().replace(/\s+/g, '-').replace(/\(|\)/g, '')}`) return true;
     // For hash links on the overview page
-    if (pathname === `/dashboard/${role.toLowerCase()}` && href.includes('#')) return false;
+    if (pathname === `/dashboard/${role.toLowerCase().replace(/\s+/g, '-').replace(/\(|\)/g, '')}` && href.includes('#')) return false;
 
     return false;
   };

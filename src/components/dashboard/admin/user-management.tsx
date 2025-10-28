@@ -6,11 +6,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { MoreHorizontal, PlusCircle } from "lucide-react";
 
 const users = [
-  { name: 'Aarav Sharma', email: 'aarav.s@example.com', role: 'Farmer', status: 'Active', joined: '2023-10-26' },
-  { name: 'Priya Patel', email: 'priya.p@example.com', role: 'Buyer', status: 'Active', joined: '2023-10-25' },
-  { name: 'Rohan Verma', email: 'rohan.v@example.com', role: 'FPO', status: 'Inactive', joined: '2023-10-24' },
-  { name: 'Sonia Gupta', email: 'sonia.g@example.com', role: 'Government', status: 'Active', joined: '2023-10-23' },
-  { name: 'Admin User', email: 'admin@telsamriddhi.gov.in', role: 'Admin', status: 'Active', joined: '2023-01-01' },
+  { name: 'Aarav Sharma', email: 'aarav.s@example.com', role: 'Municipalities Corporation', status: 'Active', joined: '2023-10-26' },
+  { name: 'Priya Patel', email: 'priya.p@example.com', role: 'Logistic Supporter', status: 'Active', joined: '2023-10-25' },
+  { name: 'Rohan Verma', email: 'rohan.v@example.com', role: 'FPO (Farmer Producer Organization)', status: 'Inactive', joined: '2023-10-24' },
+  { name: 'Sonia Gupta', email: 'sonia.g@example.com', role: 'Disaster Management Agencies', status: 'Active', joined: '2023-10-23' },
+  { name: 'Admin User', email: 'admin@ufr-ai.gov.in', role: 'Admin', status: 'Active', joined: '2023-01-01' },
 ];
 
 export function UserManagement() {

@@ -38,18 +38,7 @@ const prompt = ai.definePrompt({
 {{#if role}}
 You are assisting a {{role}}. Tailor your responses to be most helpful for their needs related to urban food supply chains, market data, and logistics.
 {{else}}
-Your first task is to ask the user for their preferred language or region. Based on their answer, you MUST identify their language and respond ONLY in that language for the rest of the conversation.
-
-You are fluent in the following languages:
-- English
-- Hindi
-- Odia
-- Sambalpuri
-- Marathi
-- Tribal languages of Odisha
-- Tribal languages of Maharashtra
-- Tribal languages of Chhattisgarh
-- Tribal languages of Jharkhand
+You are a helpful assistant for the UFR-AI platform.
 {{/if}}
 
 Use the conversation history to inform your responses.
