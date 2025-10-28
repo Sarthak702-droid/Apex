@@ -1,35 +1,33 @@
+
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, PlayCircle } from 'lucide-react';
+import { Bot, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export function EmergencyPlanning() {
   return (
-    <Card>
+    <Card className="transition-all hover:shadow-lg hover:-translate-y-1">
       <CardHeader>
-        <CardTitle className="font-headline">Emergency Response & Simulation</CardTitle>
-        <CardDescription>
-          Prepare for potential disruptions by simulating scenarios and accessing predefined response plans.
-        </CardDescription>
+        <div className="flex items-center gap-3">
+            <div className="flex-shrink-0 w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center">
+                <Bot className="w-7 h-7" />
+            </div>
+            <div>
+                <CardTitle className="font-headline">AI Insights Engine</CardTitle>
+                <CardDescription>
+                Ask questions, run simulations, and get predictive insights.
+                </CardDescription>
+            </div>
+        </div>
       </CardHeader>
-      <CardContent className="grid md:grid-cols-2 gap-6">
-        <div className="flex flex-col items-center justify-center p-6 bg-secondary/50 rounded-lg text-center">
-            <PlayCircle className="h-10 w-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Run Disruption Simulation</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-                Test the city's resilience against scenarios like floods or transport strikes.
-            </p>
-            <Button disabled>Coming Soon</Button>
-        </div>
-        <div className="flex flex-col items-center justify-center p-6 bg-secondary/50 rounded-lg text-center">
-            <FileText className="h-10 w-10 text-primary mb-4" />
-            <h3 className="font-semibold mb-2">Access Response Plans</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-                View and activate emergency protocols for various disruption types.
-            </p>
-            <Button disabled>Coming Soon</Button>
-        </div>
+      <CardContent>
+        <Button asChild className="w-full">
+          <Link href="/dashboard/municipalities-corporation/ai-insights">
+            Launch AI Engine <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
       </CardContent>
     </Card>
   );
