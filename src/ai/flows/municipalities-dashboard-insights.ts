@@ -101,8 +101,10 @@ const getDashboardInsightsFlow = ai.defineFlow(
     
     const llmResponse = await ai.generate({
       prompt: prompt,
-      output: { schema: AIInsightOutputSchema, format: 'json' },
       model: 'googleai/gemini-2.5-flash',
+      config: {
+        output: { schema: AIInsightOutputSchema, format: 'json' },
+      },
     });
 
     const output = llmResponse.output;
