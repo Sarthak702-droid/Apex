@@ -16,7 +16,8 @@ const BackgroundParticles = () => {
 
     let animationFrameId: number;
     let particles: Particle[] = [];
-    const particleCount = 50;
+    const particleCount = 70;
+    const connectionDistance = 120;
     
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -61,6 +62,30 @@ const BackgroundParticles = () => {
       }
     }
 
+    const connectParticles = () => {
+      if (!ctx) return;
+      const lineColor = theme === 'dark' ? 'hsla(120, 70%, 40%, 0.1)' : 'hsla(120, 70%, 40%, 0.2)';
+
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < connectionDistance) {
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = 1 - distance / connectionDistance;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+    };
+
     const init = () => {
       particles = [];
       const particleColor = theme === 'dark' ? 'hsla(120, 70%, 40%, 0.3)' : 'hsla(120, 70%, 40%, 0.5)';
@@ -76,6 +101,7 @@ const BackgroundParticles = () => {
         particles[i].update();
         particles[i].draw();
       }
+      connectParticles();
       animationFrameId = requestAnimationFrame(animate);
     };
 
