@@ -39,8 +39,8 @@ export function MandiPrices() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [stateFilter, setStateFilter] = useState('');
-  const [districtFilter, setDistrictFilter] = useState('');
+  const [stateFilter, setStateFilter] = useState('all');
+  const [districtFilter, setDistrictFilter] = useState('all');
   const [commodityFilter, setCommodityFilter] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -83,7 +83,7 @@ export function MandiPrices() {
   // Filter options
   const states = useMemo(() => [...new Set(data.map(item => item.state))].sort(), [data]);
   const districts = useMemo(() => {
-    if (!stateFilter) return [];
+    if (stateFilter === 'all') return [];
     return [...new Set(data.filter(item => item.state === stateFilter).map(item => item.district))].sort();
   }, [data, stateFilter]);
 
@@ -91,8 +91,8 @@ export function MandiPrices() {
   const filteredData = useMemo(() => {
     return data.filter(
       item =>
-        (stateFilter ? item.state === stateFilter : true) &&
-        (districtFilter ? item.district === districtFilter : true) &&
+        (stateFilter !== 'all' ? item.state === stateFilter : true) &&
+        (districtFilter !== 'all' ? item.district === districtFilter : true) &&
         (commodityFilter ? item.commodity.toLowerCase().includes(commodityFilter.toLowerCase()) : true)
     );
   }, [data, stateFilter, districtFilter, commodityFilter]);
@@ -136,14 +136,14 @@ export function MandiPrices() {
             value={stateFilter}
             onValueChange={value => {
               setStateFilter(value);
-              setDistrictFilter('');
+              setDistrictFilter('all');
             }}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select State" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All States</SelectItem>
+              <SelectItem value="all">All States</SelectItem>
               {states.map(s => (
                 <SelectItem key={s} value={s}>
                   {s}
@@ -153,12 +153,12 @@ export function MandiPrices() {
           </Select>
 
           {/* District Filter */}
-          <Select value={districtFilter} onValueChange={setDistrictFilter} disabled={!stateFilter}>
+          <Select value={districtFilter} onValueChange={setDistrictFilter} disabled={stateFilter === 'all'}>
             <SelectTrigger>
               <SelectValue placeholder="Select District" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Districts</SelectItem>
+              <SelectItem value="all">All Districts</SelectItem>
               {districts.map(d => (
                 <SelectItem key={d} value={d}>
                   {d}
