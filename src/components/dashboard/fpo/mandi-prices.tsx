@@ -22,7 +22,7 @@ type MandiRecord = {
 };
 
 const API_KEY = '579b464db66ec23bdd000001f8c04fcedac4455e6f57c39605f09be9';
-const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=1000`;
+const API_URL = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${API_KEY}&format=json&limit=5000`;
 
 const parseDate = (dateString: string): Date | null => {
   try {
