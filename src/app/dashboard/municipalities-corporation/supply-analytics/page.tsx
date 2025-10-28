@@ -1,6 +1,8 @@
+import { PriceVolatilityChart } from '@/components/dashboard/municipalities/price-volatility-chart';
 import { SupplyStatusDistribution } from '@/components/dashboard/municipalities/supply-status-distribution';
 import { SupplyTrends } from '@/components/dashboard/municipalities/supply-trends';
-import { Card } from '@/components/ui/card';
+import { ZonalSupplyBreakdown } from '@/components/dashboard/municipalities/zonal-supply-breakdown';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export default function SupplyAnalyticsPage() {
   return (
@@ -18,7 +20,21 @@ export default function SupplyAnalyticsPage() {
         <Card>
             <SupplyStatusDistribution />
         </Card>
+        <Card>
+            <PriceVolatilityChart />
+        </Card>
       </div>
+      <Card className="lg:col-span-2">
+        <CardHeader>
+            <CardTitle className="font-headline">Zonal Supply Breakdown</CardTitle>
+            <CardDescription>
+                Comparison of key commodity supply across different city zones.
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <ZonalSupplyBreakdown />
+        </CardContent>
+      </Card>
     </div>
   );
 }
