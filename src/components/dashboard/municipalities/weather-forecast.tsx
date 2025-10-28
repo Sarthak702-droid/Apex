@@ -18,7 +18,7 @@ type WeatherData = {
   temperature: number;
 };
 
-type FilterPeriod = '24h' | '3d' | '7d';
+type FilterPeriod = '24h' | '3d' | '7d' | '16d';
 
 const chartConfig = {
   temperature: {
@@ -37,7 +37,7 @@ export function WeatherForecast() {
   useEffect(() => {
     async function fetchWeatherData() {
       try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m');
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=20.30&longitude=85.83&hourly=temperature_2m&forecast_days=16');
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
@@ -73,6 +73,9 @@ export function WeatherForecast() {
         case '3d':
             endTime = addHours(now, 72);
             break;
+        case '16d':
+            endTime = addHours(now, 16 * 24);
+            break;
         case '7d':
         default:
             endTime = addHours(now, 168);
@@ -99,6 +102,11 @@ export function WeatherForecast() {
             return {
                 tickFormatter: (tick: string) => format(parseISO(tick), 'MMM d, HH:mm'),
                 interval: 8,
+            };
+        case '16d':
+             return {
+                tickFormatter: (tick: string) => format(parseISO(tick), 'MMM d'),
+                interval: 24 * 2, // Every 2 days
             };
         case '7d':
         default:
@@ -142,6 +150,7 @@ export function WeatherForecast() {
                 <SelectItem value="24h">Next 24 Hours</SelectItem>
                 <SelectItem value="3d">Next 3 Days</SelectItem>
                 <SelectItem value="7d">Next 7 Days</SelectItem>
+                <SelectItem value="16d">Next 16 Days</SelectItem>
             </SelectContent>
         </Select>
       </CardHeader>
