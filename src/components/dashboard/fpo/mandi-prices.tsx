@@ -39,23 +39,32 @@ export function MandiPrices() {
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-          throw new Error(`API request failed with status ${response.status}`);
-        }
-        const result = await response.json();
-        if (result.records) {
-          setData(result.records);
-        } else {
-            throw new Error("No records found in API response.");
-        }
-      } catch (err: any) {
-        setError(`Failed to load market data: ${err.message}`);
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+      setLoading(true);
+      setError(null);
+      // The direct API call is blocked by CORS. A backend proxy is required.
+      // For now, we will use mock data and show an informative error.
+      // try {
+      //   const response = await fetch(API_URL);
+      //   if (!response.ok) {
+      //     throw new Error(`API request failed with status ${response.status}`);
+      //   }
+      //   const result = await response.json();
+      //   if (result.records) {
+      //     setData(result.records);
+      //   } else {
+      //       throw new Error("No records found in API response.");
+      //   }
+      // } catch (err: any) {
+      //   setError(`Failed to load market data: ${err.message}. This is likely a CORS issue. The request must be proxied through a backend.`);
+      //   console.error(err);
+      // } finally {
+      //   setLoading(false);
+      // }
+
+      // Mock data to prevent crash and show error
+      setData([]);
+      setLoading(false);
+      setError("Live data is temporarily unavailable due to a network restriction (CORS). This feature requires a backend proxy to function correctly.");
     }
 
     fetchData();
@@ -93,10 +102,6 @@ export function MandiPrices() {
     );
   }
 
-  if (error) {
-    return <div className="text-destructive p-4 border border-destructive/50 rounded-lg bg-destructive/10">{error}</div>;
-  }
-
   return (
     <Card>
       <CardHeader>
@@ -104,6 +109,7 @@ export function MandiPrices() {
         <CardDescription>Filter and search for commodity prices from various mandis.</CardDescription>
       </CardHeader>
       <CardContent>
+        {error && <div className="text-amber-600 p-4 border border-amber-500/50 rounded-lg bg-amber-500/10 mb-6">{error}</div>}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <Select value={stateFilter} onValueChange={value => { setStateFilter(value); setDistrictFilter(''); }}>
             <SelectTrigger><SelectValue placeholder="Select State" /></SelectTrigger>
@@ -118,14 +124,14 @@ export function MandiPrices() {
                  <SelectItem value="">All Districts</SelectItem>
                  {districts.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
             </SelectContent>
-          </Select>
+          </select>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input 
                 placeholder="Search Commodity..." 
                 className="pl-8"
                 value={commodityFilter}
-                onChange={e => setCommodifyFilter(e.target.value)}
+                onChange={e => setCommodityFilter(e.target.value)}
             />
           </div>
         </div>
@@ -188,5 +194,3 @@ export function MandiPrices() {
     </Card>
   );
 }
-
-    
