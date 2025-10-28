@@ -54,7 +54,7 @@ export function MandiPrices() {
             throw new Error("No records found in API response.");
         }
       } catch (err: any) {
-        setError(`Failed to load market data: ${err.message}. This is likely due to the external API's CORS policy which prevents direct browser requests.`);
+        setError(`Failed to load market data. This may be due to the external API's rate limits or a CORS policy issue which can block direct browser requests.`);
         console.error(err);
       } finally {
         setLoading(false);
@@ -162,7 +162,7 @@ export function MandiPrices() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center h-24">
-                    No results found. (Live data is currently disabled).
+                    No results found.
                   </TableCell>
                 </TableRow>
               )}
