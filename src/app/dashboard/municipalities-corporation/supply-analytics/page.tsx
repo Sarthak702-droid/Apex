@@ -1,8 +1,10 @@
+
 import { PriceVolatilityChart } from '@/components/dashboard/municipalities/price-volatility-chart';
 import { SupplyStatusDistribution } from '@/components/dashboard/municipalities/supply-status-distribution';
 import { SupplyTrends } from '@/components/dashboard/municipalities/supply-trends';
 import { WastageChart } from '@/components/dashboard/municipalities/wastage-chart';
 import { Card } from '@/components/ui/card';
+import { ZonalSupplyBreakdown } from '@/components/dashboard/municipalities/zonal-supply-breakdown';
 
 export default function SupplyAnalyticsPage() {
   return (
@@ -18,12 +20,9 @@ export default function SupplyAnalyticsPage() {
             <SupplyTrends />
         </Card>
         <Card>
-            <SupplyStatusDistribution />
-        </Card>
-        <Card>
             <PriceVolatilityChart />
         </Card>
-        <Card className="lg:col-span-2">
+        <Card>
             <WastageChart />
         </Card>
       </div>
