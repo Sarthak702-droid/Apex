@@ -9,11 +9,11 @@ import {
 import { ActiveAlerts } from '@/components/dashboard/municipalities/active-alerts';
 import { EmergencyPlanning } from '@/components/dashboard/municipalities/emergency-planning';
 import { Separator } from '@/components/ui/separator';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { SupplyTrends } from '@/components/dashboard/municipalities/supply-trends';
+import { ZonalSupplyBreakdown } from '@/components/dashboard/municipalities/zonal-supply-breakdown';
 import { SupplyStatusDistribution } from '@/components/dashboard/municipalities/supply-status-distribution';
 
 export default function MunicipalitiesCorporationDashboard() {
@@ -64,16 +64,19 @@ export default function MunicipalitiesCorporationDashboard() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="font-headline text-xl">Supply Trends</CardTitle>
+                <div>
+                    <CardTitle className="font-headline text-xl">Zonal Supply Breakdown</CardTitle>
+                    <CardDescription>Key commodity supply across zones.</CardDescription>
+                </div>
                 <Button variant="ghost" asChild>
                   <Link href="/dashboard/municipalities-corporation/supply-analytics">
-                    View Details <ArrowRight className="ml-2 h-4 w-4" />
+                    View Analytics <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
-                <SupplyTrends />
+                <ZonalSupplyBreakdown />
             </CardContent>
           </Card>
           <Card>
