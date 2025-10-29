@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Newspaper, Loader2, List } from 'lucide-react';
+import { Newspaper, Loader2 } from 'lucide-react';
 import { getFoodSecurityNews } from '@/services/news-service';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -22,7 +22,7 @@ export function LiveNewsFeed() {
 
   useEffect(() => {
     async function loadNews() {
-      setLoading(true);
+      if (!loading) setLoading(true);
       setError(null);
       try {
         const newsArticles = await getFoodSecurityNews();
@@ -35,25 +35,33 @@ export function LiveNewsFeed() {
       }
     }
 
-    loadNews();
+    loadNews(); // Initial load
+    const interval = setInterval(loadNews, 60000); // Refresh every 60 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle className="font-headline flex items-center gap-2">
-            <List className="h-5 w-5" />
-            Live Incident Feed
-        </CardTitle>
-        <CardDescription>
-            Live updates on potential disruptions from news sources.
-        </CardDescription>
+        <div className="flex items-center justify-between">
+            <div>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Newspaper className="h-5 w-5" />
+                    Live News Feed
+                </CardTitle>
+                <CardDescription>
+                    Live updates on potential disruptions from news sources.
+                </CardDescription>
+            </div>
+            {loading && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />}
+        </div>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[30rem]">
-          {loading && (
+          {loading && articles.length === 0 && (
             <div className="flex items-center justify-center h-full">
-              <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              <p className="text-muted-foreground">Fetching live news...</p>
             </div>
           )}
           {error && <p className="text-destructive text-sm text-center pt-8">{error}</p>}
