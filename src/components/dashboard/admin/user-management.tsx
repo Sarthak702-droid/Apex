@@ -1,11 +1,16 @@
+
+'use client';
+
+import { useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { MoreHorizontal, PlusCircle } from "lucide-react";
+import { AddUserDialog } from './add-user-dialog';
 
-const users = [
+const initialUsers = [
   { name: 'Aarav Sharma', email: 'aarav.s@example.com', role: 'Municipalities Corporation', status: 'Active', joined: '2023-10-26' },
   { name: 'Priya Patel', email: 'priya.p@example.com', role: 'Logistic Supporter', status: 'Active', joined: '2023-10-25' },
   { name: 'Rohan Verma', email: 'rohan.v@example.com', role: 'FPO (Farmer Producer Organization)', status: 'Inactive', joined: '2023-10-24' },
@@ -14,6 +19,19 @@ const users = [
 ];
 
 export function UserManagement() {
+  const [users, setUsers] = useState(initialUsers);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleAddUser = (newUser: any) => {
+    const userWithDefaults = {
+      ...newUser,
+      status: 'Active',
+      joined: new Date().toISOString().split('T')[0],
+    };
+    setUsers(prevUsers => [userWithDefaults, ...prevUsers]);
+  };
+
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -21,10 +39,7 @@ export function UserManagement() {
           <CardTitle className="font-headline">User Management</CardTitle>
           <CardDescription>Manage all platform users.</CardDescription>
         </div>
-        <Button size="sm" className="gap-1">
-          <PlusCircle className="h-4 w-4" />
-          Add User
-        </Button>
+        <AddUserDialog onUserAdded={handleAddUser} />
       </CardHeader>
       <CardContent>
         <Table>
