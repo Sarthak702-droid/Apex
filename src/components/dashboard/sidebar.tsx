@@ -48,7 +48,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   'Disaster Management Agencies': [
     { href: '/dashboard/disaster-management-agencies', label: 'Crisis Center', icon: <Siren className="h-4 w-4" /> },
     { href: '/dashboard/disaster-management-agencies/disruption-alerts', label: 'Disruption Alerts', icon: <Shield className="h-4 w-4" /> },
-    { href: '/dashboard/disaster-management-agencies#response', label: 'Response Plans', icon: <Briefcase className="h-4 w-4" /> },
+    { href: '/dashboard/disaster-management-agencies/response-plans', label: 'Response Plans', icon: <Briefcase className="h-4 w-4" /> },
   ],
   'FPO (Farmer Producer Organization)': [
     { href: '/dashboard/fpo-farmer-producer-organization', label: 'FPO Overview', icon: <Home className="h-4 w-4" /> },

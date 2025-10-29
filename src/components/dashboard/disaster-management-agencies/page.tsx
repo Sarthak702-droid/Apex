@@ -1,9 +1,13 @@
 
-import { ShieldAlert, Map, List, Users, Package, Truck } from 'lucide-react';
+import { ShieldAlert, Map, List, Users, Package, Truck, Briefcase } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { DisruptionMap } from '@/components/dashboard/disaster-management/disruption-map';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { LiveNewsFeed } from '@/components/dashboard/disaster-management/live-news-feed';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
+import { SOPs } from '@/components/dashboard/disaster-management/sops';
 
 export default function DisasterManagementDashboard() {
   return (
@@ -70,6 +74,30 @@ export default function DisasterManagementDashboard() {
           <LiveNewsFeed />
         </div>
       </div>
+      
+       <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="font-headline flex items-center gap-2">
+                <Briefcase className="h-5 w-5" />
+                Response Plans
+              </CardTitle>
+              <CardDescription>
+                Standard Operating Procedures for key scenarios.
+              </CardDescription>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link href="/dashboard/disaster-management-agencies/response-plans">
+                View All Plans <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <SOPs />
+        </CardContent>
+      </Card>
     </div>
   );
 }
