@@ -99,7 +99,7 @@ export function DisruptionMap() {
 
     useEffect(() => {
         // Initial incidents
-        setIncidents(allIncidents.slice(0, 3));
+        setIncidents(allIncidents.slice(0, 4));
 
         const interval = setInterval(() => {
             setIncidents(prevIncidents => {
@@ -121,7 +121,7 @@ export function DisruptionMap() {
                 
                 return newIncidents;
             });
-        }, 5000); // Update incidents every 5 seconds
+        }, 4000); // Update incidents every 4 seconds
 
         return () => clearInterval(interval);
     }, []);
