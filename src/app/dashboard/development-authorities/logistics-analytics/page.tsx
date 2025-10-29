@@ -1,7 +1,9 @@
 
 import { InfrastructureDistribution } from '@/components/dashboard/development-authorities/infrastructure-distribution';
 import { LogisticsNetworkDensity } from '@/components/dashboard/development-authorities/logistics-network-density';
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { TransportationCostAnalysis } from '@/components/dashboard/development-authorities/transportation-cost-analysis';
+import { VehicleTurnaroundTime } from '@/components/dashboard/development-authorities/vehicle-turnaround-time';
+import { Card, CardDescription, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Truck } from 'lucide-react';
 
 export default function LogisticsAnalyticsPage() {
@@ -23,14 +25,36 @@ export default function LogisticsAnalyticsPage() {
                 <CardTitle className="font-headline">Infrastructure by Zone</CardTitle>
                 <CardDescription>Distribution of key food storage facilities.</CardDescription>
             </CardHeader>
-            <InfrastructureDistribution />
+            <CardContent>
+                <InfrastructureDistribution />
+            </CardContent>
         </Card>
         <Card>
             <CardHeader>
                 <CardTitle className="font-headline">Logistics Network Density</CardTitle>
                 <CardDescription>Connectivity and efficiency of transport routes.</CardDescription>
             </CardHeader>
-            <LogisticsNetworkDensity />
+            <CardContent>
+                <LogisticsNetworkDensity />
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline">Vehicle Turnaround Time</CardTitle>
+                <CardDescription>Average time spent by vehicles at logistics hubs (in hours).</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <VehicleTurnaroundTime />
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline">Transportation Cost Analysis</CardTitle>
+                <CardDescription>Cost per Ton-Kilometer over the last 6 months.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <TransportationCostAnalysis />
+            </CardContent>
         </Card>
       </div>
     </div>
