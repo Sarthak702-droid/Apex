@@ -41,7 +41,7 @@ const navLinks: Record<Role, { href: string; label: string; icon: React.ReactNod
   ],
   'Development Authorities': [
     { href: '/dashboard/development-authorities', label: 'Infra Overview', icon: <Building2 className="h-4 w-4" /> },
-    { href: '/dashboard/development-authorities#zoning', label: 'Food Zoning', icon: <Map className="h-4 w-4" /> },
+    { href: '/dashboard/development-authorities/food-zoning', label: 'Food Zoning', icon: <Map className="h-4 w-4" /> },
     { href: '/dashboard/development-authorities#logistics', label: 'Logistics Infra', icon: <Truck className="h-4 w-4" /> },
   ],
   'Disaster Management Agencies': [

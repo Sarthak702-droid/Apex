@@ -1,10 +1,11 @@
 
-import { Building, Snowflake, Truck, Shield, Map } from 'lucide-react';
+import { Building, Snowflake, Truck, Shield, Map, ArrowRight } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { FoodVulnerabilityMap } from '@/components/dashboard/development-authorities/food-vulnerability-map';
 import { InfrastructureDistribution } from '@/components/dashboard/development-authorities/infrastructure-distribution';
 import { LogisticsNetworkDensity } from '@/components/dashboard/development-authorities/logistics-network-density';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function DevelopmentAuthoritiesDashboard() {
   return (
@@ -48,18 +49,26 @@ export default function DevelopmentAuthoritiesDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         <div className="lg:col-span-3">
-            <Card className="h-full">
+            <Card className="h-full flex flex-col">
                 <CardHeader>
                     <CardTitle className="font-headline flex items-center gap-2">
                         <Map className="h-5 w-5" />
-                        City Food Vulnerability Index
+                        City Food Zoning
                     </CardTitle>
                     <CardDescription>
-                        Color-coded map showing zones most at risk of food shortages.
+                        Analyze food supply vulnerability and land use across city zones.
                     </CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <FoodVulnerabilityMap />
+                <CardContent className="flex-grow flex flex-col justify-center">
+                    <p className='text-sm text-muted-foreground mb-4'>
+                        Access the interactive map to view the City Food Vulnerability Index, land use patterns, and detailed zonal statistics.
+                    </p>
+                    <Button asChild variant="outline" className="w-fit">
+                        <Link href="/dashboard/development-authorities/food-zoning">
+                            Open Food Zoning Analytics
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
                 </CardContent>
             </Card>
         </div>
