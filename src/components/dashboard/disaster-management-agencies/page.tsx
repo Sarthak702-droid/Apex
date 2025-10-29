@@ -3,7 +3,7 @@ import { ShieldAlert, Map, List, Users, Package, Truck, Briefcase } from 'lucide
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { DisruptionMap } from '@/components/dashboard/disaster-management/disruption-map';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { LiveNewsFeed } from '@/components/dashboard/disaster-management/live-news-feed';
+import { IncidentFeed } from '@/components/dashboard/disaster-management/incident-feed';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -71,7 +71,7 @@ export default function DisasterManagementDashboard() {
             </Card>
         </div>
         <div>
-          <LiveNewsFeed />
+          <IncidentFeed />
         </div>
       </div>
       
@@ -95,7 +95,9 @@ export default function DisasterManagementDashboard() {
           </div>
         </CardHeader>
         <CardContent>
-          <SOPs />
+          <p className="text-muted-foreground">
+            Click &quot;View All Plans&quot; to see detailed, step-by-step visual guides for handling various crisis situations.
+          </p>
         </CardContent>
       </Card>
     </div>

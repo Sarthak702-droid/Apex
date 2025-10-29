@@ -1,10 +1,12 @@
 
-import { ShieldAlert, Map, List, Users, Package, Truck } from 'lucide-react';
+import { ShieldAlert, Map, List, Users, Package, Truck, Briefcase } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { DisruptionMap } from '@/components/dashboard/disaster-management/disruption-map';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { AlertsByType } from '@/components/dashboard/disaster-management/alerts-by-type';
-import { AlertsBySeverity } from '@/components/dashboard/disaster-management/alerts-by-severity';
+import { LiveNewsFeed } from '@/components/dashboard/disaster-management/live-news-feed';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 import { IncidentFeed } from '@/components/dashboard/disaster-management/incident-feed';
 
 export default function DisasterManagementDashboard() {
@@ -69,31 +71,35 @@ export default function DisasterManagementDashboard() {
             </Card>
         </div>
         <div className="space-y-8">
-          <Card>
-            <IncidentFeed />
-          </Card>
+          <IncidentFeed />
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">Alerts by Type</CardTitle>
-                <CardDescription>Distribution of alerts based on cause.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <AlertsByType />
-            </CardContent>
-        </Card>
-        <Card>
-            <CardHeader>
-                <CardTitle className="font-headline">Alerts by Severity</CardTitle>
-                <CardDescription>Breakdown of alerts by severity level.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <AlertsBySeverity />
-            </CardContent>
-        </Card>
-      </div>
+      
+       <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="font-headline flex items-center gap-2">
+                <Briefcase className="h-5 w-5" />
+                Response Plans
+              </CardTitle>
+              <CardDescription>
+                Standard Operating Procedures for key scenarios.
+              </CardDescription>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link href="/dashboard/disaster-management-agencies/response-plans">
+                View All Plans <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">
+            Click &quot;View All Plans&quot; to see detailed, step-by-step visual guides for handling various crisis situations.
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }
