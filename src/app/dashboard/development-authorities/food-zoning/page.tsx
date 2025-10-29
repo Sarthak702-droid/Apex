@@ -1,11 +1,16 @@
 
 'use client';
 
-import { FoodVulnerabilityMap } from "@/components/dashboard/development-authorities/food-vulnerability-map";
+import { useState } from 'react';
+import { FoodVulnerabilityMap, Zone } from "@/components/dashboard/development-authorities/food-vulnerability-map";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Map as MapIcon } from "lucide-react";
+import { Map as MapIcon, Users, Warehouse, Store, Donut } from "lucide-react";
+import { StatsCard } from '@/components/dashboard/stats-card';
+import { ZonalLandUseChart } from '@/components/dashboard/development-authorities/zonal-land-use-chart';
 
 export default function FoodZoningPage() {
+    const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
+
     return (
         <div className="space-y-8">
             <div>
@@ -28,9 +33,63 @@ export default function FoodZoningPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <FoodVulnerabilityMap />
+                    <FoodVulnerabilityMap selectedZone={selectedZone} onSelectZone={setSelectedZone} />
                 </CardContent>
             </Card>
+
+            {selectedZone && (
+                 <div className="space-y-8">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="font-headline">
+                                Detailed Analysis for: {selectedZone.name}
+                            </CardTitle>
+                            <CardDescription>
+                                Key metrics and land use breakdown for the selected zone.
+                            </CardDescription>
+                        </CardHeader>
+                    </Card>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div className='space-y-8'>
+                            <div className="grid gap-4 sm:grid-cols-3">
+                                <StatsCard
+                                    title="Population"
+                                    value={selectedZone.stats?.population ?? 'N/A'}
+                                    icon={<Users className="h-5 w-5" />}
+                                    description="Estimated"
+                                    index={0}
+                                />
+                                <StatsCard
+                                    title="Warehouses"
+                                    value={selectedZone.stats?.warehouses ?? 'N/A'}
+                                    icon={<Warehouse className="h-5 w-5" />}
+                                    description="Storage Facilities"
+                                    index={1}
+                                />
+                                <StatsCard
+                                    title="Retail Stores"
+                                    value={selectedZone.stats?.retailStores ?? 'N/A'}
+                                    icon={<Store className="h-5 w-5" />}
+                                    description="Food Outlets"
+                                    index={2}
+                                />
+                            </div>
+                            <p className='text-sm text-muted-foreground p-4 bg-secondary/50 rounded-lg border'>{selectedZone.description}</p>
+                        </div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="font-headline text-lg flex items-center gap-2">
+                                    <Donut className="h-5 w-5" />
+                                    Land Use Distribution
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <ZonalLandUseChart landUse={selectedZone.stats?.landUse} />
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
