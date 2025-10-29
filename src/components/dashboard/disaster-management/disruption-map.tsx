@@ -2,21 +2,21 @@
 'use client';
 
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Truck, CloudRain, ShieldAlert } from 'lucide-react';
+import { Truck, CloudRain, ShieldAlert, TrafficCone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Incident = {
     id: string;
-    type: 'logistics' | 'weather' | 'supply';
+    type: 'logistics' | 'weather' | 'supply' | 'traffic';
     severity: 'low' | 'medium' | 'high';
     position: { lat: number; lng: number };
     title: string;
     description: string;
 };
 
-const incidents: Incident[] = [
+const allIncidents: Incident[] = [
     {
         id: 'roadblock-1',
         type: 'logistics',
@@ -48,6 +48,22 @@ const incidents: Incident[] = [
         position: { lat: 20.275, lng: 85.79 },
         title: 'Transport Strike at Baramunda',
         description: 'Inter-state bus terminal transport strike is affecting vegetable supply from other states.'
+    },
+    {
+        id: 'traffic-1',
+        type: 'traffic',
+        severity: 'low',
+        position: { lat: 20.295, lng: 85.815 },
+        title: 'Heavy Traffic at Nayapalli',
+        description: 'Festival procession causing traffic slowdown. Minor delays expected for deliveries.'
+    },
+    {
+        id: 'weather-2',
+        type: 'weather',
+        severity: 'high',
+        position: { lat: 20.35, lng: 85.82 },
+        title: 'Cyclone Alert for Patia',
+        description: 'Cyclone warning issued. Residents advised to stock up. Emergency supply routes activated.'
     }
 ];
 
@@ -55,6 +71,7 @@ const incidentInfo = {
     logistics: { icon: Truck, color: 'bg-blue-500 hover:bg-blue-600', borderColor: 'border-blue-700' },
     weather: { icon: CloudRain, color: 'bg-yellow-500 hover:bg-yellow-600', borderColor: 'border-yellow-700' },
     supply: { icon: ShieldAlert, color: 'bg-red-500 hover:bg-red-600', borderColor: 'border-red-700' },
+    traffic: { icon: TrafficCone, color: 'bg-orange-500 hover:bg-orange-600', borderColor: 'border-orange-700' },
 };
 
 const mapStyles: google.maps.MapTypeStyle[] = [
@@ -77,7 +94,37 @@ const mapStyles: google.maps.MapTypeStyle[] = [
 
 
 export function DisruptionMap() {
+    const [incidents, setIncidents] = useState<Incident[]>([]);
     const [selectedIncident, setSelectedIncident] = useState<Incident | null>(null);
+
+    useEffect(() => {
+        // Initial incidents
+        setIncidents(allIncidents.slice(0, 3));
+
+        const interval = setInterval(() => {
+            setIncidents(prevIncidents => {
+                // Remove the oldest incident
+                const newIncidents = prevIncidents.slice(1);
+                
+                // Find an incident that isn't already on the map
+                let nextIncident;
+                let attempts = 0;
+                do {
+                    nextIncident = allIncidents[Math.floor(Math.random() * allIncidents.length)];
+                    attempts++;
+                } while (newIncidents.some(i => i.id === nextIncident.id) && attempts < allIncidents.length);
+
+                // Add the new incident
+                if (nextIncident) {
+                    newIncidents.push(nextIncident);
+                }
+                
+                return newIncidents;
+            });
+        }, 5000); // Update incidents every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
 
     if (!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY) {
         return (
@@ -109,7 +156,8 @@ export function DisruptionMap() {
                                 <div className={cn(
                                     "h-8 w-8 rounded-full flex items-center justify-center text-white cursor-pointer border-2",
                                     incidentInfo[incident.type].color,
-                                    selectedIncident?.id === incident.id ? 'border-white' : incidentInfo[incident.type].borderColor
+                                    selectedIncident?.id === incident.id ? 'border-white' : incidentInfo[incident.type].borderColor,
+                                    "animate-in fade-in zoom-in-50 duration-500"
                                 )}>
                                     <Icon className="h-5 w-5" />
                                 </div>
