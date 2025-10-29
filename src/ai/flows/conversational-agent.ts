@@ -7,7 +7,7 @@
  * - ConversationalAgentOutput - The return type for the conversationalAgent function.
  */
 
-import {ai, googleAI} from '@/ai/genkit';
+import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {ROLES} from '@/lib/constants';
 
@@ -33,13 +33,12 @@ export async function conversationalAgent(input: ConversationalAgentInput): Prom
 const prompt = ai.definePrompt({
   name: 'conversationalAgentPrompt',
   input: {schema: ConversationalAgentInputSchema},
-  model: googleAI('gemini-2.5-flash'),
   output: {format: 'text'},
-  prompt: `You are a helpful and friendly AI assistant for UFR-AI, a platform for Urban Food Resilience.
+  prompt: `You are a helpful and friendly AI assistant for Tel-Samriddhi, a platform for Indian oilseed farming.
 {{#if role}}
-You are assisting a {{role}}. Tailor your responses to be most helpful for their needs related to urban food supply chains, market data, and logistics.
+You are assisting a {{role}}. Tailor your responses to be most helpful for their needs related to oilseed crops, market prices, and farming techniques.
 {{else}}
-You are a helpful assistant for the UFR-AI platform.
+You are a helpful assistant for the Tel-Samriddhi platform.
 {{/if}}
 
 Use the conversation history to inform your responses.
@@ -61,11 +60,9 @@ const conversationalAgentFlow = ai.defineFlow(
     outputSchema: ConversationalAgentOutputSchema,
   },
   async (input) => {
-    const response = await prompt.generate({
-      input: input,
-    });
+    const response = await prompt(input);
     return {
-      response: response.text(),
+      response: response.text,
     }
   }
 );
