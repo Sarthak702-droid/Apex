@@ -1,10 +1,10 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Map as MapIcon, AlertTriangle } from "lucide-react";
-import { APIProvider, Map, AdvancedMarker, Polyline, InfoWindow } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -63,6 +63,37 @@ const mapStyles: google.maps.MapTypeStyle[] = [
     { featureType: 'water', elementType: 'labels.text.stroke', stylers: [{ color: '#17263c' }] },
 ];
 
+const PolylineComponent = (props: google.maps.PolylineOptions & { onClick?: () => void }) => {
+    const map = useMap();
+    const [polyline, setPolyline] = useState<google.maps.Polyline | null>(null);
+
+    useEffect(() => {
+        if (!map) return;
+        if (!polyline) {
+            const newPolyline = new google.maps.Polyline({ ...props, map });
+            if (props.onClick) {
+                newPolyline.addListener('click', props.onClick);
+            }
+            setPolyline(newPolyline);
+        }
+    }, [map, polyline, props]);
+
+    useEffect(() => {
+        if (polyline) {
+            polyline.setOptions(props);
+        }
+    }, [polyline, props]);
+    
+    useEffect(() => {
+        return () => {
+            if (polyline) {
+                polyline.setMap(null);
+            }
+        };
+    }, [polyline]);
+
+    return null;
+}
 
 export function RouteOptimization() {
   const [selectedRoute, setSelectedRoute] = useState(routes[0]);
@@ -123,7 +154,7 @@ export function RouteOptimization() {
                         gestureHandling={'greedy'}
                     >
                         {routes.map(route => (
-                            <Polyline
+                            <PolylineComponent
                                 key={route.id}
                                 path={[route.origin, ...route.waypoints, route.destination]}
                                 strokeColor={routeStatusColors[route.status as keyof typeof routeStatusColors]}
@@ -154,4 +185,3 @@ export function RouteOptimization() {
     </Card>
   );
 }
-
