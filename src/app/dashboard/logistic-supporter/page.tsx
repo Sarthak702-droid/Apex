@@ -1,9 +1,11 @@
 
 import { StatsCard } from '@/components/dashboard/stats-card';
-import { Truck, Timer, Percent, Container } from 'lucide-react';
-import { HubManagement } from '@/components/dashboard/logistics/hub-management';
-import { RouteOptimization } from '@/components/dashboard/logistics/route-optimization';
-import { FleetManagement } from '@/components/dashboard/logistics/fleet-management';
+import { Truck, Timer, Percent, Container, ArrowRight } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Briefcase, Warehouse, Map } from 'lucide-react';
+
 
 export default function LogisticSupporterDashboard() {
   return (
@@ -49,16 +51,73 @@ export default function LogisticSupporterDashboard() {
         />
       </div>
 
-      <div id="hub" className="scroll-mt-20">
-        <HubManagement />
-      </div>
-
-      <div id="routes" className="scroll-mt-20">
-        <RouteOptimization />
-      </div>
-
-      <div id="fleet" className="scroll-mt-20">
-        <FleetManagement />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <Card className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Warehouse className="h-5 w-5" />
+                    Hub Management
+                </CardTitle>
+                <CardDescription>
+                    Live overview of warehouse capacity and shipment statuses.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center">
+                <p className='text-sm text-muted-foreground mb-4'>
+                    View detailed stats on warehouse capacity, turnaround times, and shipment statuses.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                    <Link href="/dashboard/logistic-supporter/hub-management">
+                        Open Hub Management
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
+        <Card className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Map className="h-5 w-5" />
+                    Route Optimization
+                </CardTitle>
+                <CardDescription>
+                    Live map of optimized delivery routes and potential delays.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center">
+                <p className='text-sm text-muted-foreground mb-4'>
+                    Analyze active delivery routes, track vehicles, and view real-time delay alerts.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                    <Link href="/dashboard/logistic-supporter/route-optimization">
+                        Open Route Map
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
+        <Card className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Briefcase className="h-5 w-5" />
+                    Fleet Management
+                </CardTitle>
+                <CardDescription>
+                    Track vehicle status, driver assignments, and maintenance.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center">
+                <p className='text-sm text-muted-foreground mb-4'>
+                    Access live fleet status and view upcoming maintenance schedules for all vehicles.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                    <Link href="/dashboard/logistic-supporter/fleet-management">
+                        Open Fleet Details
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
       </div>
     </div>
   );

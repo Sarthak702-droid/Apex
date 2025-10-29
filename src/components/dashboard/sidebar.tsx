@@ -19,6 +19,7 @@ import {
   Map,
   CloudSun,
   Store,
+  Warehouse,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Role, ROLES } from '@/lib/constants';
@@ -59,9 +60,10 @@ className="h-4 w-4" /> },
     { href: '/dashboard/fpo-farmer-producer-organization/supply-aggregation', label: 'Supply Aggregation', icon: <GitGraph className="h-4 w-4" /> },
   ],
   'Logistic Supporter': [
-    { href: '/dashboard/logistic-supporter#hub', label: 'Logistics Hub', icon: <Truck className="h-4 w-4" /> },
-    { href: '/dashboard/logistic-supporter#routes', label: 'Route Optimization', icon: <Map className="h-4 w-4" /> },
-    { href: '/dashboard/logistic-supporter#fleet', label: 'Fleet Management', icon: <Briefcase className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter', label: 'Logistics Overview', icon: <Home className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter/hub-management', label: 'Logistics Hub', icon: <Warehouse className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter/route-optimization', label: 'Route Optimization', icon: <Map className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter/fleet-management', label: 'Fleet Management', icon: <Briefcase className="h-4 w-4" /> },
   ],
   Admin: [
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
