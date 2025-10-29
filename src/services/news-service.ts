@@ -21,19 +21,11 @@ export async function getFoodSecurityNews(): Promise<NewsArticle[]> {
     return [];
   }
 
-  // Keywords relevant to food security and supply chain disruptions
-  const keywords = [
-    'food supply',
-    'crop price',
-    'agricultural policy',
-    'transport strike',
-    'supply chain disruption',
-    'mandi price',
-  ];
-  const query = keywords.join(' OR ');
+  // A broader query is more likely to return results on a free plan.
+  const query = 'agriculture OR food security';
 
   // Fetch news from India, in English
-  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&country=in&language=en&category=business,food`;
+  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&country=in&language=en&category=business,food,politics`;
 
   try {
     const response = await fetch(url, {
