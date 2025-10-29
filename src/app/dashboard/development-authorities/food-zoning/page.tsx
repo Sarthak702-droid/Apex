@@ -57,24 +57,28 @@ export default function FoodZoningPage() {
                                     value={selectedZone.stats?.population ?? 'N/A'}
                                     icon={<Users className="h-5 w-5" />}
                                     description="Estimated"
-                                    index={0}
                                 />
                                 <StatsCard
                                     title="Warehouses"
                                     value={selectedZone.stats?.warehouses ?? 'N/A'}
                                     icon={<Warehouse className="h-5 w-5" />}
                                     description="Storage Facilities"
-                                    index={1}
                                 />
                                 <StatsCard
                                     title="Retail Stores"
                                     value={selectedZone.stats?.retailStores ?? 'N/A'}
                                     icon={<Store className="h-5 w-5" />}
                                     description="Food Outlets"
-                                    index={2}
                                 />
                             </div>
-                            <p className='text-sm text-muted-foreground p-4 bg-secondary/50 rounded-lg border'>{selectedZone.description}</p>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="font-headline text-lg">Zone Summary</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className='text-sm text-muted-foreground'>{selectedZone.description}</p>
+                                </CardContent>
+                            </Card>
                         </div>
                         <Card>
                             <CardHeader>
