@@ -68,7 +68,7 @@ className="h-4 w-4" /> },
     { href: '/dashboard/admin', label: 'Overview', icon: <Home className="h-4 w-4" /> },
     { href: '/dashboard/admin/user-management', label: 'User Management', icon: <Users className="h-4 w-4" /> },
     { href: '/dashboard/admin/analytics', label: 'Platform Analytics', icon: <BarChart3 className="h-4 w-4" /> },
-    { href: '/dashboard/admin#system-health', label: 'System Health', icon: <Shield className="h-4 w-4" /> },
+    { href: '/dashboard/admin/system-health', label: 'System Health', icon: <Shield className="h-4 w-4" /> },
   ],
 };
 

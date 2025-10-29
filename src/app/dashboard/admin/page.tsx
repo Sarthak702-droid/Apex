@@ -1,3 +1,4 @@
+
 import { Users, BarChart3, Shield, Activity, ArrowRight } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -34,7 +35,7 @@ export default function AdminDashboard() {
           description="AI reports created today"
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card>
             <CardHeader>
                 <CardTitle className="font-headline flex items-center gap-2">
@@ -74,6 +75,28 @@ export default function AdminDashboard() {
                  <Button asChild variant="outline">
                     <Link href="/dashboard/admin/analytics">
                         Open Analytics
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Shield className="h-5 w-5" />
+                    System Health
+                </CardTitle>
+                <CardDescription>
+                    Monitor API latency, error rates, and service uptime.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className='text-sm text-muted-foreground mb-4'>
+                    Check the real-time status of all core platform services.
+                </p>
+                 <Button asChild variant="outline">
+                    <Link href="/dashboard/admin/system-health">
+                        Open Health Dashboard
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                 </Button>
