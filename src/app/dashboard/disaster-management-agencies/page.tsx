@@ -4,6 +4,8 @@ import { StatsCard } from '@/components/dashboard/stats-card';
 import { DisruptionMap } from '@/components/dashboard/disaster-management/disruption-map';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { LiveNewsFeed } from '@/components/dashboard/disaster-management/live-news-feed';
+import { AlertsByType } from '@/components/dashboard/disaster-management/alerts-by-type';
+import { AlertsBySeverity } from '@/components/dashboard/disaster-management/alerts-by-severity';
 
 export default function DisasterManagementDashboard() {
   return (
@@ -66,9 +68,29 @@ export default function DisasterManagementDashboard() {
                 </CardContent>
             </Card>
         </div>
-        <div>
+        <div className="space-y-8">
           <LiveNewsFeed />
         </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline">Alerts by Type</CardTitle>
+                <CardDescription>Distribution of alerts based on cause.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <AlertsByType />
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline">Alerts by Severity</CardTitle>
+                <CardDescription>Breakdown of alerts by severity level.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <AlertsBySeverity />
+            </CardContent>
+        </Card>
       </div>
     </div>
   );
