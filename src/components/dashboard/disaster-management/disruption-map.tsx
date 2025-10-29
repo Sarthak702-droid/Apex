@@ -156,8 +156,7 @@ export function DisruptionMap() {
                                 <div className={cn(
                                     "h-8 w-8 rounded-full flex items-center justify-center text-white cursor-pointer border-2",
                                     incidentInfo[incident.type].color,
-                                    selectedIncident?.id === incident.id ? 'border-white' : incidentInfo[incident.type].borderColor,
-                                    "animate-in fade-in zoom-in-50 duration-500"
+                                    selectedIncident?.id === incident.id ? 'border-white' : incidentInfo[incident.type].borderColor
                                 )}>
                                     <Icon className="h-5 w-5" />
                                 </div>
