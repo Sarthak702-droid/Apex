@@ -16,8 +16,8 @@ const BackgroundParticles = () => {
 
     let animationFrameId: number;
     let particles: Particle[] = [];
-    const particleCount = 70;
-    const connectionDistance = 120;
+    const particleCount = 150; // Increased from 70
+    const connectionDistance = 150; // Increased from 120
     
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -39,8 +39,8 @@ const BackgroundParticles = () => {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.4 - 0.2;
-        this.speedY = Math.random() * 0.4 - 0.2;
+        this.speedX = Math.random() * 1 - 0.5; // Increased speed
+        this.speedY = Math.random() * 1 - 0.5; // Increased speed
         this.color = color;
       }
 
@@ -64,7 +64,7 @@ const BackgroundParticles = () => {
 
     const connectParticles = () => {
       if (!ctx) return;
-      const lineColor = theme === 'dark' ? 'hsla(120, 70%, 40%, 0.1)' : 'hsla(120, 70%, 40%, 0.2)';
+      const lineColor = theme === 'dark' ? 'hsla(0, 70%, 50%, 0.1)' : 'hsla(0, 70%, 50%, 0.2)'; // Changed to red
 
       for (let a = 0; a < particles.length; a++) {
         for (let b = a; b < particles.length; b++) {
@@ -88,7 +88,7 @@ const BackgroundParticles = () => {
 
     const init = () => {
       particles = [];
-      const particleColor = theme === 'dark' ? 'hsla(120, 70%, 40%, 0.3)' : 'hsla(120, 70%, 40%, 0.5)';
+      const particleColor = theme === 'dark' ? 'hsla(0, 70%, 50%, 0.3)' : 'hsla(0, 70%, 50%, 0.5)'; // Changed to red
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle(particleColor));
       }
