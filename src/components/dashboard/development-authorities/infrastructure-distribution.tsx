@@ -1,10 +1,9 @@
 
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import { Building, Snowflake } from 'lucide-react';
 
 const data = [
   { name: 'Patia', warehouses: 40, coldStorage: 20 },
@@ -26,26 +25,20 @@ const chartConfig = {
 
 export function InfrastructureDistribution() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-headline">Infrastructure by Zone</CardTitle>
-        <CardDescription>Distribution of key food storage facilities.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-64 w-full">
-          <ResponsiveContainer>
-            <BarChart data={data}>
-              <CartesianGrid vertical={false} />
-              <XAxis dataKey="name" tickLine={false} axisLine={false} />
-              <YAxis tickLine={false} axisLine={false} />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend />
-              <Bar dataKey="warehouses" fill="var(--color-warehouses)" radius={4} />
-              <Bar dataKey="coldStorage" fill="var(--color-coldStorage)" radius={4} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <CardContent>
+      <ChartContainer config={chartConfig} className="h-64 w-full">
+        <ResponsiveContainer>
+          <BarChart data={data}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="name" tickLine={false} axisLine={false} />
+            <YAxis tickLine={false} axisLine={false} />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Legend />
+            <Bar dataKey="warehouses" fill="var(--color-warehouses)" radius={4} />
+            <Bar dataKey="coldStorage" fill="var(--color-coldStorage)" radius={4} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartContainer>
+    </CardContent>
   );
 }

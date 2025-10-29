@@ -2,11 +2,7 @@
 'use client';
 
 import {
-  Card,
-  CardHeader,
-  CardTitle,
   CardContent,
-  CardDescription,
 } from '@/components/ui/card';
 import {
   ChartContainer,
@@ -31,43 +27,37 @@ const chartConfig = {
 
 export function LogisticsNetworkDensity() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-headline">Logistics Network Density</CardTitle>
-        <CardDescription>Connectivity and efficiency of transport routes.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-64 w-full">
-          <ResponsiveContainer>
-            <AreaChart data={chartData}>
-              <defs>
-                <linearGradient id="fillDensity" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-density)" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="var(--color-density)" stopOpacity={0.1} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="name"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
-              />
-              <Area
-                dataKey="density"
-                type="natural"
-                fill="url(#fillDensity)"
-                stroke="var(--color-density)"
-                stackId="a"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <CardContent>
+      <ChartContainer config={chartConfig} className="h-64 w-full">
+        <ResponsiveContainer>
+          <AreaChart data={chartData}>
+            <defs>
+              <linearGradient id="fillDensity" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--color-density)" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="var(--color-density)" stopOpacity={0.1} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="name"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dot" />}
+            />
+            <Area
+              dataKey="density"
+              type="natural"
+              fill="url(#fillDensity)"
+              stroke="var(--color-density)"
+              stackId="a"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </ChartContainer>
+    </CardContent>
   );
 }

@@ -2,8 +2,6 @@
 import { Building, Snowflake, Truck, Shield, Map, ArrowRight } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { InfrastructureDistribution } from '@/components/dashboard/development-authorities/infrastructure-distribution';
-import { LogisticsNetworkDensity } from '@/components/dashboard/development-authorities/logistics-network-density';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -47,35 +45,51 @@ export default function DevelopmentAuthoritiesDashboard() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <div className="lg:col-span-3">
-            <Card className="h-full flex flex-col">
-                <CardHeader>
-                    <CardTitle className="font-headline flex items-center gap-2">
-                        <Map className="h-5 w-5" />
-                        City Food Zoning
-                    </CardTitle>
-                    <CardDescription>
-                        Analyze food supply vulnerability and land use across city zones.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow flex flex-col justify-center">
-                    <p className='text-sm text-muted-foreground mb-4'>
-                        Access the interactive map to view the City Food Vulnerability Index, land use patterns, and detailed zonal statistics.
-                    </p>
-                    <Button asChild variant="outline" className="w-fit">
-                        <Link href="/dashboard/development-authorities/food-zoning">
-                            Open Food Zoning Analytics
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                    </Button>
-                </CardContent>
-            </Card>
-        </div>
-        <div id="logistics" className="lg:col-span-2 space-y-8">
-            <InfrastructureDistribution />
-            <LogisticsNetworkDensity />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Map className="h-5 w-5" />
+                    City Food Zoning
+                </CardTitle>
+                <CardDescription>
+                    Analyze food supply vulnerability and land use across city zones.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center">
+                <p className='text-sm text-muted-foreground mb-4'>
+                    Access the interactive map to view the City Food Vulnerability Index, land use patterns, and detailed zonal statistics.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                    <Link href="/dashboard/development-authorities/food-zoning">
+                        Open Food Zoning Analytics
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
+        <Card className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Truck className="h-5 w-5" />
+                    Logistics Analytics
+                </CardTitle>
+                <CardDescription>
+                    Analyze logistics infrastructure and network density.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center">
+                <p className='text-sm text-muted-foreground mb-4'>
+                    View detailed charts on warehouse distribution and transport route efficiency across key zones.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                    <Link href="/dashboard/development-authorities/logistics-analytics">
+                        Open Logistics Analytics
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
       </div>
     </div>
   );
