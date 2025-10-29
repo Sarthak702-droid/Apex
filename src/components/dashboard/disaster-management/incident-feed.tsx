@@ -83,7 +83,7 @@ export function IncidentFeed() {
             setIncidents(incidentsWithTime);
         } catch (e) {
             console.error(e);
-            setError("Failed to load live incident data. Please try again later.");
+            setError("Failed to load live incident data. The AI service may be unavailable.");
         } finally {
             setLoading(false);
         }

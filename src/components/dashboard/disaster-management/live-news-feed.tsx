@@ -51,7 +51,7 @@ export function LiveNewsFeed() {
                     Live News Feed
                 </CardTitle>
                 <CardDescription>
-                    Live updates on potential disruptions from news sources.
+                    Live updates from news sources.
                 </CardDescription>
             </div>
             {loading && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />}

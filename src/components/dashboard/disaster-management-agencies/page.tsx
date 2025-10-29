@@ -2,8 +2,8 @@
 import { ShieldAlert, Map, List, Users, Package, Truck } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
 import { DisruptionMap } from '@/components/dashboard/disaster-management/disruption-map';
-import { IncidentFeed } from '@/components/dashboard/disaster-management/incident-feed';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { LiveNewsFeed } from '@/components/dashboard/disaster-management/live-news-feed';
 
 export default function DisasterManagementDashboard() {
   return (
@@ -67,9 +67,7 @@ export default function DisasterManagementDashboard() {
             </Card>
         </div>
         <div>
-          <Card>
-            <IncidentFeed />
-          </Card>
+          <LiveNewsFeed />
         </div>
       </div>
     </div>
