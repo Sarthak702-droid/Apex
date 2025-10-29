@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { ZonalSupplyBreakdown } from '@/components/dashboard/municipalities/zonal-supply-breakdown';
 import EmergencyPlanning from '@/components/dashboard/municipalities/emergency-planning';
+import { LiveNewsFeed } from '@/components/dashboard/municipalities/live-news-feed';
 
 export default function MunicipalitiesCorporationDashboard() {
   return (
@@ -80,8 +81,8 @@ export default function MunicipalitiesCorporationDashboard() {
           </Card>
           <EmergencyPlanning />
         </div>
-        <div className="lg:col-span-1">
-           <Card className="h-full">
+        <div className="lg:col-span-1 space-y-8">
+           <Card>
             <CardHeader>
               <CardTitle className="font-headline flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-destructive" />
@@ -90,6 +91,7 @@ export default function MunicipalitiesCorporationDashboard() {
             </CardHeader>
             <ActiveAlerts />
           </Card>
+           <LiveNewsFeed />
         </div>
       </div>
     </div>
