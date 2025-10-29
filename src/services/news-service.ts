@@ -21,8 +21,11 @@ export async function getFoodSecurityNews(): Promise<NewsArticle[]> {
     return [];
   }
 
-  // More specific query focused on supply chain disruptions and food resilience.
-  const query = '"food supply" OR "price spike" OR "supply chain" OR "food shortage" OR "transport strike"';
+  // Query focused on supply chain disruptions and food resilience in Bhubaneswar.
+  const topicQuery = '"food supply" OR "price spike" OR "supply chain" OR "food shortage" OR "transport strike"';
+  const cityQuery = 'Bhubaneswar';
+  const query = `(${topicQuery}) AND ${cityQuery}`;
+
 
   // Fetch news from India, in English
   const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&country=in&language=en&category=business,food,politics,environment`;
