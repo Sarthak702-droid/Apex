@@ -72,7 +72,7 @@ export default function DevelopmentAuthoritiesDashboard() {
                 </CardContent>
             </Card>
         </div>
-        <div className="lg:col-span-2 space-y-8">
+        <div id="logistics" className="lg:col-span-2 space-y-8">
             <InfrastructureDistribution />
             <LogisticsNetworkDensity />
         </div>
