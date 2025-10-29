@@ -1,6 +1,5 @@
 import { Users, BarChart3, Shield, Activity, ArrowRight } from 'lucide-react';
 import { StatsCard } from '@/components/dashboard/stats-card';
-import { PlatformAnalytics } from '@/components/dashboard/admin/platform-analytics';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -58,7 +57,28 @@ export default function AdminDashboard() {
                 </Button>
             </CardContent>
         </Card>
-        <PlatformAnalytics />
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    Platform Analytics
+                </CardTitle>
+                <CardDescription>
+                    View detailed analytics on user growth and platform engagement.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p className='text-sm text-muted-foreground mb-4'>
+                    Explore charts on user registrations and role distributions.
+                </p>
+                 <Button asChild variant="outline">
+                    <Link href="/dashboard/admin/analytics">
+                        Open Analytics
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
       </div>
     </div>
   );
