@@ -543,7 +543,7 @@ export default function FarmerJourneySection() {
   });
 
   return (
-    <div className='p-0 md:p-0'>
+    <div className='p-4 md:p-8'>
       <div className="flex justify-end mb-6">
         <Select onValueChange={(value: Language) => setLanguage(value)} defaultValue={language}>
           <SelectTrigger className="w-[180px]">

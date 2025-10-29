@@ -41,6 +41,36 @@
       "description": "Avatar for a city planner.",
       "imageUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwcGxhbm5lcnxlbnwwfHx8fDE3NjA4NTY4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city planner"
+    },
+    {
+      "id": "comic-panel-1",
+      "description": "A farmer looking at his field with a concerned expression, with a thought bubble showing a question mark.",
+      "imageUrl": "https://images.unsplash.com/photo-1598202029141-8608d1679093?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxpbmRpYW4lMjBmYXJtZXIlMjBjb25jZXJuZWR8ZW58MHx8fHwxNzYxMDk3NDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer concerned"
+    },
+    {
+      "id": "comic-panel-3",
+      "description": "A hand giving a seedling to a farmer, symbolizing government support.",
+      "imageUrl": "https://images.unsplash.com/photo-1587825045091-2374b8a71911?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoYW5kJTIwZ2l2aW5nJTIwc2VlZGxpbmd8ZW58MHx8fHwxNzYxMDk3NDk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "giving seedling"
+    },
+    {
+      "id": "comic-page-6",
+      "description": "A lush field of sunflowers under a bright sun, representing a sustainable future.",
+      "imageUrl": "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBzdW5mbG93ZXIlMjBmaWVsZHxlbnwwfHx8fDE3NjEwOTc1Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sunflower field"
+    },
+    {
+      "id": "comic-page-9",
+      "description": "A happy farmer holding a bundle of cash, symbolizing increased income.",
+      "imageUrl": "https://images.unsplash.com/photo-1620809733301-a40d58616c68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBmYXJtZXIlMjBob2xkaW5nJTIwbW9uZXl8ZW58MHx8fHwxNzYxMDk3NTYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer money"
+    },
+    {
+      "id": "comic-page-10",
+      "description": "A group of farmers listening to a lead farmer in a village setting, showing community leadership.",
+      "imageUrl": "https://images.unsplash.com/photo-1620756241289-415b80451a44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB2aWxsYWdlJTIwZmFybWVycyUyMG1lZXRpbmd8ZW58MHx8fHwxNzYxMDk3NTg1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmers meeting"
     }
   ]
 }
