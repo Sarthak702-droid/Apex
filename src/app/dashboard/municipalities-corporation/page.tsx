@@ -6,6 +6,7 @@ import {
   LineChart,
   Radar,
   AlertTriangle,
+  Map,
 } from 'lucide-react';
 import { ActiveAlerts } from '@/components/dashboard/municipalities/active-alerts';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
@@ -79,6 +80,28 @@ export default function MunicipalitiesCorporationDashboard() {
                 <ZonalSupplyBreakdown />
             </CardContent>
           </Card>
+           <Card className="flex flex-col">
+            <CardHeader>
+                <CardTitle className="font-headline flex items-center gap-2">
+                    <Map className="h-5 w-5" />
+                    City Food Zoning
+                </CardTitle>
+                <CardDescription>
+                    Analyze food supply vulnerability and land use across city zones.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center">
+                <p className='text-sm text-muted-foreground mb-4'>
+                    Access the interactive map to view the City Food Vulnerability Index, land use patterns, and detailed zonal statistics.
+                </p>
+                <Button asChild variant="outline" className="w-fit">
+                    <Link href="/dashboard/municipalities-corporation/food-zoning">
+                        Open Food Zoning Analytics
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </CardContent>
+        </Card>
           <EmergencyPlanning />
         </div>
         <div className="lg:col-span-1 space-y-8">
