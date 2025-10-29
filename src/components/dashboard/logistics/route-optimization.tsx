@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Map as MapIcon, AlertTriangle } from "lucide-react";
+import { Map as MapIcon, AlertTriangle, Truck, Warehouse } from "lucide-react";
 import { APIProvider, Map, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -12,31 +12,37 @@ import { Button } from '@/components/ui/button';
 const routes = [
     {
         id: 'route-1',
-        origin: { lat: 20.30, lng: 85.86 }, // Mancheswar
-        destination: { lat: 20.35, lng: 85.82 }, // Patia
+        origin: { name: "Mancheswar Hub", lat: 20.30, lng: 85.86 },
+        destination: { name: "Patia Market", lat: 20.35, lng: 85.82 },
         waypoints: [{lat: 20.32, lng: 85.85}],
         status: 'on-time',
         vehicleId: 'OD02AB1234',
-        eta: '45 mins'
+        eta: '45 mins',
+        driver: 'Sanjay Kumar',
+        cargo: 'Onions'
     },
     {
         id: 'route-2',
-        origin: { lat: 20.275, lng: 85.79 }, // Baramunda
-        destination: { lat: 20.24, lng: 85.83 }, // Old Town
+        origin: { name: "Baramunda Terminal", lat: 20.275, lng: 85.79 },
+        destination: { name: "Old Town Godown", lat: 20.24, lng: 85.83 },
         waypoints: [],
         status: 'delayed',
         vehicleId: 'OD02CD5678',
         eta: '1.2 hours',
-        delayReason: 'Heavy traffic near Kalpana Square'
+        delayReason: 'Heavy traffic near Kalpana Square',
+        driver: 'Manish Das',
+        cargo: 'Tomatoes'
     },
     {
         id: 'route-3',
-        origin: { lat: 20.26, lng: 85.78 }, // Khandagiri
-        destination: { lat: 20.295, lng: 85.815 }, // Nayapalli
+        origin: { name: "Khandagiri Cold Storage", lat: 20.26, lng: 85.78 },
+        destination: { name: "Nayapalli Retail", lat: 20.295, lng: 85.815 },
         waypoints: [{lat: 20.28, lng: 85.80}],
         status: 'on-time',
         vehicleId: 'OD02EF9012',
-        eta: '25 mins'
+        eta: '25 mins',
+        driver: 'Anil Sahoo',
+        cargo: 'Potatoes'
     },
 ];
 
@@ -137,6 +143,7 @@ export function RouteOptimization() {
                     <Button key={route.id} variant={selectedRoute?.id === route.id ? 'secondary' : 'ghost'} className='w-full justify-between h-auto py-2' onClick={() => setSelectedRoute(route)}>
                         <div className='text-left'>
                             <p className='font-bold'>{route.vehicleId}</p>
+                             <p className="text-xs text-muted-foreground">{route.driver} - {route.cargo}</p>
                             <p className='text-xs'>ETA: {route.eta}</p>
                         </div>
                          <Badge className={cn('capitalize text-white', route.status === 'delayed' ? 'bg-destructive' : 'bg-green-500')}>{route.status}</Badge>
@@ -154,20 +161,34 @@ export function RouteOptimization() {
                         gestureHandling={'greedy'}
                     >
                         {routes.map(route => (
-                            <PolylineComponent
-                                key={route.id}
-                                path={[route.origin, ...route.waypoints, route.destination]}
-                                strokeColor={routeStatusColors[route.status as keyof typeof routeStatusColors]}
-                                strokeOpacity={selectedRoute?.id === route.id ? 1 : 0.5}
-                                strokeWeight={selectedRoute?.id === route.id ? 6 : 4}
-                                clickable={true}
-                                onClick={() => setSelectedRoute(route)}
-                            />
+                            <React.Fragment key={route.id}>
+                                <PolylineComponent
+                                    path={[route.origin, ...route.waypoints, route.destination]}
+                                    strokeColor={routeStatusColors[route.status as keyof typeof routeStatusColors]}
+                                    strokeOpacity={selectedRoute?.id === route.id ? 1 : 0.5}
+                                    strokeWeight={selectedRoute?.id === route.id ? 6 : 4}
+                                    clickable={true}
+                                    onClick={() => setSelectedRoute(route)}
+                                />
+                                <AdvancedMarker position={route.origin}>
+                                     <div className="p-2 bg-background/80 rounded-full shadow-md">
+                                        <Truck className="h-5 w-5 text-primary" />
+                                    </div>
+                                </AdvancedMarker>
+                                <AdvancedMarker position={route.destination}>
+                                    <div className="p-2 bg-background/80 rounded-full shadow-md">
+                                        <Warehouse className="h-5 w-5 text-primary" />
+                                    </div>
+                                </AdvancedMarker>
+                            </React.Fragment>
                         ))}
                          {selectedRoute && (
-                            <InfoWindow position={selectedRoute.destination}>
-                                <div className='p-1 text-black'>
-                                    <h4 className='font-bold text-sm'>{selectedRoute.vehicleId}</h4>
+                            <InfoWindow position={{lat: selectedRoute.destination.lat + 0.01, lng: selectedRoute.destination.lng}}>
+                                <div className='p-1 text-black max-w-xs'>
+                                    <h4 className='font-bold text-sm'>{selectedRoute.vehicleId} ({selectedRoute.driver})</h4>
+                                    <p className='text-xs'>Cargo: {selectedRoute.cargo}</p>
+                                    <p className='text-xs'>From: {selectedRoute.origin.name}</p>
+                                    <p className='text-xs'>To: {selectedRoute.destination.name}</p>
                                     <p className='text-xs'>ETA: {selectedRoute.eta}</p>
                                     {selectedRoute.status === 'delayed' && (
                                         <div className='flex items-center gap-2 mt-2 text-red-600'>
