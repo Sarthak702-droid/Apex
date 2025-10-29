@@ -3,73 +3,73 @@
     {
       "id": "hero-image",
       "description": "A futuristic cityscape with glowing data lines representing food supply routes.",
-      "imageUrl": "https://images.unsplash.com/photo-1519677100203-a0e668c92439?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzA5ODN8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3MTk0MjU4ODd8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1553675559-5046b59a5ca5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NjE3NDQ5NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "futuristic city"
     },
     {
       "id": "about-image",
       "description": "A city official looking at a large dashboard displaying maps and charts of food supply data.",
-      "imageUrl": "https://images.unsplash.com/photo-1632207198274-9c17533f813c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkYXNoYm9hcmQlMjBkYXRhJTIwYW5hbHlzaXN8ZW58MHx8fHwxNzYwODU2NjM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkYXRhJTIwZGFzaGJvYXJkfGVufDB8fHx8MTc2MTc1MDE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "data dashboard"
     },
     {
       "id": "feature-crop-recommendation",
       "description": "A close-up of a screen showing a time-series graph with predictions.",
-      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0aW1lJTIwc2VyaWVzJTIwZm9yZWNhc3R8ZW58MHx8fHwxNzYwODU2NjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1716799323871-d82962608d7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmb3JlY2FzdGluZyUyMGNoYXJ0fGVufDB8fHx8MTc2MTc1NzMwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "forecasting chart"
     },
     {
       "id": "feature-quality-report",
       "description": "A map showing weather patterns and potential disruption alerts.",
-      "imageUrl": "https://images.unsplash.com/photo-1611756593529-87c2438c823f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3ZWF0aGVyJTIwZGlzcnVwdGlvbiUyMG1hcHxlbnwwfHx8fDE3NjA4NTY2ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1756756412220-41802298c3b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3ZWF0aGVyJTIwbWFwfGVufDB8fHx8MTc2MTczMDA5NXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "weather map"
     },
     {
       "id": "feature-market-linkage",
       "description": "A map showing logistics routes between different city zones.",
-      "imageUrl": "https://images.unsplash.com/photo-1596276122653-333148197127?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsb2dpc3RpY3MlMjByb3V0ZSUyMG1hcHxlbnwwfHx8fDE3NjA4NTY2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1718564168675-035cadb16692?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsb2dpc3RpY3MlMjBtYXB8ZW58MHx8fHwxNzYxNzU3MzA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "logistics map"
     },
     {
       "id": "farmer-avatar",
       "description": "Avatar for a supply chain manager.",
-      "imageUrl": "https://images.unsplash.com/photo-1556157382-97eda2d62296?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXBwbHklMjBjaGFpbiUyMG1hbmFnZXJ8ZW58MHx8fHwxNzYwODU2ODg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1634638022845-1ab614a94128?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdXBwbHklMjBjaGFpbnxlbnwwfHx8fDE3NjE2NjQ2MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "supply chain"
     },
     {
       "id": "buyer-avatar",
       "description": "Avatar for a city planner.",
-      "imageUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwcGxhbm5lcnxlbnwwfHx8fDE3NjA4NTY4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1489126430002-d9060545f463?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaXR5JTIwcGxhbm5lcnxlbnwwfHx8fDE3NjE3NTczMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city planner"
     },
     {
       "id": "comic-panel-1",
       "description": "A farmer looking at his field with a concerned expression, with a thought bubble showing a question mark.",
-      "imageUrl": "https://images.unsplash.com/photo-1598202029141-8608d1679093?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxpbmRpYW4lMjBmYXJtZXIlMjBjb25jZXJuZWR8ZW58MHx8fHwxNzYxMDk3NDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1628858721723-47bfcc76dd7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmYXJtZXIlMjBjb25jZXJuZWR8ZW58MHx8fHwxNzYxNzU3MzA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "farmer concerned"
     },
     {
       "id": "comic-panel-3",
       "description": "A hand giving a seedling to a farmer, symbolizing government support.",
-      "imageUrl": "https://images.unsplash.com/photo-1587825045091-2374b8a71911?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoYW5kJTIwZ2l2aW5nJTIwc2VlZGxpbmd8ZW58MHx8fHwxNzYxMDk3NDk4fDA&ixlibrb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1641230894485-1299385f425a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnaXZpbmclMjBzZWVkbGluZ3xlbnwwfHx8fDE3NjE3NTczMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "giving seedling"
     },
     {
       "id": "comic-page-6",
       "description": "A lush field of sunflowers under a bright sun, representing a sustainable future.",
-      "imageUrl": "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBzdW5mbG93ZXIlMjBmaWVsZHxlbnwwfHx8fDE3NjEwOTc1Mjd8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1610558316028-efee14358b76?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzdW5mbG93ZXIlMjBmaWVsZHxlbnwwfHx8fDE3NjE3MzcyNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sunflower field"
     },
     {
       "id": "comic-page-9",
       "description": "A happy farmer holding a bundle of cash, symbolizing increased income.",
-      "imageUrl": "https://images.unsplash.com/photo-1620809733301-a40d58616c68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBmYXJtZXIlMjBob2xkaW5nJTIwbW9uZXl8ZW58MHx8fHwxNzYxMDk3NTYyfDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1624059513602-dd2db0981f7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYXJtZXIlMjBtb25leXxlbnwwfHx8fDE3NjE3NTczMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "farmer money"
     },
     {
       "id": "comic-page-10",
       "description": "A group of farmers listening to a lead farmer in a village setting, showing community leadership.",
-      "imageUrl": "https://images.unsplash.com/photo-1620756241289-415b80451a44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB2aWxsYWdlJTIwZmFybWVycyUyMG1lZXRpbmd8ZW58MHx8fHwxNzYxMDk3NTg1fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1555069855-e580a9adbf43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxmYXJtZXJzJTIwbWVldGluZ3xlbnwwfHx8fDE3NjE3NTczMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "farmers meeting"
     }
   ]
