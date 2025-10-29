@@ -2,7 +2,9 @@ import {config} from 'dotenv';
 config();
 
 import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/google-genai';
+import {googleAI as googleAIGenkit} from '@genkit-ai/google-genai';
+
+export const googleAI = googleAIGenkit;
 
 export const ai = genkit({
   plugins: [

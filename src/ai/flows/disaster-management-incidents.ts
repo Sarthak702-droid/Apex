@@ -7,7 +7,7 @@
  * - Incident - The schema for a single incident.
  */
 
-import { ai } from '@/ai/genkit';
+import { ai, googleAI } from '@/ai/genkit';
 import { z } from 'zod';
 
 const IncidentSchema = z.object({
@@ -45,7 +45,7 @@ const liveIncidentGenerationFlow = ai.defineFlow(
 
     const { output } = await ai.generate({
       prompt,
-      model: 'googleai/gemini-2.5-flash',
+      model: googleAI('gemini-2.5-flash'),
       config: {
         output: { schema: IncidentListSchema, format: 'json' },
       },
