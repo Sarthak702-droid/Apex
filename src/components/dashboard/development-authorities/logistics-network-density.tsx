@@ -16,10 +16,10 @@ import {
 import { Area, AreaChart, CartesianGrid, XAxis, ResponsiveContainer } from 'recharts';
 
 const chartData = [
-  { zone: 'Zone A', density: 78 },
-  { zone: 'Zone B', density: 65 },
-  { zone: 'Zone C', density: 45 },
-  { zone: 'Zone D', density: 85 },
+  { name: 'Patia', density: 78 },
+  { name: 'Kharabela Nagar', density: 65 },
+  { name: 'Old Town', density: 45 },
+  { name: 'Mancheswar', density: 85 },
 ];
 
 const chartConfig = {
@@ -48,7 +48,7 @@ export function LogisticsNetworkDensity() {
               </defs>
               <CartesianGrid vertical={false} />
               <XAxis
-                dataKey="zone"
+                dataKey="name"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
