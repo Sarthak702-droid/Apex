@@ -37,6 +37,26 @@ const responsePlans = [
             "4. Release buffer stocks from emergency stockpiles to stabilize market prices.",
             "5. Launch public awareness campaigns on using alternatives and reducing wastage."
         ]
+    },
+    {
+        trigger: "Extreme Heatwave Protocol",
+        content: [
+            "1. Prioritize movement of perishable goods to facilities with reliable cold storage.",
+            "2. Mandate temperature-controlled vehicles for all dairy, fruit, and vegetable transport.",
+            "3. Adjust delivery schedules to cooler night-time hours to reduce spoilage and vehicle stress.",
+            "4. Monitor energy grid stability and ensure backup power for all major cold storage hubs.",
+            "5. Distribute hydration and heat-stress guidance to all logistics and warehouse personnel."
+        ]
+    },
+    {
+        trigger: "Pandemic / Health Crisis Response",
+        content: [
+            "1. Activate contactless delivery and transaction protocols at all levels of the supply chain.",
+            "2. Distribute Personal Protective Equipment (PPE) to all staff involved in handling and transport.",
+            "3. Increase frequency of sanitation at warehouses, vehicles, and market areas.",
+            "4. Use AI-demand forecasting to pre-emptively stock up on non-perishable essentials.",
+            "5. Establish 'dark stores' or temporary urban distribution points to facilitate localized, safe distribution."
+        ]
     }
 ]
 
