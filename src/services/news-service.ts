@@ -21,15 +21,14 @@ export async function getFoodSecurityNews(): Promise<NewsArticle[]> {
     return [];
   }
 
-  // Query for food price hikes in Odisha related to cyclones.
-  const location = 'Odisha';
-  const event = 'cyclone';
-  const issue = '"price hike" OR "food price"';
-  const query = `(${location} AND ${event}) AND (${issue})`;
+  // Broadened query for incidents in Bhubaneswar / Odisha
+  const location = 'Bhubaneswar OR Odisha';
+  const incidentKeywords = '"supply disruption" OR shortage OR protest OR traffic OR accident OR "heavy rain" OR flood OR power outage';
+  const query = `(${location}) AND (${incidentKeywords})`;
 
 
   // Fetch news from India, in English
-  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&country=in&language=en&category=business,food,politics,environment`;
+  const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=${encodeURIComponent(query)}&country=in&language=en&category=business,food,politics,environment,technology,top,world`;
 
   try {
     const response = await fetch(url, {
