@@ -21,10 +21,11 @@ export async function getFoodSecurityNews(): Promise<NewsArticle[]> {
     return [];
   }
 
-  // Query focused on supply chain disruptions and food resilience in Bhubaneswar.
-  const topicQuery = '"food supply" OR "price spike" OR "supply chain" OR "food shortage" OR "transport strike"';
-  const cityQuery = 'Bhubaneswar';
-  const query = `(${topicQuery}) AND ${cityQuery}`;
+  // Query for food price hikes in Odisha related to cyclones.
+  const location = 'Odisha';
+  const event = 'cyclone';
+  const issue = '"price hike" OR "food price"';
+  const query = `(${location} AND ${event}) AND (${issue})`;
 
 
   // Fetch news from India, in English
