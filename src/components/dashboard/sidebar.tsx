@@ -59,7 +59,7 @@ className="h-4 w-4" /> },
     { href: '/dashboard/fpo-farmer-producer-organization/supply-aggregation', label: 'Supply Aggregation', icon: <GitGraph className="h-4 w-4" /> },
   ],
   'Logistic Supporter': [
-    { href: '/dashboard/logistic-supporter', label: 'Logistics Hub', icon: <Truck className="h-4 w-4" /> },
+    { href: '/dashboard/logistic-supporter#hub', label: 'Logistics Hub', icon: <Truck className="h-4 w-4" /> },
     { href: '/dashboard/logistic-supporter#routes', label: 'Route Optimization', icon: <Map className="h-4 w-4" /> },
     { href: '/dashboard/logistic-supporter#fleet', label: 'Fleet Management', icon: <Briefcase className="h-4 w-4" /> },
   ],
