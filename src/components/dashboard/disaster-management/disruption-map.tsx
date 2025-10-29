@@ -103,20 +103,27 @@ export function DisruptionMap() {
 
         const interval = setInterval(() => {
             setIncidents(prevIncidents => {
+                const currentIds = new Set(prevIncidents.map(i => i.id));
                 // Remove the oldest incident
                 const newIncidents = prevIncidents.slice(1);
                 
                 // Find an incident that isn't already on the map
                 let nextIncident;
                 let attempts = 0;
+                const newIds = new Set(newIncidents.map(i => i.id));
+
                 do {
                     nextIncident = allIncidents[Math.floor(Math.random() * allIncidents.length)];
                     attempts++;
-                } while (newIncidents.some(i => i.id === nextIncident.id) && attempts < allIncidents.length);
+                } while (newIds.has(nextIncident.id) && attempts < allIncidents.length * 2);
 
-                // Add the new incident
-                if (nextIncident) {
+                // Add the new incident if a unique one was found
+                if (nextIncident && !newIds.has(nextIncident.id)) {
                     newIncidents.push(nextIncident);
+                } else {
+                    // Fallback: if we can't find a unique one, just add the first one from the main list that's not present
+                    const fallback = allIncidents.find(i => !newIds.has(i.id));
+                    if (fallback) newIncidents.push(fallback);
                 }
                 
                 return newIncidents;
