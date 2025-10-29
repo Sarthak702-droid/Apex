@@ -45,7 +45,7 @@ const liveIncidentGenerationFlow = ai.defineFlow(
 
     const { output } = await ai.generate({
       prompt,
-      model: 'googleai/gemini-2.5-flash',
+      model: ai.model('googleai/gemini-2.5-flash'),
       config: {
         output: { schema: IncidentListSchema, format: 'json' },
       },
