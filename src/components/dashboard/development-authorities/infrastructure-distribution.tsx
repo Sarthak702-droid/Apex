@@ -7,10 +7,10 @@ import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis
 import { Building, Snowflake } from 'lucide-react';
 
 const data = [
-  { name: 'Zone A', warehouses: 40, coldStorage: 20 },
-  { name: 'Zone B', warehouses: 30, coldStorage: 45 },
-  { name: 'Zone C', warehouses: 20, coldStorage: 10 },
-  { name: 'Zone D', warehouses: 38, coldStorage: 25 },
+  { name: 'Patia', warehouses: 40, coldStorage: 20 },
+  { name: 'Kharabela Nagar', warehouses: 30, coldStorage: 45 },
+  { name: 'Old Town', warehouses: 20, coldStorage: 10 },
+  { name: 'Mancheswar', warehouses: 38, coldStorage: 25 },
 ];
 
 const chartConfig = {
